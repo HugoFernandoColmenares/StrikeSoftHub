@@ -20,11 +20,14 @@ export interface WeaponModel {
   name: string;
   weaponClass: WeaponClass;
   combatRole: CombatRole;
+  /** Indicative price in Colombian pesos while the workshop finalizes its list. */
   price: number;
   stock: number;
   specs: WeaponSpecs;
   stats: WeaponStats;
   loreDescription: string;
-  imageUrl: string;
+  /** Present only for pieces with real workshop photography. */
+  imageUrl?: string;
+  gallery?: string[];
   isPremium: boolean;
 }

@@ -1,41 +1,108 @@
-.arena,
+.arena {
+  display: grid;
+  gap: var(--step-4);
+  padding-block: var(--step-4) var(--step-5);
+}
+
+.head {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 48rem;
+}
+
+.intro {
+  color: var(--fg-dim);
+}
+
+.standing {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  padding: var(--step-3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-left: 1px solid var(--section-accent);
+}
+
+.standing h2 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  text-transform: uppercase;
+}
+
+.place,
+.next {
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+}
+
+.next {
+  color: var(--section-accent);
+}
+
 .columns {
   display: grid;
-  gap: 1.25rem;
+  gap: var(--step-4);
 }
 
-h1,
-h2,
-h3 {
-  margin: 0;
-  font-family: var(--font-display);
+.col-title {
+  font-size: 1.35rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-strong);
 }
 
-h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
+.board-note {
+  padding-top: 0.6rem;
 }
 
-header p,
-.meta,
-.rules,
-p {
-  color: var(--color-chain);
+.ledger li {
+  display: grid;
+  gap: 0.35rem;
+  padding: var(--step-3) 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.panel {
-  margin-bottom: 1rem;
-  padding: 1.1rem;
-  background: var(--color-armor);
-  clip-path: polygon(0 0, calc(100% - 0.8rem) 0, 100% 0.8rem, 100% 100%, 0.8rem 100%, 0 calc(100% - 0.8rem));
+.ledger h3 {
+  font-size: 1.15rem;
 }
 
-.rules {
-  font-family: var(--font-stats);
-  color: var(--color-gold);
+.date {
+  font-size: 0.6875rem;
+  color: var(--section-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-@media (min-width: 56rem) {
+.meta {
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+}
+
+.body {
+  color: var(--fg-dim);
+  font-size: 0.9375rem;
+}
+
+.ruleset {
+  font-size: 0.75rem;
+  color: var(--fg);
+}
+
+.flag {
+  justify-self: start;
+  font-size: 0.5625rem;
+  color: var(--fg-dim);
+  border: 1px solid var(--border-strong);
+  padding: 0.1rem 0.4rem;
+}
+
+.empty {
+  color: var(--fg-dim);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 60rem) {
   .columns {
     grid-template-columns: 1fr 1fr;
+    gap: var(--step-5);
   }
 }

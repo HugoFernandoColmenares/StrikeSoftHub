@@ -1,20 +1,6 @@
 import { Injectable } from '@angular/core';
-import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
-
-const forgeAlert = Swal.mixin({
-  background: '#2A2D34',
-  color: '#F0F0F0',
-  confirmButtonColor: '#D32F2F',
-  cancelButtonColor: '#3A3F47',
-  buttonsStyling: false,
-  customClass: {
-    popup: 'swal-forge-popup',
-    title: 'swal-forge-title',
-    htmlContainer: 'swal-forge-html',
-    confirmButton: 'swal-forge-confirm',
-    cancelButton: 'swal-forge-cancel',
-  },
-});
+import { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
+import { strikeAlert } from '../config/strikeAlert';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
@@ -35,7 +21,7 @@ export class NotificationService {
   }
 
   async confirm(title: string, text = '', confirmText = 'Confirm'): Promise<boolean> {
-    const result = await forgeAlert.fire({
+    const result = await strikeAlert.fire({
       title,
       text,
       icon: 'question',
@@ -48,18 +34,19 @@ export class NotificationService {
   }
 
   toast(title: string, icon: SweetAlertIcon = 'success'): Promise<SweetAlertResult> {
-    return forgeAlert.fire({
+    return strikeAlert.fire({
       toast: true,
       position: 'top-end',
       icon,
       title,
       showConfirmButton: false,
-      timer: 2200,
+      timer: 2400,
       timerProgressBar: true,
+      customClass: { popup: 'swal-strike-toast', title: 'swal-strike-title' },
     });
   }
 
   private fire(icon: SweetAlertIcon, title: string, text: string): Promise<SweetAlertResult> {
-    return forgeAlert.fire({ icon, title, text });
+    return strikeAlert.fire({ icon, title, text });
   }
 }

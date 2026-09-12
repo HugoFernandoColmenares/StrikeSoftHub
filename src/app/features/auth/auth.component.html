@@ -1,24 +1,54 @@
-<section class="gate">
-  <h1>{{ mode() === 'login' ? 'Enter the gate' : 'Take a pass' }}</h1>
-  <p>When the live forge is offline, your pass stays on this device.</p>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    @if (mode() === 'register') {
-      <label>
-        Display name
-        <input formControlName="displayName" type="text" autocomplete="nickname" />
-      </label>
+<section class="shell">
+  <div class="gate">
+    <h1>{{ mode() === 'login' ? 'Sign in' : 'Create a pass' }}</h1>
+    <p class="intro">
+      A pass keeps your arsenal between visits. It is only needed for checkout, never to read the
+      calendar.
+    </p>
+
+    @if (!backend.isOnline()) {
+      <p class="offline fine">
+        The server is unreachable. Your pass will be stored on this device only.
+      </p>
     }
-    <label>
-      Email
-      <input formControlName="email" type="email" autocomplete="email" />
-    </label>
-    <label>
-      Password
-      <input formControlName="password" type="password" autocomplete="current-password" />
-    </label>
-    <app-epic-button [label]="mode() === 'login' ? 'Sign in' : 'Register'" type="submit" />
-  </form>
-  <button type="button" class="switch" (click)="toggle()">
-    {{ mode() === 'login' ? 'Need a pass? Register' : 'Already enlisted? Sign in' }}
-  </button>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (mode() === 'register') {
+        <label>
+          <span class="label">Display name</span>
+          <input formControlName="displayName" type="text" autocomplete="nickname" />
+        </label>
+      }
+
+      <label>
+        <span class="label">Email</span>
+        <input formControlName="email" type="email" autocomplete="email" />
+        @if (showError('email')) {
+          <span class="error mono"
+            >Enter an email address, for example fighter&#64;example.com</span
+          >
+        }
+      </label>
+
+      <label>
+        <span class="label">Password</span>
+        <input
+          formControlName="password"
+          type="password"
+          [attr.autocomplete]="mode() === 'login' ? 'current-password' : 'new-password'"
+        />
+        @if (showError('password')) {
+          <span class="error mono">Use at least 6 characters</span>
+        }
+      </label>
+
+      <button type="submit" class="btn-primary" [disabled]="submitting()">
+        {{ submitting() ? 'Working' : mode() === 'login' ? 'Sign in' : 'Register' }}
+      </button>
+    </form>
+
+    <button type="button" class="switch" (click)="toggle()">
+      {{ mode() === 'login' ? 'No pass yet? Register' : 'Already have a pass? Sign in' }}
+    </button>
+  </div>
 </section>

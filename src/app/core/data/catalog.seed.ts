@@ -1,18 +1,24 @@
 import { WeaponModel } from '../models/weapon.model';
 
+/**
+ * Provisional catalog. Specifications describe the workshop's build targets;
+ * prices and stock are indicative and labeled as such in the interface.
+ * Only pieces with real photography carry an imageUrl.
+ */
 export const CATALOG_SEED: WeaponModel[] = [
   {
     id: 'emberbrand-longsword',
     name: 'Emberbrand Longsword',
     weaponClass: 'SWORD',
     combatRole: 'SKIRMISHER',
-    price: 189,
-    stock: 6,
-    specs: { weightGrams: 420, totalLengthCm: 110, coreMaterial: 'Fiberglass' },
+    price: 185000,
+    stock: 4,
+    specs: { weightGrams: 420, totalLengthCm: 110, coreMaterial: 'Fiberglass core' },
     stats: { durability: 78, weight: 55, handling: 82, range: 70 },
     loreDescription:
-      'Forged for dusk raids, Emberbrand keeps a crimson edge that never dulls on the training field.',
-    imageUrl: 'assets/weapons/emberbrand.svg',
+      'The workshop reference piece: fiberglass core, layered foam edge, crimson cord wrap over a brass-toned guard.',
+    imageUrl: 'assets/weapons/sword-portrait.webp',
+    gallery: ['assets/weapons/sword-grip.webp', 'assets/weapons/sword-blade.webp'],
     isPremium: false,
   },
   {
@@ -20,13 +26,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: 'Nightwhisper Dagger',
     weaponClass: 'SWORD',
     combatRole: 'ASSASSIN',
-    price: 74,
-    stock: 12,
+    price: 78000,
+    stock: 9,
     specs: { weightGrams: 180, totalLengthCm: 48, coreMaterial: 'Carbon rod' },
     stats: { durability: 60, weight: 28, handling: 94, range: 32 },
-    loreDescription:
-      'A quiet companion for close work. The foam profile favors speed over ceremony.',
-    imageUrl: 'assets/weapons/nightwhisper.svg',
+    loreDescription: 'A short sidearm for close lanes. Built for speed over ceremony.',
     isPremium: false,
   },
   {
@@ -34,13 +38,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: 'Bastion Tower Shield',
     weaponClass: 'SHIELD',
     combatRole: 'TANK',
-    price: 240,
-    stock: 3,
+    price: 230000,
+    stock: 2,
     specs: { weightGrams: 1600, totalLengthCm: 120, coreMaterial: 'Layered EVA' },
     stats: { durability: 96, weight: 88, handling: 40, range: 22 },
-    loreDescription:
-      'A moving wall for line holders. The chamfered rim is built to glance polearms aside.',
-    imageUrl: 'assets/weapons/bastion.svg',
+    loreDescription: 'A moving wall for line holders. The rim is built to glance polearms aside.',
     isPremium: true,
   },
   {
@@ -48,13 +50,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: 'Stormhook Polearm',
     weaponClass: 'POLEARM',
     combatRole: 'SKIRMISHER',
-    price: 210,
-    stock: 5,
+    price: 198000,
+    stock: 3,
     specs: { weightGrams: 690, totalLengthCm: 180, coreMaterial: 'Tapered fiberglass' },
     stats: { durability: 74, weight: 64, handling: 68, range: 96 },
-    loreDescription:
-      'Reach with a hooking head. Designed for outdoor fields where the wind writes its own rules.',
-    imageUrl: 'assets/weapons/stormhook.svg',
+    loreDescription: 'Reach with a hooking head, built for open ground and long lines.',
     isPremium: false,
   },
   {
@@ -62,13 +62,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: 'Anvilbreaker Mace',
     weaponClass: 'MACE',
     combatRole: 'TANK',
-    price: 132,
-    stock: 8,
-    specs: { weightGrams: 510, totalLengthCm: 82, coreMaterial: 'Steel-sleeved foam' },
+    price: 138000,
+    stock: 6,
+    specs: { weightGrams: 510, totalLengthCm: 82, coreMaterial: 'Sleeved foam' },
     stats: { durability: 88, weight: 70, handling: 58, range: 44 },
-    loreDescription:
-      'Short, honest, and loud. The head is balanced to announce every strike without bruising.',
-    imageUrl: 'assets/weapons/anvilbreaker.svg',
+    loreDescription: 'Short, honest, and loud. Balanced to announce a strike without bruising.',
     isPremium: false,
   },
   {
@@ -76,13 +74,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: 'Wyrmfang Axe',
     weaponClass: 'AXE',
     combatRole: 'SKIRMISHER',
-    price: 156,
+    price: 162000,
     stock: 2,
-    specs: { weightGrams: 480, totalLengthCm: 92, coreMaterial: 'Fiberglass' },
+    specs: { weightGrams: 480, totalLengthCm: 92, coreMaterial: 'Fiberglass core' },
     stats: { durability: 80, weight: 62, handling: 72, range: 52 },
-    loreDescription:
-      'A hooked beard for binding blades. Only two remain from the last tournament batch.',
-    imageUrl: 'assets/weapons/wyrmfang.svg',
+    loreDescription: 'A hooked beard for binding blades, cut for one-handed work.',
     isPremium: false,
   },
   {
@@ -90,13 +86,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: 'Ashen Spear',
     weaponClass: 'POLEARM',
     combatRole: 'ASSASSIN',
-    price: 168,
-    stock: 7,
+    price: 172000,
+    stock: 5,
     specs: { weightGrams: 390, totalLengthCm: 165, coreMaterial: 'Carbon hybrid' },
     stats: { durability: 66, weight: 46, handling: 80, range: 90 },
-    loreDescription:
-      'Light enough for a sprint, long enough to keep a shield wall honest.',
-    imageUrl: 'assets/weapons/ashen-spear.svg',
+    loreDescription: 'Light enough for a sprint, long enough to keep a shield wall honest.',
     isPremium: false,
   },
   {
@@ -104,13 +98,11 @@ export const CATALOG_SEED: WeaponModel[] = [
     name: "Champion's Heater",
     weaponClass: 'SHIELD',
     combatRole: 'SKIRMISHER',
-    price: 198,
-    stock: 4,
+    price: 205000,
+    stock: 3,
     specs: { weightGrams: 980, totalLengthCm: 78, coreMaterial: 'Composite foam' },
     stats: { durability: 84, weight: 72, handling: 64, range: 20 },
-    loreDescription:
-      'Tournament gold trim for fighters who already have the scars to match.',
-    imageUrl: 'assets/weapons/heater.svg',
+    loreDescription: 'A mid-size shield for fighters who move with the line instead of anchoring it.',
     isPremium: true,
   },
 ];

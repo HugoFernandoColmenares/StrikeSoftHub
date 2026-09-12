@@ -1,0 +1,41 @@
+.meters {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.3rem 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.name {
+  font-size: 0.875rem;
+}
+
+.value {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--section-accent);
+}
+
+.track {
+  grid-column: 1 / -1;
+  height: 3px;
+  background: var(--border);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--section-accent);
+}
+
+.note {
+  grid-column: 1 / -1;
+  font-size: 0.6875rem;
+  color: var(--fg-dim);
+}

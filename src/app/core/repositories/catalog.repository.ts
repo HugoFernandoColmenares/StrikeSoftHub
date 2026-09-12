@@ -2,27 +2,10 @@ import { Injectable, inject, signal } from '@angular/core';
 import { STORAGE_KEYS } from '../config/storage-keys';
 import { CATALOG_SEED } from '../data/catalog.seed';
 import { WeaponModel } from '../models/weapon.model';
+import { WeaponRow } from '../models/weapon-row.model';
 import { BackendStatusService } from '../services/backend-status.service';
 import { LocalStoreService } from '../services/local-store.service';
 import { SupabaseClientService } from '../services/supabase-client.service';
-
-interface WeaponRow {
-  id: string;
-  name: string;
-  weapon_class: WeaponModel['weaponClass'];
-  combat_role: WeaponModel['combatRole'];
-  price: number;
-  stock: number;
-  weight_grams: number;
-  total_length_cm: number;
-  core_material: string;
-  lore_description: string;
-  image_url: string;
-  durability: number;
-  handling: number;
-  range_score: number;
-  is_premium: boolean;
-}
 
 @Injectable({ providedIn: 'root' })
 export class CatalogRepository {
@@ -88,7 +71,7 @@ export class CatalogRepository {
         range: row.range_score,
       },
       loreDescription: row.lore_description,
-      imageUrl: row.image_url,
+      imageUrl: row.image_url ?? undefined,
       isPremium: row.is_premium,
     };
   }

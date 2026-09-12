@@ -1,22 +1,30 @@
 .gate {
   display: grid;
-  gap: 1rem;
-  max-width: 28rem;
+  gap: var(--step-2);
+  max-width: 26rem;
+  padding-block: var(--step-5);
 }
 
 h1 {
-  margin: 0;
-  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  text-transform: uppercase;
 }
 
-p,
-.switch {
-  color: var(--color-chain);
+.intro {
+  color: var(--fg-dim);
+  font-size: 0.9375rem;
+}
+
+.offline {
+  color: var(--yellow);
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border-strong);
 }
 
 form {
   display: grid;
-  gap: 0.85rem;
+  gap: var(--step-2);
+  margin-top: var(--step-2);
 }
 
 label {
@@ -24,17 +32,22 @@ label {
   gap: 0.35rem;
 }
 
-input {
-  padding: 0.7rem 0.8rem;
-  border: 1px solid var(--color-iron);
-  background: var(--color-armor);
-  color: var(--color-blade);
+.error {
+  font-size: 0.6875rem;
+  color: var(--accent);
 }
 
 .switch {
   justify-self: start;
   padding: 0;
-  border: 0;
   background: none;
+  border: 0;
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--fg-dim);
+  font-size: 0.8125rem;
   cursor: pointer;
+}
+
+.switch:hover {
+  color: var(--fg);
 }

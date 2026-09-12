@@ -1,39 +1,59 @@
+import { LowerCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EpicButtonComponent } from '../../shared/epic-button/epic-button.component';
+import { GROUP } from '../config/group';
 
 @Component({
   selector: 'app-not-found',
-  imports: [RouterLink, EpicButtonComponent],
+  imports: [RouterLink, LowerCasePipe],
   template: `
-    <section class="woods">
-      <p class="kicker">Lost in the Woods</p>
-      <h1>The trail fades before the next clearing.</h1>
-      <p>This path does not exist in the forge maps. Return to the armory before nightfall.</p>
-      <a routerLink="/armory"><app-epic-button label="Back to the Armory" /></a>
+    <section class="shell lost">
+      <p class="code mono">404</p>
+      <h1>Off the field</h1>
+      <p class="body">
+        This path is not on the map. The group is still where it always is: {{ group.venue }},
+        {{ group.dayLabel | lowercase }} at {{ group.timeLabel }}.
+      </p>
+      <div class="actions">
+        <a routerLink="/" class="btn-primary">Back to the muster</a>
+        <a routerLink="/armory" class="btn-ghost">Open the armory</a>
+      </div>
     </section>
   `,
   styles: `
-    .woods {
-      min-height: 80dvh;
+    .lost {
       display: grid;
       align-content: center;
-      gap: 1rem;
-      max-width: 40rem;
-      padding: 2rem 1.25rem;
+      gap: var(--step-2);
+      justify-items: start;
+      min-height: 70dvh;
     }
 
-    .kicker,
-    p {
-      color: var(--color-chain);
+    .code {
+      font-size: 0.75rem;
+      color: var(--section-accent);
+      letter-spacing: 0.3em;
     }
 
     h1 {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-size: clamp(2.5rem, 10vw, 5rem);
+      text-transform: uppercase;
+    }
+
+    .body {
+      color: var(--fg-dim);
+      max-width: 44ch;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--step-2);
+      margin-top: var(--step-2);
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+  readonly group = GROUP;
+}

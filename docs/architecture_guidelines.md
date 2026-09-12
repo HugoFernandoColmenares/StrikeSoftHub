@@ -50,13 +50,14 @@ Replaces the generic "pages" approach. Each feature represents a core business d
 
 Atomic, highly reusable components.
 
-* **Includes:** `<app-weapon-card>`, `<app-epic-button>`, `<app-loot-spinner>` (loading state).
+* **Includes:** `<app-weapon-card>`, `<app-icon>`, `<app-stats-profile>`, `<app-loot-spinner>` (loading state), and `AccentZoneDirective`.
+* **Buttons are global classes, not a component.** `.btn-primary` and `.btn-ghost` live in `src/styles.css` and read the live `--section-accent`, so a button needs no wrapper to stay on-system.
 
 ---
 
 ## 3. Angular 22+ Modern Standards
 
-The shipped application is zoneless, standalone, and signal-first. Notifications are centralized in `NotificationService` using SweetAlert2 with forge-themed styles. Repositories read from Supabase when the backend probe succeeds and from LocalStorage otherwise.
+The shipped application is zoneless, standalone, and signal-first. Notifications are centralized in `NotificationService` using SweetAlert2 themed with the `.swal-strike-*` classes. Repositories read from Supabase when the backend probe succeeds and from LocalStorage otherwise. Confirmed facts about the physical group live in `core/config/group.ts` and are never duplicated in templates.
 
 We embrace the full power of modern Angular.
 
@@ -74,9 +75,9 @@ private authService = inject(AuthService);
 
 ```angular-html
 @if (inStock()) {
-  <app-epic-button (click)="addToArsenal()">Add to Arsenal</app-epic-button>
+  <button type="button" class="btn-primary" (click)="addToArsenal()">Add to arsenal</button>
 } @else {
-  <div class="out-of-stock-banner">Forging more...</div>
+  <p class="fine">This piece is in the workshop queue.</p>
 }
 
 ```
@@ -121,20 +122,20 @@ StrikeSoft is a dynamic platform connected to a live database.
 
 ### Layout Components (`layout/`)
 
-* **Epic Navbar:** Sticky header. Left side: StrikeSoft Logo. Center: Armory, Arena, Lore. Right: User Profile and a dynamic Cart Icon with a glowing badge when items are inside.
+* **Epic Navbar:** Sticky header. Left: the StrikeSoft wordmark over the group name. Center: Armory, Arena, The Sport. Right: the live data indicator, the profile link, and the arsenal count, which lights in the section accent when the cart is not empty.
 
 ### Core Features (`features/`)
 
 #### 1. The Armory (Catalog)
 
-* **Weapon Grid:** Utilizes the `.arena-grid`.
-* **Filter Sidebar:** Let users filter by Combat Role (Tank, Assassin, Skirmisher) which translates to weapon types (Tower Shields, Daggers, One-Handed).
+* **Ledger, not a grid.** The catalog renders as ruled rows carrying name, role, weight, length, price, and action, so pieces can be compared by specification. A piece with real photography is promoted to a reference card beside the ledger.
+* **Filter rail:** Filter by Combat Role (Tank, Assassin, Skirmisher) and by class, as a horizontal rail above the ledger.
 
 #### 2. Weapon Detail Page (Product View)
 
-* **Visualizer:** Large hero image of the weapon.
-* **Stats Radar:** A radar chart showing Durability, Weight, Handling, and Range.
-* **Lore Box:** A small, styled blockquote explaining the "mythical" backstory of the weapon design.
+* **Visualizer:** Large photograph in a `.cinematic-frame`, with a two-shot gallery when detail photography exists. Pieces without photography show a typographic plate and say so.
+* **Handling profile:** `<app-stats-profile>` renders four labeled meters (Durability, Heft, Handling, Reach), each with its number and a one-line explanation. This replaced an earlier radar chart, whose axis abbreviations were unreadable and carried no units.
+* **Lore Box:** A small, styled blockquote explaining the design intent behind the weapon.
 
 #### 3. The Arena (Community)
 
@@ -171,34 +172,32 @@ export interface WeaponModel {
 
 ## 8. Custom Scrollbar (Global CSS)
 
-To match the "Forge & Arena" aesthetic, we replace the default browser scrollbar with a tactical, metallic look.
+The browser surfaces we did not draw still carry the design. The scrollbar is themed from the tokens, with no radius, and its hover state picks up the live section accent rather than a fixed colour.
 
 ```css
-/* Core Scrollbar Rule for the App */
-html, body {
+html,
+body {
   overflow-y: scroll;
 }
 
-/* Custom Webkit Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
-/* Forge Charcoal Track */
 ::-webkit-scrollbar-track {
-  background: #181A1F; 
-  border-left: 1px solid #2A2D34;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
 }
 
-/* Armor Steel Thumb */
 ::-webkit-scrollbar-thumb {
-  background: #2A2D34; 
-  border-radius: 4px; 
+  background: var(--bg-raised);
+  border: 1px solid var(--border-strong);
 }
 
-/* Vitality Crimson on Hover (The Strike) */
 ::-webkit-scrollbar-thumb:hover {
-  background: #D32F2F; 
+  background: var(--section-accent);
+  border-color: var(--section-accent);
 }
-
 ```
+
+Text selection, the form caret, and focus rings are themed in the same pass. See [DESIGN.md](../DESIGN.md).

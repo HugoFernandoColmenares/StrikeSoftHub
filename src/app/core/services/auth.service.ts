@@ -27,7 +27,7 @@ export class AuthService {
       });
 
       if (error || !data.user) {
-        await this.notify.error('Registration failed', error?.message ?? 'The forge rejected the request.');
+        await this.notify.error('Registration failed', error?.message ?? 'The server rejected the request.');
         return false;
       }
 
@@ -42,7 +42,7 @@ export class AuthService {
 
     const accounts = this.store.read<LocalAccount[]>(STORAGE_KEYS.accounts, []);
     if (accounts.some((account) => account.email === email.toLowerCase())) {
-      await this.notify.warning('Already enlisted', 'That email already holds a local pass.');
+      await this.notify.warning('Already registered', 'That email already holds a pass on this device.');
       return false;
     }
 
@@ -81,7 +81,7 @@ export class AuthService {
     const accounts = this.store.read<LocalAccount[]>(STORAGE_KEYS.accounts, []);
     const match = accounts.find((account) => account.email === email.toLowerCase());
     if (!match || match.passwordHash !== (await hashSecret(password))) {
-      await this.notify.error('Login failed', 'The watch does not recognize those credentials.');
+      await this.notify.error('Sign in failed', 'Those credentials do not match a pass.');
       return false;
     }
 

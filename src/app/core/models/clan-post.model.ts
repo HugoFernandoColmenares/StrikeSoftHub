@@ -5,4 +5,6 @@ export interface ClanPostModel {
   body: string;
   authorName: string;
   createdAt: string;
+  /** True for placeholder threads shown before the real board is migrated. */
+  isSample: boolean;
 }

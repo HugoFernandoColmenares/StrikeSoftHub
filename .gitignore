@@ -39,6 +39,13 @@ testem.log
 /typings
 __screenshots__/
 
+# Design working state. The surface briefs and the shared build-path setting are tracked;
+# review captures, generated mocks, and per-machine overrides are not.
+.impeccable/*
+!.impeccable/surfaces/
+!.impeccable/config.json
+.impeccable/config.local.json
+
 # Local design and architecture drafts at the repository root
 /design_guidelines.md
 /architecture_guidelines.md

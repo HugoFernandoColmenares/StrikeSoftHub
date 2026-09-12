@@ -7,22 +7,36 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
   selector: 'app-main-layout',
   imports: [RouterOutlet, EpicNavbarComponent, EpicFooterComponent],
   template: `
+    <a class="skip" href="#main">Skip to content</a>
     <app-epic-navbar />
-    <main class="stage">
+    <main id="main" tabindex="-1">
       <router-outlet />
     </main>
     <app-epic-footer />
   `,
   styles: `
-    .stage {
-      min-height: calc(100dvh - 10rem);
-      padding: 1.25rem 1rem 3rem;
+    main {
+      display: block;
+      min-height: 60dvh;
     }
 
-    @media (min-width: 56rem) {
-      .stage {
-        padding: 2rem 2rem 4rem;
-      }
+    main:focus {
+      outline: none;
+    }
+
+    .skip {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      z-index: 60;
+      padding: 0.75rem 1rem;
+      background: var(--fg);
+      color: #000;
+      font-weight: 700;
+    }
+
+    .skip:focus {
+      left: 0;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

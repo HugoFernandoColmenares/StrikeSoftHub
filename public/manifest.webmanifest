@@ -1,9 +1,9 @@
 {
   "name": "StrikeSoft Hub",
   "short_name": "StrikeSoft",
-  "description": "Armory and arena hub for softcombat athletes.",
-  "theme_color": "#181A1F",
-  "background_color": "#181A1F",
+  "description": "Home of Armagedon Softcombat in Bucaramanga: the Sunday muster, the calendar, and the workshop armory.",
+  "theme_color": "#080808",
+  "background_color": "#080808",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",

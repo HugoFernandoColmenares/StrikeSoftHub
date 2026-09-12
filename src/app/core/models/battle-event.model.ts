@@ -5,4 +5,6 @@ export interface BattleEventModel {
   date: string;
   ruleset: string;
   description: string;
+  /** True while the date is a working proposal rather than a confirmed fixture. */
+  isProvisional: boolean;
 }

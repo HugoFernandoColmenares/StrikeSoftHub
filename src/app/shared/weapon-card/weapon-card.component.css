@@ -1,66 +1,94 @@
 .card {
-  position: relative;
   display: grid;
-  background: var(--color-armor);
-  padding: 0 0 1.25rem;
-  clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 1rem 100%, 0 calc(100% - 1rem));
-  transition: transform var(--strike-ease), box-shadow var(--strike-ease);
+  grid-template-rows: auto 1fr;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  transition: border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
 }
 
 .card:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-ember);
-}
-
-.badge {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  z-index: 1;
-  padding: 0.25rem 0.6rem;
-  background: var(--color-gold);
-  color: var(--color-forge);
-  font-family: var(--font-display);
-  font-size: 0.7rem;
+  border-color: var(--border-strong);
+  transform: translate(-2px, -2px);
 }
 
 .visual {
   display: block;
-  overflow: visible;
 }
 
-.visual img {
-  width: 100%;
-  height: 14rem;
-  object-fit: cover;
-  margin-top: -0.75rem;
+.photo {
+  display: block;
+  aspect-ratio: 3 / 4;
+}
+
+.plate {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.4rem;
+  aspect-ratio: 3 / 4;
+  padding: var(--step-3);
+  background:
+    linear-gradient(135deg, transparent 46%, var(--border) 46% 47%, transparent 47%),
+    var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.plate-class {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 7vw, 2.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--fg-dim);
+  text-transform: uppercase;
+}
+
+.plate-note {
+  font-size: 0.5625rem;
+  color: var(--fg-dim);
 }
 
 .body {
   display: grid;
-  gap: 0.5rem;
-  padding: 0 1.1rem;
+  align-content: start;
+  gap: 0.6rem;
+  padding: var(--step-3);
 }
 
 h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }
 
-.class,
-.forging {
-  margin: 0;
-  color: var(--color-chain);
-  font-size: 0.85rem;
+.role {
+  font-size: 0.625rem;
+}
+
+.stat-row {
+  color: var(--fg-dim);
+  padding-block: 0.5rem;
+  border-block: 1px solid var(--border);
 }
 
 .price {
-  font-size: 1.15rem;
-  color: var(--color-crimson);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
 }
 
-.price span {
-  color: var(--color-chain);
-  font-size: 0.95rem;
+.premium {
+  font-size: 0.5625rem;
+  color: #000;
+  background: var(--yellow);
+  padding: 0.15rem 0.4rem;
+}
+
+.out {
+  font-size: 0.625rem;
+  color: var(--fg-dim);
+}
+
+.btn-primary {
+  width: 100%;
 }

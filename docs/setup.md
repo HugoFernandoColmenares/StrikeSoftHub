@@ -27,3 +27,23 @@ On boot the app probes Supabase Auth health. If the probe succeeds, repositories
 ## Applying the schema
 
 Run the SQL in `supabase/migrations/20260912120000_init_strikesoft.sql` from the Supabase SQL editor or the CLI. Confirm that the Data API exposes the `public` schema to `anon` and `authenticated`.
+
+## Capturing screenshots
+
+`scripts/shoot.ps1` drives headless Chrome over the running dev server and writes one PNG per route:
+
+```powershell
+npm start
+powershell -ExecutionPolicy Bypass -File scripts/shoot.ps1 -Base http://127.0.0.1:4200 -Width 1440 -Height 1000 -Prefix desktop
+```
+
+The files land in `.impeccable/review/`. The ones published in the README are copied into
+`public/screenshots/` and resized to 1280 pixels wide.
+
+## Image assets
+
+Every shipping raster records where it came from, either embedded in the file or in a `.json`
+sidecar beside it. Weapon imagery is derived from one owner-supplied photograph,
+`public/assets/weapons/sword_muckup.jpeg`; the WebP crops are generated from it with ImageMagick.
+No weapon imagery is AI-generated, and pieces without real photography are shown without a
+substitute image.

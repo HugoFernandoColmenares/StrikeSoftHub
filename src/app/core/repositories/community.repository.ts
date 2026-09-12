@@ -33,6 +33,7 @@ export class CommunityRepository {
           date: row['event_date'] as string,
           ruleset: row['ruleset'] as string,
           description: row['description'] as string,
+          isProvisional: (row['is_provisional'] as boolean | null) ?? false,
         }));
         this.events.set(mapped);
         this.store.write(STORAGE_KEYS.events, mapped);
@@ -46,6 +47,7 @@ export class CommunityRepository {
           body: row['body'] as string,
           authorName: row['author_name'] as string,
           createdAt: row['created_at'] as string,
+          isSample: (row['is_sample'] as boolean | null) ?? false,
         }));
         this.posts.set(mapped);
         this.store.write(STORAGE_KEYS.clanPosts, mapped);

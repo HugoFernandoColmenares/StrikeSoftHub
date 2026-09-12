@@ -1,21 +1,138 @@
-<section class="hero">
-  <p class="kicker">Modern Forge and Epic Arena</p>
-  <h1>Gear that survives the match, not just the photograph.</h1>
-  <p class="lead">
-    StrikeSoft Hub is the armory and gathering hall for softcombat athletes. Claim a weapon, read the
-    lore, and find the next field.
-  </p>
-  <div class="actions gap-clash">
-    <a routerLink="/armory"><app-epic-button label="Enter the Armory" /></a>
-    <a routerLink="/arena"><app-epic-button label="See the Arena" variant="steel" /></a>
+<section class="muster" appAccentZone="#ff2a2a">
+  <div class="photo cinematic-frame" aria-hidden="true">
+    <picture>
+      <source srcset="assets/weapons/sword-portrait.webp" media="(max-width: 47.99rem)" />
+      <img
+        src="assets/weapons/sword-hero.webp"
+        alt=""
+        width="1600"
+        height="760"
+        fetchpriority="high"
+      />
+    </picture>
+  </div>
+
+  <div class="shell">
+    <div class="block">
+      <h1>
+        Softcombat in<br />
+        {{ group.city }}
+      </h1>
+      <p class="definition">
+        {{ group.name }} is a softcombat group: full-contact sword fighting with foam weapons over a
+        flexible core, fought under a ruleset that makes armour unnecessary. We train in the open,
+        and anyone can walk on to the field.
+      </p>
+
+      @if (muster.isLive()) {
+        <p class="live-now">
+          <span class="pulse" aria-hidden="true"></span>
+          We are on the field right now
+        </p>
+      } @else {
+        <div class="countdown" role="timer">
+          <p class="label">Next muster starts in</p>
+          <p class="digits mono">
+            <span>{{ muster.countdown().days }}</span
+            ><i>d</i> <span>{{ muster.countdown().hours }}</span
+            ><i>h</i> <span>{{ muster.countdown().minutes }}</span
+            ><i>m</i> <span class="secs">{{ muster.countdown().seconds }}</span
+            ><i>s</i>
+          </p>
+        </div>
+      }
+
+      <dl class="facts">
+        <div>
+          <dt class="label">When</dt>
+          <dd class="mono">{{ group.dayLabel }}, {{ group.timeLabel }}</dd>
+        </div>
+        <div>
+          <dt class="label">Where</dt>
+          <dd class="mono">{{ group.venue }}</dd>
+        </div>
+        <div>
+          <dt class="label">Next date</dt>
+          <dd class="mono">{{ muster.nextMuster() | date: 'MMM d, y' : 'UTC-5' }}</dd>
+        </div>
+        <div>
+          <dt class="label">Cost</dt>
+          <dd class="mono">Free to attend</dd>
+        </div>
+      </dl>
+
+      <div class="actions">
+        <a class="btn-primary" [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer">
+          <app-icon name="marker" [size]="1" />
+          Find the field
+        </a>
+        <a class="btn-ghost" [href]="group.instagramUrl" target="_blank" rel="noopener noreferrer">
+          <app-icon name="instagram" [size]="1" />
+          {{ group.instagramHandle }}
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
-<section>
-  <h2>Featured steel</h2>
-  <div class="arena-grid">
-    @for (weapon of featured(); track weapon.id) {
-      <app-weapon-card [weapon]="weapon" />
+<section class="fixtures shell" appAccentZone="#10b981">
+  <header class="head">
+    <h2 class="section-title">Beyond Sunday</h2>
+    <p class="note fine">Dates below are proposals until the group confirms them.</p>
+  </header>
+
+  <ul class="ledger">
+    @for (fixture of fixtures(); track fixture.id) {
+      <li>
+        <span class="date mono">{{ fixture.date | date: 'MMM dd' : 'UTC-5' }}</span>
+        <span class="title">{{ fixture.title }}</span>
+        <span class="place mono">{{ fixture.location }}</span>
+        <span class="ruleset mono">{{ fixture.ruleset }}</span>
+        @if (fixture.isProvisional) {
+          <span class="flag label">Provisional</span>
+        }
+      </li>
+    } @empty {
+      <li class="empty">No special fixtures announced. The Sunday muster still runs.</li>
     }
+  </ul>
+
+  <a routerLink="/arena" class="more">
+    Open the arena
+    <app-icon name="arrow" [size]="1" />
+  </a>
+</section>
+
+<section class="join" appAccentZone="#10b981">
+  <div class="shell">
+    <h2 class="section-title">Your first Sunday</h2>
+    <ol class="steps">
+      @for (step of steps; track step.title; let index = $index) {
+        <li>
+          <span class="num mono">{{ index + 1 }}</span>
+          <div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.body }}</p>
+          </div>
+        </li>
+      }
+    </ol>
   </div>
 </section>
+
+@if (featured(); as piece) {
+  <section class="workshop shell" appAccentZone="#e5ff00">
+    <div class="copy">
+      <h2 class="section-title">Built in the workshop</h2>
+      <p>
+        Every weapon is made by the group, not resold. Each piece is measured and matched to a
+        combat role, so you choose by how it fights rather than how it photographs.
+      </p>
+      <a routerLink="/armory" class="btn-ghost">
+        Enter the armory
+        <app-icon name="arrow" [size]="1" />
+      </a>
+    </div>
+    <app-weapon-card [weapon]="piece" />
+  </section>
+}

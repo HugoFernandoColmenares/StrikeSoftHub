@@ -1,48 +1,58 @@
 import { BattleEventModel } from '../models/battle-event.model';
 import { ClanPostModel } from '../models/clan-post.model';
 
+/**
+ * Special fixtures beyond the weekly muster. Dates are working proposals until the
+ * group confirms them, which the interface states on screen.
+ */
 export const EVENT_SEED: BattleEventModel[] = [
   {
-    id: 'forge-open-2026',
-    title: 'Forge Open 2026',
-    location: 'Valencia Field Arena',
-    date: '2026-10-04T10:00:00.000Z',
-    ruleset: 'Full Contact Soft, 1.3 kg cap',
-    description: 'Open lists for sword and shield, polearm, and mixed melee.',
+    id: 'santander-open',
+    title: 'Santander Open',
+    location: 'Parque La Flora, Bucaramanga',
+    date: '2026-10-04T15:00:00.000Z',
+    ruleset: 'Open lists, single elimination',
+    description: 'A full-day tournament on the regular field, open to visiting groups.',
+    isProvisional: true,
   },
   {
-    id: 'night-watch-skirmish',
-    title: 'Night Watch Skirmish',
-    location: 'Madrid Riverside Park',
-    date: '2026-09-26T18:30:00.000Z',
-    ruleset: 'Low-light assassin lanes',
-    description: 'Twilight bouts with limited visor lamps and dagger-legal sidearms.',
+    id: 'floridablanca-line-battle',
+    title: 'Line Battle',
+    location: 'Floridablanca',
+    date: '2026-10-25T14:00:00.000Z',
+    ruleset: 'Line battle, shields legal',
+    description: 'Team formations with capture points and a shared respawn line.',
+    isProvisional: true,
   },
   {
-    id: 'bastion-siege',
-    title: 'Bastion Siege Weekend',
-    location: 'Bilbao Hill Fort',
-    date: '2026-11-14T09:00:00.000Z',
-    ruleset: 'Line battle, tower-shield legal',
-    description: 'Two-day campaign with capture points and clan banners.',
+    id: 'newcomer-clinic',
+    title: 'Newcomer Clinic',
+    location: 'Parque La Flora, Bucaramanga',
+    date: '2026-09-27T15:00:00.000Z',
+    ruleset: 'Training, loaner weapons',
+    description: 'A guided first session for visitors who have never held a boffer.',
+    isProvisional: true,
   },
 ];
 
+/** Placeholder threads. The real board is not migrated yet. */
 export const CLAN_POST_SEED: ClanPostModel[] = [
   {
-    id: 'iron-circle-recruit',
-    title: 'Iron Circle seeks line holders',
-    clanName: 'Iron Circle',
-    body: 'We need two tanks who can hold a gate for ninety seconds. Weekend travel preferred.',
-    authorName: 'Marshal Rios',
+    id: 'sample-line-holders',
+    title: 'Line holders wanted',
+    clanName: 'Sample clan',
+    body: 'Example thread showing how a recruitment post reads once the board goes live.',
+    authorName: 'Placeholder author',
     createdAt: '2026-09-08T12:00:00.000Z',
+    isSample: true,
   },
   {
-    id: 'ash-wraiths',
-    title: 'Ash Wraiths looking for a spear',
-    clanName: 'Ash Wraiths',
-    body: 'Assassin lane partner wanted. Must know the Night Watch ruleset and keep tempo.',
-    authorName: 'Lina Voss',
+    id: 'sample-spear-partner',
+    title: 'Looking for a spear partner',
+    clanName: 'Sample clan',
+    body: 'Example thread showing how a pairing request reads once the board goes live.',
+    authorName: 'Placeholder author',
     createdAt: '2026-09-10T16:40:00.000Z',
+    isSample: true,
   },
 ];

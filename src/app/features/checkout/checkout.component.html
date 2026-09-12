@@ -1,25 +1,57 @@
-<section class="checkout">
-  <h1>Checkout</h1>
-  @if (cart.lines().length === 0) {
-    <p>The arsenal is empty. <a routerLink="/armory">Return to the Armory</a></p>
-  } @else {
-    <ul>
-      @for (line of cart.lines(); track line.weaponId) {
-        <li>
-          <div>
-            <strong>{{ line.weapon.name }}</strong>
-            <p>{{ line.quantity }} × {{ line.weapon.price | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
-          </div>
-          <div class="ops">
-            <button type="button" (click)="cart.update(line.weaponId, line.quantity - 1)">-</button>
-            <span>{{ line.quantity }}</span>
-            <button type="button" (click)="cart.update(line.weaponId, line.quantity + 1)">+</button>
-            <button type="button" (click)="cart.remove(line.weaponId)">Remove</button>
-          </div>
-        </li>
-      }
-    </ul>
-    <p class="total">Total {{ cart.total() | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
-    <app-epic-button label="Claim gear" (pressed)="claim()" />
-  }
+<section class="shell">
+  <div class="checkout">
+    <h1>Your arsenal</h1>
+
+    @if (cart.lines().length === 0) {
+      <div class="empty">
+        <p>Nothing reserved yet.</p>
+        <a routerLink="/armory" class="btn-ghost">Open the armory</a>
+      </div>
+    } @else {
+      <ul class="lines">
+        @for (line of cart.lines(); track line.weaponId) {
+          <li>
+            <div class="what">
+              <p class="name">{{ line.weapon.name }}</p>
+              <p class="unit mono">
+                {{ line.weapon.price | currency: 'COP' : 'code' : '1.0-0' }} each
+              </p>
+            </div>
+
+            <div class="qty" role="group" [attr.aria-label]="'Quantity for ' + line.weapon.name">
+              <button type="button" (click)="cart.update(line.weaponId, line.quantity - 1)">
+                <span aria-hidden="true">&minus;</span>
+                <span class="sr">Decrease</span>
+              </button>
+              <span class="mono">{{ line.quantity }}</span>
+              <button type="button" (click)="cart.update(line.weaponId, line.quantity + 1)">
+                <span aria-hidden="true">+</span>
+                <span class="sr">Increase</span>
+              </button>
+            </div>
+
+            <p class="sum mono">{{ line.lineTotal | currency: 'COP' : 'code' : '1.0-0' }}</p>
+
+            <button type="button" class="remove label" (click)="cart.remove(line.weaponId)">
+              Remove
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div class="total">
+        <span class="label">Total</span>
+        <span class="mono">{{ cart.total() | currency: 'COP' : 'code' : '1.0-0' }}</span>
+      </div>
+
+      <p class="terms fine">
+        Prices are indicative. Reservations are settled in person at {{ group.venue }} during the
+        Sunday muster.
+      </p>
+
+      <button type="button" class="btn-primary" [disabled]="placing()" (click)="claim()">
+        {{ placing() ? 'Reserving' : 'Reserve with the workshop' }}
+      </button>
+    }
+  </div>
 </section>

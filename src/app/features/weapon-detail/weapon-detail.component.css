@@ -1,61 +1,146 @@
 .detail {
   display: grid;
-  gap: 1.5rem;
+  gap: var(--step-4);
+  padding-block: var(--step-4) var(--step-5);
 }
 
-figure {
+.visual {
+  display: grid;
+  gap: 1px;
+}
+
+.hero {
   margin: 0;
-  background: var(--color-armor);
-  overflow: visible;
+  aspect-ratio: 3 / 4;
+  max-height: 34rem;
 }
 
-img {
-  width: 100%;
-  max-height: 26rem;
-  object-fit: cover;
-  margin-top: -1rem;
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+}
+
+.gallery figure {
+  margin: 0;
+  aspect-ratio: 1;
+}
+
+.plate {
+  display: grid;
+  align-content: center;
+  gap: 0.75rem;
+  aspect-ratio: 4 / 3;
+  padding: var(--step-3);
+  background:
+    linear-gradient(135deg, transparent 46%, var(--border) 46% 47%, transparent 47%),
+    var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.plate-class {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--fg-dim);
+  text-transform: uppercase;
 }
 
 .copy {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--step-2);
   align-content: start;
-}
-
-.kicker {
-  margin: 0;
-  color: var(--color-crimson);
-  font-family: var(--font-stats);
+  justify-items: start;
 }
 
 h1 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  text-transform: uppercase;
+}
+
+.role {
+  font-size: 0.625rem;
 }
 
 .price {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--section-accent);
+}
+
+.indicative {
+  margin-top: -0.75rem;
+}
+
+.lore {
+  color: var(--fg-dim);
+  padding-left: var(--step-2);
+  border-left: 1px solid var(--section-accent);
+}
+
+.specs {
+  width: 100%;
   margin: 0;
-  color: var(--color-crimson);
-  font-family: var(--font-stats);
-  font-size: 1.6rem;
+  border-top: 1px solid var(--border);
 }
 
-blockquote {
+.specs .stat-row {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.specs dt {
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.specs dd {
   margin: 0;
-  padding: 1rem;
-  background: var(--color-armor);
-  border-left: 0.25rem solid var(--color-gold);
+  color: var(--fg);
 }
 
-.forging,
-a {
-  color: var(--color-chain);
+.radar {
+  display: grid;
+  gap: 0.6rem;
+  padding-top: var(--step-2);
+  width: 100%;
 }
 
-@media (min-width: 64rem) {
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.back app-icon {
+  transform: rotate(180deg);
+}
+
+.back:hover {
+  color: var(--fg);
+}
+
+.missing {
+  display: grid;
+  gap: var(--step-2);
+  justify-items: start;
+  padding-block: var(--step-5);
+}
+
+.missing p {
+  color: var(--fg-dim);
+}
+
+@media (min-width: 60rem) {
   .detail {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
   }
 }

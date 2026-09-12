@@ -1,0 +1,20 @@
+<ul class="meters">
+  @for (meter of meters(); track meter.label) {
+    <li>
+      <span class="name">{{ meter.label }}</span>
+      <span class="value mono">{{ meter.value }}</span>
+      <span class="track">
+        <span
+          class="fill"
+          [style.inline-size.%]="meter.value"
+          role="meter"
+          [attr.aria-valuenow]="meter.value"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [attr.aria-label]="meter.label"
+        ></span>
+      </span>
+      <span class="note">{{ meter.note }}</span>
+    </li>
+  }
+</ul>

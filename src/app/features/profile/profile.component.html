@@ -1,20 +1,42 @@
-<section class="profile">
-  <h1>{{ auth.currentUser()?.displayName }}</h1>
-  <p>{{ auth.currentUser()?.email }} · {{ auth.currentUser()?.source }} pass</p>
-  <app-epic-button label="Leave the field" variant="steel" (pressed)="leave()" />
+<section class="shell">
+  <div class="profile">
+    <header class="head">
+      <h1>{{ auth.currentUser()?.displayName }}</h1>
+      <p class="mono meta">
+        {{ auth.currentUser()?.email }} ·
+        {{ auth.currentUser()?.source === 'supabase' ? 'server pass' : 'device pass' }}
+      </p>
+      <button type="button" class="btn-ghost" (click)="leave()">Sign out</button>
+    </header>
 
-  <h2>Orders</h2>
-  @if (orders.history().length === 0) {
-    <p>No claims yet.</p>
-  } @else {
-    <ul>
-      @for (order of orders.history(); track order.id) {
-        <li>
-          <strong>{{ order.id }}</strong>
-          <span>{{ order.createdAt | date: 'medium' }}</span>
-          <span>{{ order.total | currency: 'USD' : 'symbol' : '1.0-0' }}</span>
-        </li>
+    <section class="block">
+      <h2>Reservations</h2>
+      @if (orders.history().length === 0) {
+        <div class="empty">
+          <p>No reservations yet.</p>
+          <a routerLink="/armory" class="btn-ghost">Open the armory</a>
+        </div>
+      } @else {
+        <ul class="orders">
+          @for (order of orders.history(); track order.id) {
+            <li>
+              <p class="ref mono">{{ order.id }}</p>
+              <p class="when mono">{{ order.createdAt | date: 'medium' }}</p>
+              <p class="pieces">
+                @for (item of order.items; track item.weaponId) {
+                  <span>{{ item.quantity }} × {{ item.name }}</span>
+                }
+              </p>
+              <p class="sum mono">{{ order.total | currency: 'COP' : 'code' : '1.0-0' }}</p>
+              <p class="state label">{{ order.status }}</p>
+            </li>
+          }
+        </ul>
+        <p class="pickup fine">
+          Collect at the Sunday muster on
+          {{ muster.nextMuster() | date: 'MMM d' : 'UTC-5' }}.
+        </p>
       }
-    </ul>
-  }
+    </section>
+  </div>
 </section>

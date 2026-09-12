@@ -12,7 +12,8 @@ create table if not exists public.weapons (
   total_length_cm integer not null,
   core_material text not null,
   lore_description text not null,
-  image_url text not null,
+  -- Null until the piece has real photography. The interface shows its class instead.
+  image_url text,
   durability integer not null,
   handling integer not null,
   range_score integer not null,
@@ -26,7 +27,9 @@ create table if not exists public.battle_events (
   location text not null,
   event_date timestamptz not null,
   ruleset text not null,
-  description text not null
+  description text not null,
+  -- True while the date is a working proposal rather than a confirmed fixture.
+  is_provisional boolean not null default true
 );
 
 create table if not exists public.clan_posts (
@@ -35,7 +38,9 @@ create table if not exists public.clan_posts (
   clan_name text not null,
   body text not null,
   author_name text not null,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  -- True for placeholder threads shown before the real board is migrated.
+  is_sample boolean not null default false
 );
 
 create table if not exists public.cart_items (
@@ -158,27 +163,32 @@ create policy "owner insert order items"
     )
   );
 
+-- Seed data mirrors src/app/core/data. Prices are in Colombian pesos and remain
+-- indicative until the workshop publishes its final list.
 insert into public.weapons (
   id, name, weapon_class, combat_role, price, stock, weight_grams, total_length_cm,
   core_material, lore_description, image_url, durability, handling, range_score, is_premium
 ) values
-  ('emberbrand-longsword', 'Emberbrand Longsword', 'SWORD', 'SKIRMISHER', 189, 6, 420, 110, 'Fiberglass', 'Forged for dusk raids, Emberbrand keeps a crimson edge that never dulls on the training field.', 'assets/weapons/emberbrand.svg', 78, 82, 70, false),
-  ('nightwhisper-dagger', 'Nightwhisper Dagger', 'SWORD', 'ASSASSIN', 74, 12, 180, 48, 'Carbon rod', 'A quiet companion for close work. The foam profile favors speed over ceremony.', 'assets/weapons/nightwhisper.svg', 60, 94, 32, false),
-  ('bastion-tower-shield', 'Bastion Tower Shield', 'SHIELD', 'TANK', 240, 3, 1600, 120, 'Layered EVA', 'A moving wall for line holders. The chamfered rim is built to glance polearms aside.', 'assets/weapons/bastion.svg', 96, 40, 22, true),
-  ('stormhook-polearm', 'Stormhook Polearm', 'POLEARM', 'SKIRMISHER', 210, 5, 690, 180, 'Tapered fiberglass', 'Reach with a hooking head. Designed for outdoor fields where the wind writes its own rules.', 'assets/weapons/stormhook.svg', 74, 68, 96, false),
-  ('anvilbreaker-mace', 'Anvilbreaker Mace', 'MACE', 'TANK', 132, 8, 510, 82, 'Steel-sleeved foam', 'Short, honest, and loud. The head is balanced to announce every strike without bruising.', 'assets/weapons/anvilbreaker.svg', 88, 58, 44, false),
-  ('wyrmfang-axe', 'Wyrmfang Axe', 'AXE', 'SKIRMISHER', 156, 2, 480, 92, 'Fiberglass', 'A hooked beard for binding blades. Only two remain from the last tournament batch.', 'assets/weapons/wyrmfang.svg', 80, 72, 52, false),
-  ('ashen-spear', 'Ashen Spear', 'POLEARM', 'ASSASSIN', 168, 7, 390, 165, 'Carbon hybrid', 'Light enough for a sprint, long enough to keep a shield wall honest.', 'assets/weapons/ashen-spear.svg', 66, 80, 90, false),
-  ('champion-heater', 'Champion''s Heater', 'SHIELD', 'SKIRMISHER', 198, 4, 980, 78, 'Composite foam', 'Tournament gold trim for fighters who already have the scars to match.', 'assets/weapons/heater.svg', 84, 64, 20, true)
+  ('emberbrand-longsword', 'Emberbrand Longsword', 'SWORD', 'SKIRMISHER', 185000, 4, 420, 110, 'Fiberglass core', 'The workshop reference piece: fiberglass core, layered foam edge, crimson cord wrap over a brass-toned guard.', 'assets/weapons/sword-portrait.webp', 78, 82, 70, false),
+  ('nightwhisper-dagger', 'Nightwhisper Dagger', 'SWORD', 'ASSASSIN', 78000, 9, 180, 48, 'Carbon rod', 'A short sidearm for close lanes. Built for speed over ceremony.', null, 60, 94, 32, false),
+  ('bastion-tower-shield', 'Bastion Tower Shield', 'SHIELD', 'TANK', 230000, 2, 1600, 120, 'Layered EVA', 'A moving wall for line holders. The rim is built to glance polearms aside.', null, 96, 40, 22, true),
+  ('stormhook-polearm', 'Stormhook Polearm', 'POLEARM', 'SKIRMISHER', 198000, 3, 690, 180, 'Tapered fiberglass', 'Reach with a hooking head, built for open ground and long lines.', null, 74, 68, 96, false),
+  ('anvilbreaker-mace', 'Anvilbreaker Mace', 'MACE', 'TANK', 138000, 6, 510, 82, 'Sleeved foam', 'Short, honest, and loud. Balanced to announce a strike without bruising.', null, 88, 58, 44, false),
+  ('wyrmfang-axe', 'Wyrmfang Axe', 'AXE', 'SKIRMISHER', 162000, 2, 480, 92, 'Fiberglass core', 'A hooked beard for binding blades, cut for one-handed work.', null, 80, 72, 52, false),
+  ('ashen-spear', 'Ashen Spear', 'POLEARM', 'ASSASSIN', 172000, 5, 390, 165, 'Carbon hybrid', 'Light enough for a sprint, long enough to keep a shield wall honest.', null, 66, 80, 90, false),
+  ('champion-heater', 'Champion''s Heater', 'SHIELD', 'SKIRMISHER', 205000, 3, 980, 78, 'Composite foam', 'A mid-size shield for fighters who move with the line instead of anchoring it.', null, 84, 64, 20, true)
 on conflict (id) do nothing;
 
-insert into public.battle_events (id, title, location, event_date, ruleset, description) values
-  ('forge-open-2026', 'Forge Open 2026', 'Valencia Field Arena', '2026-10-04T10:00:00.000Z', 'Full Contact Soft, 1.3 kg cap', 'Open lists for sword and shield, polearm, and mixed melee.'),
-  ('night-watch-skirmish', 'Night Watch Skirmish', 'Madrid Riverside Park', '2026-09-26T18:30:00.000Z', 'Low-light assassin lanes', 'Twilight bouts with limited visor lamps and dagger-legal sidearms.'),
-  ('bastion-siege', 'Bastion Siege Weekend', 'Bilbao Hill Fort', '2026-11-14T09:00:00.000Z', 'Line battle, tower-shield legal', 'Two-day campaign with capture points and clan banners.')
+-- The weekly Sunday muster is not a row here: it is a standing fact in
+-- src/app/core/config/group.ts. These are special fixtures only.
+insert into public.battle_events (id, title, location, event_date, ruleset, description, is_provisional) values
+  ('santander-open', 'Santander Open', 'Parque La Flora, Bucaramanga', '2026-10-04T15:00:00.000Z', 'Open lists, single elimination', 'A full-day tournament on the regular field, open to visiting groups.', true),
+  ('floridablanca-line-battle', 'Line Battle', 'Floridablanca', '2026-10-25T14:00:00.000Z', 'Line battle, shields legal', 'Team formations with capture points and a shared respawn line.', true),
+  ('newcomer-clinic', 'Newcomer Clinic', 'Parque La Flora, Bucaramanga', '2026-09-27T15:00:00.000Z', 'Training, loaner weapons', 'A guided first session for visitors who have never held a boffer.', true)
 on conflict (id) do nothing;
 
-insert into public.clan_posts (id, title, clan_name, body, author_name, created_at) values
-  ('iron-circle-recruit', 'Iron Circle seeks line holders', 'Iron Circle', 'We need two tanks who can hold a gate for ninety seconds. Weekend travel preferred.', 'Marshal Rios', '2026-09-08T12:00:00.000Z'),
-  ('ash-wraiths', 'Ash Wraiths looking for a spear', 'Ash Wraiths', 'Assassin lane partner wanted. Must know the Night Watch ruleset and keep tempo.', 'Lina Voss', '2026-09-10T16:40:00.000Z')
+-- Placeholder threads that demonstrate the board format. Replace them with real posts.
+insert into public.clan_posts (id, title, clan_name, body, author_name, created_at, is_sample) values
+  ('sample-line-holders', 'Line holders wanted', 'Sample clan', 'Example thread showing how a recruitment post reads once the board goes live.', 'Placeholder author', '2026-09-08T12:00:00.000Z', true),
+  ('sample-spear-partner', 'Looking for a spear partner', 'Sample clan', 'Example thread showing how a pairing request reads once the board goes live.', 'Placeholder author', '2026-09-10T16:40:00.000Z', true)
 on conflict (id) do nothing;

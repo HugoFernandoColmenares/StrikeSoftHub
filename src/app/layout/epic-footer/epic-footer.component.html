@@ -1,0 +1,27 @@
+<footer class="foot">
+  <div class="shell grid">
+    <div class="mark">
+      <p class="name">{{ group.name }}</p>
+      <p class="where mono">{{ group.venue }} · {{ group.city }}, {{ group.region }}</p>
+      <p class="when mono">{{ group.dayLabel }} · {{ group.timeLabel }} {{ group.timeZoneLabel }}</p>
+    </div>
+
+    <div class="links">
+      <a [href]="group.instagramUrl" target="_blank" rel="noopener noreferrer" class="social">
+        <app-icon name="instagram" [size]="1" />
+        <span>{{ group.instagramHandle }}</span>
+      </a>
+      <a [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer" class="social">
+        <app-icon name="marker" [size]="1" />
+        <span>Find the field</span>
+      </a>
+    </div>
+
+    <p class="credit label">
+      {{ year }} · Built by
+      <a href="https://github.com/HugoFernandoColmenares" target="_blank" rel="noopener noreferrer"
+        >Hugo Colmenares</a
+      >
+    </p>
+  </div>
+</footer>

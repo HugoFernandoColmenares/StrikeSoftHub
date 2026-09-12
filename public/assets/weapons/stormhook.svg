@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" role="img" aria-label="Stormhook Polearm">
-  <rect width="320" height="420" fill="#181A1F"/>
-  <path d="M150 36 L196 92 L176 104 L168 120 H152 V36 Z" fill="#F0F0F0"/>
-  <path d="M196 92 Q230 110 214 142 L176 104 Z" fill="#D32F2F"/>
-  <rect x="152" y="118" width="16" height="250" fill="#3A3F47"/>
-  <rect x="144" y="366" width="32" height="14" fill="#E5A93C"/>
-</svg>

@@ -41,7 +41,7 @@ export class CartService {
   add(weaponId: string): void {
     const weapon = this.catalog.byId(weaponId);
     if (!weapon || weapon.stock < 1) {
-      void this.notify.warning('Out of stock', 'The forge is still shaping more of this piece.');
+      void this.notify.warning('Not available', 'This piece is still in the workshop queue.');
       return;
     }
 
@@ -50,7 +50,7 @@ export class CartService {
     const nextQuantity = (existing?.quantity ?? 0) + 1;
 
     if (nextQuantity > weapon.stock) {
-      void this.notify.warning('Stock limit', `Only ${weapon.stock} remain in the rack.`);
+      void this.notify.warning('Rack limit', `Only ${weapon.stock} available right now.`);
       return;
     }
 
@@ -59,7 +59,7 @@ export class CartService {
       : [...current, { weaponId, quantity: 1 }];
 
     this.persist(next);
-    void this.notify.toast(`${weapon.name} added to the arsenal`);
+    void this.notify.toast(`${weapon.name} added`);
     void this.syncRemote(next);
   }
 

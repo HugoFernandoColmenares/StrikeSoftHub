@@ -1,12 +1,19 @@
-<section class="catalog">
-  <header>
-    <h1>The Armory</h1>
-    <p>Filter by combat role and weapon class. Low stock pieces glow first in the mind, not the page.</p>
+<section class="shell armory" appAccentZone="#ff2a2a">
+  <header class="head">
+    <h1 class="section-title">The Armory</h1>
+    <p class="intro">
+      Weapons built in the group's own workshop, listed by how they fight. Filter by the role you
+      hold on the line.
+    </p>
+    <p class="fine">
+      Prices and stock are indicative while the workshop finalizes its list. Photography is in
+      progress, so pieces without a photograph show their class instead.
+    </p>
   </header>
 
-  <aside class="filters">
+  <div class="filters" role="group" aria-label="Catalog filters">
     <fieldset>
-      <legend>Combat Role</legend>
+      <legend class="label">Combat role</legend>
       @for (option of roles; track option) {
         <button type="button" [class.active]="role() === option" (click)="role.set(option)">
           {{ option }}
@@ -14,22 +21,72 @@
       }
     </fieldset>
     <fieldset>
-      <legend>Class</legend>
+      <legend class="label">Class</legend>
       @for (option of classes; track option) {
-        <button type="button" [class.active]="weaponClass() === option" (click)="weaponClass.set(option)">
+        <button
+          type="button"
+          [class.active]="weaponClass() === option"
+          (click)="weaponClass.set(option)"
+        >
           {{ option }}
         </button>
       }
     </fieldset>
-  </aside>
+  </div>
 
   @if (loading()) {
     <app-loot-spinner />
+  } @else if (filtered().length === 0) {
+    <div class="empty">
+      <h2>No weapon matches that pairing</h2>
+      <p>The workshop has not built this combination yet.</p>
+      <button type="button" class="btn-ghost" (click)="reset()">Clear filters</button>
+    </div>
   } @else {
-    <div class="arena-grid">
-      @for (weapon of filtered(); track weapon.id) {
-        <app-weapon-card [weapon]="weapon" />
+    <div class="results">
+      @if (featured(); as piece) {
+        <div class="feature">
+          <p class="label">Reference piece</p>
+          <app-weapon-card [weapon]="piece" />
+        </div>
       }
+
+      <div class="ledger" role="table" aria-label="Weapon catalog">
+        <div class="row heading label" role="row">
+          <span role="columnheader">Weapon</span>
+          <span role="columnheader">Role</span>
+          <span role="columnheader">Weight</span>
+          <span role="columnheader">Length</span>
+          <span role="columnheader">Price</span>
+          <span role="columnheader"><span class="visually-hidden">Action</span></span>
+        </div>
+
+        @for (weapon of rows(); track weapon.id) {
+          <div class="row" role="row">
+            <a class="name" [routerLink]="['/armory', weapon.id]" role="cell">
+              {{ weapon.name }}
+              <span class="klass label"
+                >{{ weapon.weaponClass }} · {{ weapon.specs.coreMaterial }}</span
+              >
+            </a>
+            <span class="mono cell" role="cell">{{ weapon.combatRole }}</span>
+            <span class="mono cell" role="cell">{{ weapon.specs.weightGrams }} g</span>
+            <span class="mono cell" role="cell">{{ weapon.specs.totalLengthCm }} cm</span>
+            <span class="mono cell price" role="cell">
+              {{ weapon.price | currency: 'COP' : 'code' : '1.0-0' }}
+            </span>
+            <span class="cell action" role="cell">
+              @if (weapon.stock > 0) {
+                <button type="button" class="btn-ghost small" (click)="addToArsenal(weapon)">
+                  Add
+                </button>
+              } @else {
+                <span class="label queued">Queued</span>
+              }
+            </span>
+          </div>
+        }
+      </div>
     </div>
   }
 </section>

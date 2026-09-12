@@ -1,0 +1,62 @@
+.sport {
+  display: grid;
+  gap: var(--step-4);
+  padding-block: var(--step-4) var(--step-5);
+  max-width: 58rem;
+}
+
+.head {
+  display: grid;
+  gap: 0.75rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  text-transform: uppercase;
+}
+
+.intro {
+  color: var(--fg-dim);
+  font-size: 1.0625rem;
+}
+
+.answers {
+  margin: 0;
+  border-top: 1px solid var(--border-strong);
+}
+
+.answers > div {
+  display: grid;
+  gap: 0.5rem;
+  padding: var(--step-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+dt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+dd {
+  margin: 0;
+  color: var(--fg-dim);
+}
+
+.contact {
+  display: grid;
+  gap: var(--step-2);
+  justify-items: start;
+  padding: var(--step-3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+@media (min-width: 48rem) {
+  .answers > div {
+    grid-template-columns: 16rem minmax(0, 1fr);
+    gap: var(--step-3);
+    align-items: baseline;
+  }
+}

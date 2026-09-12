@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { BackendStatusService } from '../../core/services/backend-status.service';
 import { NotificationService } from '../../core/services/notification.service';
-import { EpicButtonComponent } from '../../shared/epic-button/epic-button.component';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule, EpicButtonComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,7 +19,10 @@ export class AuthComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  readonly backend = inject(BackendStatusService);
   readonly mode = signal<'login' | 'register'>('login');
+  readonly submitting = signal(false);
+
   readonly form = this.fb.nonNullable.group({
     displayName: [''],
     email: ['', [Validators.required, Validators.email]],
@@ -30,27 +33,34 @@ export class AuthComponent {
     this.mode.update((mode) => (mode === 'login' ? 'register' : 'login'));
   }
 
+  showError(control: 'email' | 'password'): boolean {
+    const field = this.form.controls[control];
+    return field.invalid && (field.dirty || field.touched);
+  }
+
   async submit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
+    this.submitting.set(true);
     const { email, password, displayName } = this.form.getRawValue();
-    const ok =
-      this.mode() === 'login'
-        ? await this.auth.login(email, password)
-        : await this.auth.register(email, password, displayName || email.split('@')[0]);
 
-    if (!ok) {
-      return;
+    try {
+      const ok =
+        this.mode() === 'login'
+          ? await this.auth.login(email, password)
+          : await this.auth.register(email, password, displayName || email.split('@')[0]);
+
+      if (!ok) {
+        return;
+      }
+
+      await this.notify.toast(this.mode() === 'login' ? 'Signed in' : 'Pass created');
+      await this.router.navigateByUrl(this.route.snapshot.queryParamMap.get('redirect') || '/profile');
+    } finally {
+      this.submitting.set(false);
     }
-
-    await this.notify.success(
-      this.mode() === 'login' ? 'Welcome back' : 'Enlisted',
-      'Your pass is active in this arena.',
-    );
-    const redirect = this.route.snapshot.queryParamMap.get('redirect') || '/profile';
-    await this.router.navigateByUrl(redirect);
   }
 }

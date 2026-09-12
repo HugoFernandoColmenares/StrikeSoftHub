@@ -1,16 +1,46 @@
 <header class="bar">
-  <a routerLink="/" class="brand">StrikeSoft</a>
-  <nav aria-label="Primary">
-    <a routerLink="/armory" routerLinkActive="active">Armory</a>
-    <a routerLink="/arena" routerLinkActive="active">Arena</a>
-    <a routerLink="/lore" routerLinkActive="active">Lore</a>
-  </nav>
-  <div class="tools">
-    <span class="mode" [class.live]="backend.isOnline()">{{ backend.modeLabel() }}</span>
-    <a routerLink="/profile" class="profile">{{ auth.isAuthenticated() ? auth.currentUser()?.displayName : 'Sign in' }}</a>
-    <a routerLink="/checkout" class="cart" aria-label="Open checkout">
-      Arsenal
-      <span class="badge" [class.lit]="cart.count() > 0" aria-live="polite">{{ cart.count() }}</span>
+  <div class="shell inner">
+    <a routerLink="/" class="brand" (click)="closeMenu()">
+      <span class="wordmark">StrikeSoft</span>
+      <span class="label owner">{{ group.name }}</span>
     </a>
+
+    <button
+      type="button"
+      class="burger"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="primary-nav"
+      (click)="toggleMenu()"
+    >
+      {{ menuOpen() ? 'Close' : 'Menu' }}
+    </button>
+
+    <div class="panel" id="primary-nav" [class.open]="menuOpen()">
+      <nav aria-label="Primary">
+        <a routerLink="/armory" routerLinkActive="active" (click)="closeMenu()">Armory</a>
+        <a routerLink="/arena" routerLinkActive="active" (click)="closeMenu()">Arena</a>
+        <a routerLink="/lore" routerLinkActive="active" (click)="closeMenu()">The Sport</a>
+      </nav>
+
+      <div class="tools">
+        <span class="status label" [class.live]="backend.isOnline()">
+          <span class="dot" aria-hidden="true"></span>
+          {{ backend.isOnline() ? 'Live data' : 'Offline cache' }}
+        </span>
+
+        <a routerLink="/profile" class="tool" (click)="closeMenu()">
+          <app-icon name="user" [size]="1" />
+          <span>{{ auth.isAuthenticated() ? auth.currentUser()?.displayName : 'Sign in' }}</span>
+        </a>
+
+        <a routerLink="/checkout" class="tool cart" (click)="closeMenu()">
+          <app-icon name="bag" [size]="1" />
+          <span>Arsenal</span>
+          <span class="count mono" [class.lit]="cart.count() > 0" aria-live="polite">
+            {{ cart.count() }}
+          </span>
+        </a>
+      </div>
+    </div>
   </div>
 </header>
