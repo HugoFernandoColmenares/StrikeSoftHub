@@ -1,0 +1,41 @@
+.arena,
+.columns {
+  display: grid;
+  gap: 1.25rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+header p,
+.meta,
+.rules,
+p {
+  color: var(--color-chain);
+}
+
+.panel {
+  margin-bottom: 1rem;
+  padding: 1.1rem;
+  background: var(--color-armor);
+  clip-path: polygon(0 0, calc(100% - 0.8rem) 0, 100% 0.8rem, 100% 100%, 0.8rem 100%, 0 calc(100% - 0.8rem));
+}
+
+.rules {
+  font-family: var(--font-stats);
+  color: var(--color-gold);
+}
+
+@media (min-width: 56rem) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}

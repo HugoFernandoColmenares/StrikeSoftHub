@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="StrikeSoft">
+  <rect width="512" height="512" fill="#181A1F"/>
+  <path d="M256 72 L352 400 H304 L282 332 H230 L208 400 H160 Z" fill="#D32F2F"/>
+  <rect x="230" y="316" width="52" height="20" fill="#E5A93C"/>
+</svg>

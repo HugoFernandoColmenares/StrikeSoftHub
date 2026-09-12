@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" role="img" aria-label="Wyrmfang Axe">
+  <rect width="320" height="420" fill="#181A1F"/>
+  <path d="M168 48 L250 110 L230 168 L168 140 Z" fill="#F0F0F0"/>
+  <path d="M230 168 Q200 190 168 168" fill="#D32F2F"/>
+  <rect x="152" y="48" width="16" height="290" fill="#3A3F47"/>
+  <rect x="144" y="338" width="32" height="16" fill="#E5A93C"/>
+</svg>

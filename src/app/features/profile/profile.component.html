@@ -1,0 +1,20 @@
+<section class="profile">
+  <h1>{{ auth.currentUser()?.displayName }}</h1>
+  <p>{{ auth.currentUser()?.email }} · {{ auth.currentUser()?.source }} pass</p>
+  <app-epic-button label="Leave the field" variant="steel" (pressed)="leave()" />
+
+  <h2>Orders</h2>
+  @if (orders.history().length === 0) {
+    <p>No claims yet.</p>
+  } @else {
+    <ul>
+      @for (order of orders.history(); track order.id) {
+        <li>
+          <strong>{{ order.id }}</strong>
+          <span>{{ order.createdAt | date: 'medium' }}</span>
+          <span>{{ order.total | currency: 'USD' : 'symbol' : '1.0-0' }}</span>
+        </li>
+      }
+    </ul>
+  }
+</section>

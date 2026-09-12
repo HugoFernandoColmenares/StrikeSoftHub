@@ -1,0 +1,24 @@
+<section class="gate">
+  <h1>{{ mode() === 'login' ? 'Enter the gate' : 'Take a pass' }}</h1>
+  <p>When the live forge is offline, your pass stays on this device.</p>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    @if (mode() === 'register') {
+      <label>
+        Display name
+        <input formControlName="displayName" type="text" autocomplete="nickname" />
+      </label>
+    }
+    <label>
+      Email
+      <input formControlName="email" type="email" autocomplete="email" />
+    </label>
+    <label>
+      Password
+      <input formControlName="password" type="password" autocomplete="current-password" />
+    </label>
+    <app-epic-button [label]="mode() === 'login' ? 'Sign in' : 'Register'" type="submit" />
+  </form>
+  <button type="button" class="switch" (click)="toggle()">
+    {{ mode() === 'login' ? 'Need a pass? Register' : 'Already enlisted? Sign in' }}
+  </button>
+</section>

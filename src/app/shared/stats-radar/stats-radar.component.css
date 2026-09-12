@@ -1,0 +1,20 @@
+.radar {
+  width: 100%;
+  max-width: 16rem;
+  font-family: var(--font-stats);
+  font-size: 0.7rem;
+  fill: var(--color-chain);
+}
+
+.grid,
+.axis {
+  fill: none;
+  stroke: var(--color-iron);
+  stroke-width: 1;
+}
+
+.plot {
+  fill: rgba(211, 47, 47, 0.35);
+  stroke: var(--color-crimson);
+  stroke-width: 2;
+}

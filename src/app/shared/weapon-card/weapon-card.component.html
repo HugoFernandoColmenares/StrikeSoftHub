@@ -1,0 +1,27 @@
+<article class="card">
+  @if (weapon().isPremium) {
+    <span class="badge">Champion</span>
+  }
+  <a [routerLink]="['/armory', weapon().id]" class="visual">
+    <img [src]="weapon().imageUrl" [alt]="weapon().name" width="320" height="420" />
+  </a>
+  <div class="body">
+    <h3>
+      <a [routerLink]="['/armory', weapon().id]">{{ weapon().name }}</a>
+    </h3>
+    <p class="class">{{ weapon().weaponClass }} · {{ weapon().combatRole }}</p>
+    <div class="stat-row">
+      <span>{{ weapon().specs.coreMaterial }}</span>
+      <span>{{ weapon().specs.totalLengthCm }} cm</span>
+    </div>
+    <div class="stat-row price">
+      <strong>{{ weapon().price | currency: 'USD' : 'symbol' : '1.0-0' }}</strong>
+      <span>{{ weapon().stock }} in rack</span>
+    </div>
+    @if (weapon().stock > 0) {
+      <app-epic-button label="Add to Arsenal" (pressed)="addToArsenal()" />
+    } @else {
+      <p class="forging">Forging more...</p>
+    }
+  </div>
+</article>

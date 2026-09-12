@@ -1,0 +1,21 @@
+<section class="hero">
+  <p class="kicker">Modern Forge and Epic Arena</p>
+  <h1>Gear that survives the match, not just the photograph.</h1>
+  <p class="lead">
+    StrikeSoft Hub is the armory and gathering hall for softcombat athletes. Claim a weapon, read the
+    lore, and find the next field.
+  </p>
+  <div class="actions gap-clash">
+    <a routerLink="/armory"><app-epic-button label="Enter the Armory" /></a>
+    <a routerLink="/arena"><app-epic-button label="See the Arena" variant="steel" /></a>
+  </div>
+</section>
+
+<section>
+  <h2>Featured steel</h2>
+  <div class="arena-grid">
+    @for (weapon of featured(); track weapon.id) {
+      <app-weapon-card [weapon]="weapon" />
+    }
+  </div>
+</section>

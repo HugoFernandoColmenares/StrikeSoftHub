@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" role="img" aria-label="Nightwhisper Dagger">
+  <rect width="320" height="420" fill="#181A1F"/>
+  <path d="M160 70 L178 220 H142 Z" fill="#9AA0A6"/>
+  <path d="M168 86 L172 214 H160 Z" fill="#D32F2F"/>
+  <rect x="126" y="218" width="68" height="10" fill="#2A2D34"/>
+  <rect x="150" y="228" width="20" height="70" fill="#3A3F47"/>
+  <circle cx="160" cy="308" r="12" fill="#E5A93C"/>
+</svg>

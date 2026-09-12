@@ -1,0 +1,16 @@
+<header class="bar">
+  <a routerLink="/" class="brand">StrikeSoft</a>
+  <nav aria-label="Primary">
+    <a routerLink="/armory" routerLinkActive="active">Armory</a>
+    <a routerLink="/arena" routerLinkActive="active">Arena</a>
+    <a routerLink="/lore" routerLinkActive="active">Lore</a>
+  </nav>
+  <div class="tools">
+    <span class="mode" [class.live]="backend.isOnline()">{{ backend.modeLabel() }}</span>
+    <a routerLink="/profile" class="profile">{{ auth.isAuthenticated() ? auth.currentUser()?.displayName : 'Sign in' }}</a>
+    <a routerLink="/checkout" class="cart" aria-label="Open checkout">
+      Arsenal
+      <span class="badge" [class.lit]="cart.count() > 0" aria-live="polite">{{ cart.count() }}</span>
+    </a>
+  </div>
+</header>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" role="img" aria-label="Ashen Spear">
+  <rect width="320" height="420" fill="#181A1F"/>
+  <path d="M160 24 L176 96 H144 Z" fill="#F0F0F0"/>
+  <path d="M166 40 L170 90 H158 Z" fill="#D32F2F"/>
+  <rect x="154" y="94" width="12" height="280" fill="#3A3F47"/>
+  <rect x="146" y="374" width="28" height="10" fill="#9AA0A6"/>
+</svg>

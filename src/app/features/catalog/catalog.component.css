@@ -1,0 +1,56 @@
+.catalog {
+  display: grid;
+  gap: 1.5rem;
+}
+
+h1 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+header p {
+  margin: 0;
+  color: var(--color-chain);
+}
+
+.filters {
+  display: grid;
+  gap: 1rem;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0.85rem;
+  border: 1px solid var(--color-iron);
+  background: var(--color-armor);
+}
+
+legend {
+  font-family: var(--font-display);
+  padding: 0 0.4rem;
+}
+
+button {
+  margin: 0.25rem 0.25rem 0 0;
+  padding: 0.4rem 0.7rem;
+  border: 0;
+  background: var(--color-iron);
+  color: var(--color-blade);
+  font-family: var(--font-stats);
+  cursor: pointer;
+}
+
+button.active {
+  background: var(--color-crimson);
+}
+
+@media (min-width: 64rem) {
+  .catalog {
+    grid-template-columns: 16rem 1fr;
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+}

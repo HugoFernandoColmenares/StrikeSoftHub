@@ -1,0 +1,173 @@
+:root {
+  --color-forge: #181a1f;
+  --color-armor: #2a2d34;
+  --color-crimson: #d32f2f;
+  --color-blade: #f0f0f0;
+  --color-chain: #9aa0a6;
+  --color-iron: #3a3f47;
+  --color-gold: #e5a93c;
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-stats: 'Rajdhani', sans-serif;
+  --shadow-ember: 0 0.5rem 1rem rgba(211, 47, 47, 0.15);
+  --strike-ease: 0.15s ease-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-y: scroll;
+  min-height: 100%;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-forge);
+  color: var(--color-blade);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-crimson);
+  outline-offset: 2px;
+}
+
+.arena-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .arena-grid {
+    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+  }
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-stats);
+}
+
+.gap-strike {
+  gap: 0.5rem;
+}
+
+.gap-clash {
+  gap: 1rem;
+}
+
+.gap-epic {
+  gap: 2rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #181a1f;
+  border-left: 1px solid #2a2d34;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2d34;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d32f2f;
+}
+
+.swal2-container {
+  font-family: var(--font-body);
+}
+
+.swal-forge-popup {
+  background: var(--color-armor) !important;
+  color: var(--color-blade) !important;
+  border: 1px solid var(--color-iron);
+  box-shadow: var(--shadow-ember) !important;
+  clip-path: polygon(0 0, calc(100% - 0.75rem) 0, 100% 0.75rem, 100% 100%, 0.75rem 100%, 0 calc(100% - 0.75rem));
+}
+
+.swal-forge-title {
+  font-family: var(--font-display) !important;
+  color: var(--color-blade) !important;
+}
+
+.swal-forge-html {
+  color: var(--color-chain) !important;
+  font-family: var(--font-body) !important;
+}
+
+.swal-forge-confirm,
+.swal-forge-cancel {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0.04em;
+  border: 0 !important;
+  clip-path: polygon(0 0, calc(100% - 0.5rem) 0, 100% 0.5rem, 100% 100%, 0.5rem 100%, 0 calc(100% - 0.5rem));
+}
+
+.swal-forge-confirm {
+  background: var(--color-crimson) !important;
+  color: var(--color-blade) !important;
+}
+
+.swal-forge-cancel {
+  background: var(--color-iron) !important;
+  color: var(--color-blade) !important;
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+  background-color: var(--color-gold) !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color: rgba(229, 169, 60, 0.35) !important;
+}
+
+.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+  background-color: var(--color-crimson) !important;
+}

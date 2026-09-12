@@ -1,0 +1,25 @@
+<section class="checkout">
+  <h1>Checkout</h1>
+  @if (cart.lines().length === 0) {
+    <p>The arsenal is empty. <a routerLink="/armory">Return to the Armory</a></p>
+  } @else {
+    <ul>
+      @for (line of cart.lines(); track line.weaponId) {
+        <li>
+          <div>
+            <strong>{{ line.weapon.name }}</strong>
+            <p>{{ line.quantity }} × {{ line.weapon.price | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
+          </div>
+          <div class="ops">
+            <button type="button" (click)="cart.update(line.weaponId, line.quantity - 1)">-</button>
+            <span>{{ line.quantity }}</span>
+            <button type="button" (click)="cart.update(line.weaponId, line.quantity + 1)">+</button>
+            <button type="button" (click)="cart.remove(line.weaponId)">Remove</button>
+          </div>
+        </li>
+      }
+    </ul>
+    <p class="total">Total {{ cart.total() | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
+    <app-epic-button label="Claim gear" (pressed)="claim()" />
+  }
+</section>

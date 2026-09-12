@@ -1,0 +1,41 @@
+.epic-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.25rem;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform var(--strike-ease), box-shadow var(--strike-ease), background var(--strike-ease);
+  clip-path: polygon(0 0, calc(100% - 0.65rem) 0, 100% 0.65rem, 100% 100%, 0.65rem 100%, 0 calc(100% - 0.65rem));
+}
+
+.epic-button.crimson {
+  background: var(--color-crimson);
+  color: var(--color-blade);
+}
+
+.epic-button.steel {
+  background: var(--color-iron);
+  color: var(--color-blade);
+}
+
+.epic-button.ghost {
+  background: transparent;
+  color: var(--color-blade);
+  box-shadow: inset 0 0 0 1px var(--color-iron);
+}
+
+.epic-button:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-ember);
+}
+
+.epic-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

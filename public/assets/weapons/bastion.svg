@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" role="img" aria-label="Bastion Tower Shield">
+  <rect width="320" height="420" fill="#181A1F"/>
+  <path d="M70 48 H250 L262 86 V330 L160 382 L58 330 V86 Z" fill="#2A2D34"/>
+  <path d="M92 76 H228 L236 98 V312 L160 352 L84 312 V98 Z" fill="#3A3F47"/>
+  <path d="M160 96 V330" stroke="#D32F2F" stroke-width="8"/>
+  <rect x="140" y="190" width="40" height="40" fill="#E5A93C"/>
+</svg>

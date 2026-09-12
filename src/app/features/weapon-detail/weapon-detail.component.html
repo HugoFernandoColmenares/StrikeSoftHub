@@ -1,0 +1,25 @@
+@if (weapon(); as item) {
+  <article class="detail">
+    <figure>
+      <img [src]="item.imageUrl" [alt]="item.name" width="480" height="620" />
+    </figure>
+    <div class="copy">
+      <p class="kicker">{{ item.weaponClass }} · {{ item.combatRole }}</p>
+      <h1>{{ item.name }}</h1>
+      <p class="price">{{ item.price | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
+      <blockquote>{{ item.loreDescription }}</blockquote>
+      <div class="stat-row"><span>Weight</span><span>{{ item.specs.weightGrams }} g</span></div>
+      <div class="stat-row"><span>Length</span><span>{{ item.specs.totalLengthCm }} cm</span></div>
+      <div class="stat-row"><span>Core</span><span>{{ item.specs.coreMaterial }}</span></div>
+      <app-stats-radar [stats]="item.stats" />
+      @if (item.stock > 0) {
+        <app-epic-button label="Add to Arsenal" (pressed)="addToArsenal()" />
+      } @else {
+        <p class="forging">Forging more...</p>
+      }
+      <a routerLink="/armory">Return to the racks</a>
+    </div>
+  </article>
+} @else {
+  <p>This weapon is not in the current ledger. <a routerLink="/armory">Back to the Armory</a></p>
+}
