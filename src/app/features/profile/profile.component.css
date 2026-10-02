@@ -1,7 +1,7 @@
 .profile {
   display: grid;
   gap: var(--step-4);
-  max-width: 46rem;
+  max-width: 72rem;
   padding-block: var(--step-4) var(--step-5);
 }
 
@@ -12,17 +12,17 @@
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
 .meta {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--fg-dim);
 }
 
 h2 {
-  font-size: 1.35rem;
+  font-size: var(--text-h2);
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--border-strong);
   margin-bottom: var(--step-2);
@@ -46,33 +46,33 @@ h2 {
 }
 
 .ref {
-  font-size: 0.6875rem;
+  font-size: var(--text-small);
   color: var(--fg-dim);
   word-break: break-all;
 }
 
 .when {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--fg-dim);
 }
 
 .pieces {
   display: grid;
   gap: 0.15rem;
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
 }
 
 .sum {
   font-weight: 700;
-  font-size: 1.0625rem;
+  font-size: var(--text-h3);
 }
 
 .state {
   justify-self: start;
-  font-size: 0.5625rem;
+  font-size: var(--text-small);
   color: var(--green);
   border: 1px solid var(--border-strong);
-  padding: 0.1rem 0.4rem;
+  padding: 0.3rem 0.6rem;
 }
 
 .pickup {

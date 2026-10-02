@@ -11,13 +11,13 @@
 }
 
 h1 {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
 .intro {
   color: var(--fg-dim);
-  font-size: 1.0625rem;
+  font-size: var(--text-body);
 }
 
 .answers {
@@ -35,8 +35,8 @@ h1 {
 dt {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
+  font-size: var(--text-h3);
+  letter-spacing: 0.02em;
 }
 
 dd {
@@ -53,9 +53,9 @@ dd {
   border: 1px solid var(--border);
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 76.8rem) {
   .answers > div {
-    grid-template-columns: 16rem minmax(0, 1fr);
+    grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
     gap: var(--step-3);
     align-items: baseline;
   }

@@ -38,17 +38,21 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
 
     .skip {
       position: absolute;
-      left: -999px;
-      top: 0;
+      inset-inline-start: 1.6rem;
+      inset-block-start: 1.6rem;
       z-index: 200;
-      padding: 0.8rem 1.2rem;
+      min-height: var(--touch);
+      display: inline-flex;
+      align-items: center;
+      padding: 0.8rem 1.6rem;
       background: var(--color-gold);
       color: #19130e;
       font-weight: 700;
+      transform: translateY(-160%);
     }
 
-    .skip:focus {
-      left: 0;
+    .skip:focus-visible {
+      transform: none;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

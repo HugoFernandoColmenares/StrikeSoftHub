@@ -85,6 +85,20 @@
   --shell: var(--page-width);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
+  --text-small: 1.4rem;
+  --text-label: 1.4rem;
+  --text-ui: 1.5rem;
+  --text-body: 1.6rem;
+  --text-h3: 2rem;
+  --text-h2: clamp(2.4rem, 4vw, 3.6rem);
+  --text-h1: clamp(3.2rem, 7vw, 5.6rem);
+  --text-hero: clamp(3.6rem, 8vw, 7.2rem);
+  --touch: 4.4rem;
+  --bp-phone: 48rem;
+  --bp-tablet: 76.8rem;
+  --bp-laptop: 102.4rem;
+  --bp-desktop: 128rem;
+
   color-scheme: dark;
   accent-color: var(--color-ember);
 }
@@ -109,6 +123,7 @@ html {
 html,
 body {
   min-height: 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -121,7 +136,7 @@ body {
     radial-gradient(circle at 85% 80%, rgba(173, 116, 52, 0.06), transparent 24%),
     linear-gradient(180deg, #0b0c0e 0%, var(--color-stone-bg) 55%, #08090a 100%);
   font-family: var(--font-body);
-  font-size: 1.5rem;
+  font-size: var(--text-body);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -181,6 +196,26 @@ h4 {
   text-wrap: balance;
 }
 
+h1 {
+  font-size: var(--text-h1);
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3,
+h4 {
+  font-size: var(--text-h3);
+}
+
+p,
+li,
+dd,
+dt {
+  overflow-wrap: break-word;
+}
+
 p {
   max-width: 68ch;
 }
@@ -205,7 +240,7 @@ svg {
 .shell {
   width: 100%;
   max-width: var(--page-width);
-  padding-inline: 2rem;
+  padding-inline: max(1.6rem, env(safe-area-inset-left)) max(1.6rem, env(safe-area-inset-right));
   margin-inline: auto;
 }
 
@@ -298,7 +333,7 @@ svg {
   justify-content: space-between;
   align-items: baseline;
   gap: var(--content-gap);
-  font-size: 1.2rem;
+  font-size: var(--text-small);
   font-variant-numeric: tabular-nums;
 }
 
@@ -308,14 +343,14 @@ svg {
 }
 
 .label {
-  font-size: 1.1rem;
+  font-size: var(--text-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fg-dim);
 }
 
 .fine {
-  font-size: 1.3rem;
+  font-size: var(--text-body);
   line-height: 1.65;
   color: var(--fg-dim);
   max-width: 62ch;
@@ -324,13 +359,13 @@ svg {
 .section-kicker {
   color: var(--color-ember-hot);
   font-family: var(--font-medieval);
-  font-size: 1.5rem;
+  font-size: var(--text-body);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .section-title {
-  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-size: var(--text-h2);
 }
 
 .rule {
@@ -345,7 +380,7 @@ svg {
 .btn-secondary,
 .btn-bronze,
 .btn-danger {
-  min-height: 4.6rem;
+  min-height: var(--touch);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -355,7 +390,7 @@ svg {
   border-radius: var(--radius-sm);
   color: #f5e4bd;
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: var(--text-ui);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -414,9 +449,9 @@ svg {
 }
 
 .btn-small {
-  min-height: 3.7rem;
-  padding: 0.6rem 1.1rem;
-  font-size: 1.15rem;
+  min-height: var(--touch);
+  padding: 0.6rem 1.2rem;
+  font-size: var(--text-small);
 }
 
 .btn:disabled,
@@ -432,8 +467,8 @@ svg {
 
 .icon-button,
 .close-button {
-  width: 4.2rem;
-  height: 4.2rem;
+  width: var(--touch);
+  height: var(--touch);
   display: grid;
   place-items: center;
   border: 0.1rem solid #5d6269;
@@ -473,7 +508,7 @@ input[type='text'],
 input[type='email'],
 input[type='password'] {
   width: 100%;
-  min-height: 4.2rem;
+  min-height: var(--touch);
   padding-inline: 1.1rem;
   border: 0.1rem solid #494e54;
   border-radius: 0.6rem;
@@ -533,6 +568,21 @@ input[type='range'] {
   border-color: var(--color-bronze);
 }
 
+@media (max-width: 76.79rem) {
+  :root {
+    --section-padding: 4.8rem;
+    --nav-height: 6.4rem;
+    --text-h1: clamp(2.8rem, 9vw, 4rem);
+    --text-hero: clamp(3.2rem, 10vw, 4.8rem);
+  }
+}
+
+@media (min-width: 128rem) {
+  :root {
+    --section-padding: 8rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -576,10 +626,11 @@ input[type='range'] {
 
 .swal-strike-confirm,
 .swal-strike-cancel {
+  min-height: var(--touch) !important;
   border-radius: var(--radius-sm) !important;
   font-family: var(--font-display) !important;
   font-weight: 700 !important;
-  font-size: 1.35rem !important;
+  font-size: var(--text-ui) !important;
   letter-spacing: 0.06em !important;
   text-transform: uppercase !important;
   padding: 0.8rem 1.6rem !important;

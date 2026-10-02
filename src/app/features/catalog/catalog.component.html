@@ -1,6 +1,6 @@
-<section class="shell armory" appAccentZone="#ff5d20">
+<section class="shell armory" appAccentZone="#ff5d20" aria-labelledby="armory-title">
   <header class="head">
-    <h1 class="section-title">{{ copy.title }}</h1>
+    <h1 id="armory-title" class="section-title">{{ copy.title }}</h1>
     <p class="intro">{{ copy.intro }}</p>
     <p class="fine">{{ copy.disclaimer }}</p>
   </header>
@@ -40,7 +40,7 @@
     <div class="results">
       @if (featured(); as piece) {
         <div class="feature">
-          <p class="label">{{ copy.reference }}</p>
+          <h2 class="label">{{ copy.reference }}</h2>
           <app-weapon-card [weapon]="piece" />
         </div>
       }

@@ -1,6 +1,6 @@
-<section class="shell">
+<section class="shell" aria-labelledby="checkout-title">
   <div class="checkout">
-    <h1>{{ copy.title }}</h1>
+    <h1 id="checkout-title">{{ copy.title }}</h1>
 
     @if (cart.lines().length === 0) {
       <div class="empty">

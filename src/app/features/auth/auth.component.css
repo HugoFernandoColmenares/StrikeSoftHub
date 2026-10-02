@@ -1,18 +1,18 @@
 .gate {
   display: grid;
   gap: var(--step-2);
-  max-width: 26rem;
+  max-width: 48rem;
   padding-block: var(--step-5);
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
 .intro {
   color: var(--fg-dim);
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
 }
 
 .offline {
@@ -33,18 +33,19 @@ label {
 }
 
 .error {
-  font-size: 0.6875rem;
-  color: var(--accent);
+  font-size: var(--text-small);
+  color: var(--color-danger);
 }
 
 .switch {
   justify-self: start;
+  min-height: var(--touch);
   padding: 0;
   background: none;
   border: 0;
   border-bottom: 1px solid var(--border-strong);
   color: var(--fg-dim);
-  font-size: 0.8125rem;
+  font-size: var(--text-body);
   cursor: pointer;
 }
 

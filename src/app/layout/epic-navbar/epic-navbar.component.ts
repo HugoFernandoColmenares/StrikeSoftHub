@@ -19,6 +19,22 @@ export class EpicNavbarComponent {
   readonly backend = inject(BackendStatusService);
   readonly copy = LAYOUT_COPY;
   readonly menuOpen = signal(false);
+  readonly compactNav = signal(false);
+
+  constructor() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const media = window.matchMedia('(max-width: 1023.98px)');
+    this.compactNav.set(media.matches);
+    media.addEventListener('change', (event) => {
+      this.compactNav.set(event.matches);
+      if (!event.matches) {
+        this.closeMenu();
+      }
+    });
+  }
 
   toggleMenu(): void {
     const next = !this.menuOpen();
@@ -42,10 +58,4 @@ export class EpicNavbarComponent {
     this.closeMenu();
   }
 
-  @HostListener('window:resize')
-  onResize(): void {
-    if (window.innerWidth > 700) {
-      this.closeMenu();
-    }
-  }
 }

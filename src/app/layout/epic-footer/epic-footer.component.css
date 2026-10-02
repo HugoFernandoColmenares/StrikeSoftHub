@@ -12,14 +12,14 @@
 .name {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: -0.03em;
+  font-size: var(--text-h3);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .where,
 .when {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--fg-dim);
 }
 
@@ -33,7 +33,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.875rem;
+  min-height: var(--touch);
+  font-size: var(--text-body);
   color: var(--fg-dim);
   border-bottom: 1px solid var(--border-strong);
   padding-bottom: 0.2rem;
@@ -46,10 +47,13 @@
 }
 
 .credit {
-  font-size: 0.625rem;
+  font-size: var(--text-small);
 }
 
 .credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
   color: var(--fg-dim);
   border-bottom: 1px solid var(--border-strong);
 }
@@ -58,7 +62,7 @@
   color: var(--fg);
 }
 
-@media (min-width: 60rem) {
+@media (min-width: 76.8rem) {
   .grid {
     grid-template-columns: 1fr auto;
     align-items: end;

@@ -1,6 +1,6 @@
-<section class="shell">
+<section class="shell" aria-labelledby="auth-title">
   <div class="gate">
-    <h1>{{ mode() === 'login' ? copy.signIn : copy.createPass }}</h1>
+    <h1 id="auth-title">{{ mode() === 'login' ? copy.signIn : copy.createPass }}</h1>
     <p class="intro">{{ copy.intro }}</p>
 
     @if (!backend.isOnline()) {

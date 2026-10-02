@@ -1,7 +1,7 @@
-<section class="shell">
+<section class="shell" aria-labelledby="profile-title">
   <div class="profile">
     <header class="head">
-      <h1>{{ auth.currentUser()?.displayName }}</h1>
+      <h1 id="profile-title">{{ auth.currentUser()?.displayName }}</h1>
       <p class="mono meta">
         {{ auth.currentUser()?.email }} ·
         {{ auth.currentUser()?.source === 'supabase' ? copy.serverPass : copy.devicePass }}

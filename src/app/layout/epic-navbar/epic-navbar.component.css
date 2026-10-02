@@ -30,7 +30,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  min-width: max-content;
+  min-width: 0;
+  min-height: var(--touch);
 }
 
 .brand__sigil {
@@ -72,7 +73,7 @@
 
 .brand__tagline {
   color: #9d9fa4;
-  font-size: 0.9rem;
+  font-size: var(--text-small);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -89,14 +90,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 4rem;
+  min-height: var(--touch);
   padding-inline: 1.2rem;
   border: 0;
   border-radius: 0.5rem;
   background: transparent;
   color: #bfc1c5;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--text-ui);
   font-weight: 700;
   text-transform: uppercase;
   transition:
@@ -140,7 +141,7 @@
   border: var(--border-dark);
   border-radius: 0.7rem;
   color: #aeb1b6;
-  font-size: 1.15rem;
+  font-size: var(--text-small);
   white-space: nowrap;
 }
 
@@ -174,14 +175,14 @@
   border-radius: 1rem;
   background: var(--color-ember-deep);
   color: #ffe0b7;
-  font-size: 1rem;
+  font-size: var(--text-small);
   font-weight: 800;
 }
 
 .hamburger {
   display: none;
-  width: 4.2rem;
-  height: 4.2rem;
+  width: var(--touch);
+  height: var(--touch);
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -199,17 +200,13 @@
   transition: transform var(--transition-fast);
 }
 
-@media (max-width: 110rem) {
-  .nav-link {
-    padding-inline: 0.8rem;
-  }
-
+@media (max-width: 127.98rem) {
   .login-status {
     display: none;
   }
 }
 
-@media (max-width: 70rem) {
+@media (max-width: 1023.98px) {
   .topbar__inner {
     gap: 1rem;
   }
@@ -239,7 +236,7 @@
 
   .nav-link {
     justify-content: flex-start;
-    min-height: 4.8rem;
+    min-height: var(--touch);
     border: 0.1rem solid rgba(255, 255, 255, 0.05);
     background: rgba(255, 255, 255, 0.015);
   }
@@ -250,6 +247,12 @@
 
   .hamburger {
     display: flex;
+  }
+}
+
+@media (max-width: 48rem) {
+  .brand__tagline {
+    display: none;
   }
 }
 

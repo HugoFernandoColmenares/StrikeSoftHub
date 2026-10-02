@@ -2,12 +2,12 @@
   display: grid;
   gap: var(--step-3);
   justify-items: start;
-  max-width: 46rem;
+  max-width: 72rem;
   padding-block: var(--step-4) var(--step-5);
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
@@ -38,12 +38,12 @@ h1 {
 .name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.0625rem;
-  letter-spacing: -0.02em;
+  font-size: var(--text-h3);
+  letter-spacing: 0.02em;
 }
 
 .unit {
-  font-size: 0.6875rem;
+  font-size: var(--text-small);
   color: var(--fg-dim);
 }
 
@@ -55,8 +55,8 @@ h1 {
 }
 
 .qty button {
-  width: 2rem;
-  height: 2rem;
+  width: var(--touch);
+  height: var(--touch);
   background: transparent;
   border: 0;
   color: var(--fg);
@@ -70,9 +70,9 @@ h1 {
 }
 
 .qty span.mono {
-  width: 2rem;
+  min-width: 3.2rem;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: var(--text-body);
 }
 
 .sum {
@@ -81,12 +81,13 @@ h1 {
 
 .remove {
   justify-self: start;
+  min-height: var(--touch);
   padding: 0;
   background: none;
   border: 0;
   border-bottom: 1px solid var(--border-strong);
   color: var(--fg-dim);
-  font-size: 0.5625rem;
+  font-size: var(--text-small);
   cursor: pointer;
 }
 
@@ -104,7 +105,7 @@ h1 {
 }
 
 .total .mono {
-  font-size: 1.5rem;
+  font-size: var(--text-h3);
   font-weight: 700;
   color: var(--section-accent);
 }
@@ -122,7 +123,7 @@ h1 {
   white-space: nowrap;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 76.8rem) {
   .lines li {
     grid-template-columns: minmax(0, 1fr) auto 8rem auto;
   }

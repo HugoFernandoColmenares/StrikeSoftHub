@@ -7,9 +7,9 @@ import { NOT_FOUND_COPY } from '../copy/not-found.copy';
   selector: 'app-not-found',
   imports: [RouterLink],
   template: `
-    <section class="shell lost">
+    <section class="shell lost" aria-labelledby="lost-title">
       <p class="code mono">404</p>
-      <h1>{{ copy.title }}</h1>
+      <h1 id="lost-title">{{ copy.title }}</h1>
       <p class="body">{{ copy.body(group.venue, group.dayLabel, group.timeLabel) }}</p>
       <div class="actions">
         <a routerLink="/" class="btn-primary">{{ copy.backMuster }}</a>
@@ -27,13 +27,13 @@ import { NOT_FOUND_COPY } from '../copy/not-found.copy';
     }
 
     .code {
-      font-size: 0.75rem;
+      font-size: var(--text-small);
       color: var(--section-accent);
       letter-spacing: 0.3em;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 10vw, 5rem);
+      font-size: var(--text-h1);
       text-transform: uppercase;
     }
 

@@ -1,7 +1,7 @@
-<section class="muster" appAccentZone="#ff5d20">
+<section class="muster" appAccentZone="#ff5d20" aria-labelledby="home-hero-title">
   <div class="photo cinematic-frame" aria-hidden="true">
     <picture>
-      <source srcset="assets/weapons/sword-portrait.webp" media="(max-width: 47.99rem)" />
+      <source srcset="assets/weapons/sword-portrait.webp" media="(max-width: 76.8rem)" />
       <img
         src="assets/weapons/sword-hero.webp"
         alt=""
@@ -16,7 +16,7 @@
   <div class="shell">
     <div class="block">
       <span class="section-kicker">{{ copy.kicker }}</span>
-      <h1>
+      <h1 id="home-hero-title">
         {{ copy.titleLead }}<br />
         {{ group.city }}
       </h1>
@@ -28,7 +28,7 @@
           {{ copy.liveNow }}
         </p>
       } @else {
-        <div class="countdown" role="timer">
+        <div class="countdown" role="timer" [attr.aria-label]="copy.countdownLabel">
           <p class="label">{{ copy.countdownLabel }}</p>
           <p class="digits mono">
             <span>{{ muster.countdown().days }}</span
@@ -73,11 +73,11 @@
   </div>
 </section>
 
-<section class="chronicles shell" appAccentZone="#ad7434">
+<section class="chronicles shell" appAccentZone="#ad7434" aria-labelledby="home-ig-title">
   <header class="head">
     <div>
       <span class="section-kicker">{{ copy.instagramKicker }}</span>
-      <h2 class="section-title">{{ copy.instagramTitle }}</h2>
+      <h2 id="home-ig-title" class="section-title">{{ copy.instagramTitle }}</h2>
     </div>
     <p class="note fine">{{ copy.instagramLead }}</p>
   </header>
@@ -97,9 +97,9 @@
   </ul>
 </section>
 
-<section class="fixtures shell" appAccentZone="#72c68b">
+<section class="fixtures shell" appAccentZone="#72c68b" aria-labelledby="home-fixtures-title">
   <header class="head">
-    <h2 class="section-title">{{ copy.fixturesTitle }}</h2>
+    <h2 id="home-fixtures-title" class="section-title">{{ copy.fixturesTitle }}</h2>
     <p class="note fine">{{ copy.fixturesNote }}</p>
   </header>
 
@@ -125,9 +125,9 @@
   </a>
 </section>
 
-<section class="join" appAccentZone="#72c68b">
+<section class="join" appAccentZone="#72c68b" aria-labelledby="home-join-title">
   <div class="shell">
-    <h2 class="section-title">{{ copy.firstSundayTitle }}</h2>
+    <h2 id="home-join-title" class="section-title">{{ copy.firstSundayTitle }}</h2>
     <ol class="steps">
       @for (step of steps; track step.title; let index = $index) {
         <li>
@@ -143,9 +143,9 @@
 </section>
 
 @if (featured(); as piece) {
-  <section class="workshop shell" appAccentZone="#ecc875">
+  <section class="workshop shell" appAccentZone="#ecc875" aria-labelledby="home-workshop-title">
     <div class="copy">
-      <h2 class="section-title">{{ copy.workshopTitle }}</h2>
+      <h2 id="home-workshop-title" class="section-title">{{ copy.workshopTitle }}</h2>
       <p>{{ copy.workshopBody }}</p>
       <a routerLink="/armory" class="btn-ghost">
         {{ copy.enterArmory }}
