@@ -18,4 +18,11 @@ export const LAYOUT_COPY = {
   closeMenu: 'Cerrar menú',
   findField: 'Cómo llegar',
   builtBy: 'Hecho por',
+  socialNav: 'Redes y contacto',
+  instagram: 'Instagram',
+  github: 'GitHub',
+  githubUrl: 'https://github.com/HugoFernandoColmenares',
+  githubAria: 'GitHub de Hugo Colmenares, se abre en una pestaña nueva',
+  instagramAria: 'Instagram de Armagedón Softcombat, se abre en una pestaña nueva',
+  mapsAria: 'Cómo llegar al Parque La Flora, se abre en una pestaña nueva',
 } as const;

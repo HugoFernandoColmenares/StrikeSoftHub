@@ -1,25 +1,53 @@
-<footer class="foot" [attr.aria-label]="group.name">
+<footer class="foot" aria-labelledby="footer-title">
   <div class="shell grid">
     <div class="mark">
-      <p class="name">{{ group.name }}</p>
+      <p id="footer-title" class="name">{{ group.name }}</p>
       <p class="where mono">{{ group.venue }} · {{ group.city }}, {{ group.region }}</p>
       <p class="when mono">{{ group.dayLabel }} · {{ group.timeLabel }} {{ group.timeZoneLabel }}</p>
     </div>
 
-    <div class="links">
-      <a [href]="group.instagramUrl" target="_blank" rel="noopener noreferrer" class="social">
-        <app-icon name="instagram" [size]="1" />
-        <span>{{ group.instagramHandle }}</span>
+    <nav class="links" [attr.aria-label]="copy.socialNav">
+      <a
+        class="social"
+        [href]="group.instagramUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.instagramAria"
+      >
+        <app-icon name="instagram" [size]="2" />
+        <span>{{ copy.instagram }}</span>
+        <span class="handle">{{ group.instagramHandle }}</span>
       </a>
-      <a [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer" class="social">
-        <app-icon name="marker" [size]="1" />
+      <a
+        class="social"
+        [href]="copy.githubUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.githubAria"
+      >
+        <app-icon name="github" [size]="2" />
+        <span>{{ copy.github }}</span>
+        <span class="handle">Hugo Colmenares</span>
+      </a>
+      <a
+        class="social"
+        [href]="group.mapsUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.mapsAria"
+      >
+        <app-icon name="marker" [size]="2" />
         <span>{{ copy.findField }}</span>
       </a>
-    </div>
+    </nav>
 
-    <p class="credit label">
+    <p class="credit">
       {{ year }} · {{ copy.builtBy }}
-      <a href="https://github.com/HugoFernandoColmenares" target="_blank" rel="noopener noreferrer"
+      <a
+        [href]="copy.githubUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.githubAria"
         >Hugo Colmenares</a
       >
     </p>
