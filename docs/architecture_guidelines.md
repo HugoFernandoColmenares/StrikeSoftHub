@@ -1,203 +1,251 @@
-
 # Architecture Guidelines
 
-This document defines the software architecture, coding standards, and structural guidelines for the **StrikeSoft** web platform—an epic e-commerce and community hub for softcombat athletes, powered by **Angular 22+**.
+This document defines the software architecture for **StrikeSoft Hub**—the Angular home of Armagedon Softcombat—while it is refactored from the single-file **Armagedon forge** prototype (`public/design_ref/`, gitignored) into this codebase.
+
+The prototype is a vanilla HTML / CSS / JS SPA: hash-less view switching, an in-memory `state` object, DOM renderers, a cart drawer, and an admin modal. The Angular app keeps **standalone components, signals, lazy routes, and the hybrid Supabase / LocalStorage backend**. What we take from the prototype is information architecture, data shapes, and the forge UI recipes documented in [design_guidelines.md](design_guidelines.md).
 
 ---
 
-## 1. Core Development Principles
+## 1. Core development principles
 
-Every contributor must strictly adhere to these fundamental software engineering paradigms:
-
-* **SOLID Principles:** Components handle only presentation (UI cards, buttons); Services handle business logic (Cart math, checkout flow); Models define structure.
-* **DRY (Don't Repeat Yourself):** Shared UI components like `<strike-weapon-card>` or `<strike-stat-bar>` must be built once in the `shared/` directory and reused across the catalog and user profile.
-* **KISS (Keep It Simple, Stupid):** Avoid over-engineering the checkout flow. Keep the path from "Discovering a Weapon" to "Purchasing" as frictionless as a swift sword strike.
-* **Keep it Lightweight (~200 Line Rule):** Components should ideally stay under 200 lines of code. Complex product configurators must be broken down into smaller sub-components (e.g., `ColorSelector`, `PommelSelector`).
+* **SOLID:** Components present forge UI (cards, drawers, forms). Services own cart math, auth, filters, and persistence. Models describe products, events, team, and session.
+* **DRY:** Product cards, event cards, metal/wood/surface chrome, and form fields are built once under `shared/` (or as global CSS classes) and reused on Home, Shop, and Events.
+* **KISS:** The prototype’s path is Discover → Filter → Add to cart → Drawer → Checkout. Do not add a second catalog metaphor (ledger vs grid). The shop is a **card grid** with a sticky filter rail.
+* **Keep it lightweight (~200 line rule):** Split the prototype’s giant `init()` / `renderShop()` / `renderAdminState()` into small components (filter panel, product card, cart drawer, admin login, product form, event form).
 
 ---
 
-## 2. Project Structure & Directory Rules
+## 2. Project structure
 
-The project enforces a modular, feature-driven architecture:
+Keep the feature-driven tree. Map prototype views onto existing folders rather than inventing a second app.
 
 ```text
 src/app/
-├── core/               # Singleton services (Auth, Cart, API), models, guards
-├── features/           # Domain-specific modules (Catalog, Community, Checkout)
-├── shared/             # Reusable UI elements (Buttons, Cards, Modals)
-├── layout/             # Master structural components (Navbar, Footer)
-└── app.routes.ts       # Root routing configuration
-
+├── core/               # Singleton services, models, guards, repositories, group config
+├── features/           # Domain screens (home, shop, events, about, auth, checkout, profile)
+├── shared/             # Product card, event card, icon, loading, surface primitives
+├── layout/             # Topbar, cart drawer host, footer, main shell
+└── app.routes.ts
 ```
 
-### Layer Breakdown
+### Layer breakdown
 
 #### `core/`
 
-The brain of the platform.
-
-* **Includes:** `models/` (Weapon, User, Order), `services/` (`CartService`, `AuthService`, `ApiService`), `interceptors/` (JWT token injection).
+* **config:** Confirmed group facts live only in `group.ts` (venue, Sunday muster, Instagram). Templates never duplicate them.
+* **models:** Product (weapon), battle event, cart line, team member, user session, order.
+* **services:** `CartService`, `AuthService`, `BackendStatusService`, `NotificationService`, `MusterService`.
+* **repositories:** `CatalogRepository`, `CommunityRepository`, `OrderRepository`. Components never inject `HttpClient`.
+* **interceptors / guards:** Auth on checkout, profile, and admin publish.
 
 #### `features/`
 
-Replaces the generic "pages" approach. Each feature represents a core business domain.
+Prototype `data-view` → Angular route:
 
-* **Catalog:** Browse weapons, filter by class (Swords, Axes, Shields).
-* **Community:** Forum posts, tournament event lists, clan recruitment.
-* **Checkout:** The sacred path to claiming new gear.
+| Prototype view | Angular feature | Route |
+| :--- | :--- | :--- |
+| `home` | `features/home` | `''` |
+| `shop` | `features/catalog` (Armory / Shop the Forge) | `'armory'` |
+| `events` | `features/community` | `'arena'` (or rename path to `'events'` when routes are updated) |
+| `about` | `features/lore` | `'lore'` (or `'about'`) |
+| Admin / Publish modal | `features/auth` + admin dashboard (modal or route) | guarded |
+| Cart drawer | layout overlay, not a page | opened from topbar |
+| Checkout (toast in prototype) | `features/checkout` | `'checkout'` + `authGuard` |
+
+Home owns: hero + embers, featured grid, new-arrivals rail, featured event banner.
+
+Shop owns: sticky filter panel (category, material, max price), result count, product grid.
+
+Events owns: campaign cards and RSVP.
+
+About owns: craft pillars, team roster, safety protocol.
 
 #### `shared/`
 
-Atomic, highly reusable components.
+* `<app-product-card>` (prototype `.product-card` + CSS gear-art by `art` / category).
+* Arrival tile if distinct from the full card.
+* Event card / event banner.
+* Spec list, meta pills, section title (kicker + heading + lede).
+* Buttons remain **global classes** (`.btn`, `.btn-primary`, `.btn-secondary`, `.btn-bronze`, `.btn-danger`, `.btn-small`) in `src/styles.css`.
 
-* **Includes:** `<app-weapon-card>`, `<app-icon>`, `<app-stats-profile>`, `<app-loot-spinner>` (loading state), and `AccentZoneDirective`.
-* **Buttons are global classes, not a component.** `.btn-primary` and `.btn-ghost` live in `src/styles.css` and read the live `--section-accent`, so a button needs no wrapper to stay on-system.
+#### `layout/`
+
+* **Topbar:** sticky iron header. Brand sigil + Armagedon wordmark + tagline. Center nav: Home, Shop, Events, About, Admin/Publish. Right: session chip, cart badge, hamburger.
+* **Cart drawer:** right sheet + backdrop, matching the prototype (not a dedicated checkout-only page for browse).
+* **Footer:** three-column forge footer.
+* **Main layout:** `app-shell` column; views render in `<main>`.
 
 ---
 
-## 3. Angular 22+ Modern Standards
+## 3. Angular 22+ standards
 
-The shipped application is zoneless, standalone, and signal-first. Notifications are centralized in `NotificationService` using SweetAlert2 themed with the `.swal-strike-*` classes. Repositories read from Supabase when the backend probe succeeds and from LocalStorage otherwise. Confirmed facts about the physical group live in `core/config/group.ts` and are never duplicated in templates.
+Zoneless, standalone, signal-first. Notifications stay in `NotificationService`; restyle SweetAlert2 (or toasts) to iron / ember per the design guidelines.
 
-We embrace the full power of modern Angular.
-
-* **Standalone Architecture:** Every component must be `standalone: true`.
-* **Functional Injection:** Use `inject()` instead of constructor injection.
+* **Standalone:** every component `standalone: true`.
+* **`inject()`** instead of constructor injection.
+* **Control flow:** `@if`, `@for`, `@else`.
+* **Signals:** cart, session, shop filters (`category`, `material`, `maxPrice`), active view data. The prototype’s mutable `state` object becomes signals + computed filtered lists.
 
 ```typescript
-// Approved
 private cartService = inject(CartService);
 private authService = inject(AuthService);
-
 ```
-
-* **Modern Control Flow:** Use native micro-syntax blocks.
 
 ```angular-html
-@if (inStock()) {
-  <button type="button" class="btn-primary" (click)="addToArsenal()">Add to arsenal</button>
+@if (product.stock > 0) {
+  <button type="button" class="btn btn-primary" (click)="addToCart(product.id)">
+    Add to arsenal
+  </button>
 } @else {
-  <p class="fine">This piece is in the workshop queue.</p>
+  <p>This piece is in the workshop queue.</p>
 }
-
 ```
-
-* **Signals State Management:** The Shopping Cart, User Session, and applied Catalog Filters must be managed using Angular `Signals` for glitch-free, instant UI updates.
 
 ---
 
-## 4. Routing Strategy
+## 4. Routing
 
-* **Lazy Loading:** Every feature domain **must** use `loadChildren` or `loadComponent`.
-* **Guards:** The `/checkout` and `/profile` routes must be protected by an `authGuard`.
+* Lazy-load every feature with `loadComponent`.
+* Guard `/checkout`, `/profile`, and admin publish.
+* Prototype `setRoute()` becomes the Angular router. Do not keep show/hide `.section.is-active` as the primary navigation after the refactor (it is acceptable only as an animation hook on the activated route).
 
 ```typescript
 export const appRoutes: Route[] = [
-  { 
-    path: '', 
-    loadComponent: () => import('./layout/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
+  {
+    path: '',
+    loadComponent: () =>
+      import('./layout/main-layout/main-layout.component').then((m) => m.MainLayoutComponent),
     children: [
-      { path: 'armory', loadComponent: () => import('./features/catalog/catalog.component').then(m => m.CatalogComponent) },
-      { path: 'arena', loadComponent: () => import('./features/community/community.component').then(m => m.CommunityComponent) }
-    ]
+      { path: '', loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent) },
+      { path: 'armory', loadComponent: () => import('./features/catalog/catalog.component').then((m) => m.CatalogComponent) },
+      { path: 'arena', loadComponent: () => import('./features/community/community.component').then((m) => m.CommunityComponent) },
+      { path: 'lore', loadComponent: () => import('./features/lore/lore.component').then((m) => m.LoreComponent) },
+    ],
   },
-  { path: '**', loadComponent: () => import('./core/not-found/not-found.component').then(m => m.NotFoundComponent) } // Styled as a "Lost in the Woods" RPG page
+  { path: '**', loadComponent: () => import('./core/not-found/not-found.component').then((m) => m.NotFoundComponent) },
 ];
-
 ```
 
 ---
 
-## 5. API & Backend Integration
+## 5. API and persistence
 
-StrikeSoft is a dynamic platform connected to a live database.
-
-* **Repository Pattern:** Do not inject `HttpClient` directly into components. `CatalogRepository`, `CommunityRepository`, and `OrderRepository` map data to typed models.
-* **Hybrid backend:** `BackendStatusService` probes Supabase on boot and every 30 seconds. Live tables win when reachable; LocalStorage keeps the same UX when they are not.
-* **Optimistic UI Updates:** Cart mutations update signals immediately, persist locally, then sync to Supabase for authenticated online sessions.
-
----
-
-## 6. View Architecture & Component Roadmap
-
-### Layout Components (`layout/`)
-
-* **Epic Navbar:** Sticky header. Left: the StrikeSoft wordmark over the group name. Center: Armory, Arena, The Sport. Right: the live data indicator, the profile link, and the arsenal count, which lights in the section accent when the cart is not empty.
-
-### Core Features (`features/`)
-
-#### 1. The Armory (Catalog)
-
-* **Ledger, not a grid.** The catalog renders as ruled rows carrying name, role, weight, length, price, and action, so pieces can be compared by specification. A piece with real photography is promoted to a reference card beside the ledger.
-* **Filter rail:** Filter by Combat Role (Tank, Assassin, Skirmisher) and by class, as a horizontal rail above the ledger.
-
-#### 2. Weapon Detail Page (Product View)
-
-* **Visualizer:** Large photograph in a `.cinematic-frame`, with a two-shot gallery when detail photography exists. Pieces without photography show a typographic plate and say so.
-* **Handling profile:** `<app-stats-profile>` renders four labeled meters (Durability, Heft, Handling, Reach), each with its number and a one-line explanation. This replaced an earlier radar chart, whose axis abbreviations were unreadable and carried no units.
-* **Lore Box:** A small, styled blockquote explaining the design intent behind the weapon.
-
-#### 3. The Arena (Community)
-
-* **Event Feed:** A list of upcoming softcombat events.
-* **Clan Boards:** Threads where teams can recruit fighters.
+* **Repository pattern** for catalog, events, team, cart, and orders.
+* **Hybrid backend:** `BackendStatusService` probes Supabase on boot and on an interval. Live tables win when reachable; LocalStorage preserves the same UX when they are not. The topbar status dot maps to this probe (prototype: Guest / online).
+* **Optimistic cart:** update signals immediately, persist locally, sync when authenticated and online.
+* **Admin publish:** the prototype mutates `state.products` / `state.events` in memory. In Angular, publish goes through repositories (insert/update) with the same form fields.
 
 ---
 
-## 7. Data Model Example
+## 6. View architecture (from the prototype)
 
-### WeaponModel Definition (`core/models/weapon.model.ts`)
+### Home
+
+* Full-bleed hero: artisan kicker, Cinzel headline, two CTAs (Explore the Armory, Join Next Battle), meta pills, forge anvil + ember particles.
+* Featured products (`featured: true`) in `.product-grid`.
+* New arrivals (`arrival: true`) in `.horizontal-grid`.
+* Upcoming battle as `.event-banner.metal-frame`.
+
+### Shop (Armory)
+
+* Sticky `.filter-panel.surface`: category (Swords, Shields, Archery, Polearms, Armor), material (EVA Foam, Latex Foam, PU Foam, Hybrid), max price range.
+* Toolbar: result count + open cart.
+* Grid of full product cards (not a specification ledger).
+
+### Product model vs old ledger
+
+Extend `WeaponModel` toward the prototype product so filters and cards have real fields:
 
 ```typescript
-export type WeaponClass = 'SWORD' | 'AXE' | 'MACE' | 'SHIELD' | 'POLEARM';
+export type ProductCategory =
+  | 'Swords'
+  | 'Shields'
+  | 'Archery'
+  | 'Polearms'
+  | 'Armor';
 
-export interface WeaponModel {
+export type ProductMaterial = 'EVA Foam' | 'Latex Foam' | 'PU Foam' | 'Hybrid';
+
+export type GearArt = 'sword' | 'shield' | 'polearm' | 'bow' | 'armor';
+
+export interface ProductModel {
   id: string;
-  name: string;
-  weaponClass: WeaponClass;
+  title: string;
+  category: ProductCategory;
+  material: ProductMaterial;
+  description: string;
+  weight: string;
+  core: string;
+  density: string;
   price: number;
-  stock: number;
-  specs: {
-    weightGrams: number;
-    totalLengthCm: number;
-    coreMaterial: string;
-  };
-  loreDescription: string;
-  imageUrl: string;
+  art: GearArt;
+  featured: boolean;
+  arrival: boolean;
+  /** Optional workshop photograph; CSS gear-art is the fallback. */
+  imageUrl?: string;
+  stock?: number;
 }
-
 ```
+
+Keep measured SI fields (`weightGrams`, `totalLengthCm`) if the workshop catalog still needs them; map them into `.spec-item` cells rather than a radar/HUD.
+
+### Events
+
+```typescript
+export interface BattleEventModel {
+  id: string;
+  title: string;
+  date: string; // ISO
+  location: string;
+  ruleset: string;
+  description: string;
+  players: string;
+  status: 'Open' | 'Soon' | string;
+}
+```
+
+RSVP in the prototype is a local toast. In Angular, persist through `CommunityRepository` when online.
+
+### About / team
+
+```typescript
+export interface TeamMemberModel {
+  name: string;
+  role: string;
+  initials: string;
+}
+```
+
+About copy in the prototype is fictional workshop lore. Prefer `group.ts` for real venue facts and label fictional roster/campaign copy as provisional, consistent with `PRODUCT.md`.
+
+### Cart
+
+Prototype cart is `{ productId, qty }` in `state.cart`. `CartService` should expose count, lines, total, add, remove, and drawer open/close signals. Checkout remains a guarded route; the drawer is the browse-time surface.
+
+### Admin
+
+Login panel → dashboard with product form and event form (title, category, price, material, description, weight, core; event title, date, location, ruleset, description, players). Stats chips: product count, event count, cart count.
 
 ---
 
-## 8. Custom Scrollbar (Global CSS)
+## 7. CSS architecture (implementation)
 
-The browser surfaces we did not draw still carry the design. The scrollbar is themed from the tokens, with no radius, and its hover state picks up the live section accent rather than a fixed colour.
+* Tokens and button/surface/utility classes live in `src/styles.css` using the `:root` block in [design_guidelines.md](design_guidelines.md).
+* Feature CSS files compose those tokens; they do not redefine ember, bronze, or Cinzel.
+* `html { font-size: 62.5%; }` so prototype rem values transfer unchanged.
+* Do not keep `--section-accent` as a scroll-driven accent unless a later design pass reintroduces it on purpose.
+
+---
+
+## 8. Scrollbar and chrome
+
+Theme leftover browser chrome from tokens (bronze thumb on stone track). Example:
 
 ```css
-html,
-body {
-  overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg);
-  border-left: 1px solid var(--border);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--bg-raised);
-  border: 1px solid var(--border-strong);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--section-accent);
-  border-color: var(--section-accent);
+.horizontal-grid {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-bronze) #131517;
 }
 ```
 
-Text selection, the form caret, and focus rings are themed in the same pass. See [DESIGN.md](../DESIGN.md).
+Form caret and `accent-color` use `--color-ember`. See [design_guidelines.md](design_guidelines.md).

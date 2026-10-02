@@ -50,6 +50,9 @@ __screenshots__/
 /design_guidelines.md
 /architecture_guidelines.md
 
+# HTML/CSS/JS design prototype used as a visual source; not part of the Angular app
+/public/design_ref/
+
 # Environment and secrets
 .env
 .env.*

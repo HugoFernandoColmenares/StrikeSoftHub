@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
 
 export const strikeAlert = Swal.mixin({
-  background: '#111111',
-  color: '#F5F5F5',
+  background: '#1a1b1e',
+  color: '#ead7ae',
   buttonsStyling: false,
   showClass: { popup: '' },
   hideClass: { popup: '' },

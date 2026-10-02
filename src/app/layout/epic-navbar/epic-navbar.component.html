@@ -1,46 +1,75 @@
-<header class="bar">
-  <div class="shell inner">
-    <a routerLink="/" class="brand" (click)="closeMenu()">
-      <span class="wordmark">StrikeSoft</span>
-      <span class="label owner">{{ group.name }}</span>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a routerLink="/" class="brand" (click)="closeMenu()" aria-label="Armagedon home">
+      <span class="brand__sigil" aria-hidden="true">A</span>
+      <span class="brand__text">
+        <span class="brand__name">ARMAGEDON</span>
+        <span class="brand__tagline">Forge • Battle • Legend</span>
+      </span>
     </a>
 
-    <button
-      type="button"
-      class="burger"
-      [attr.aria-expanded]="menuOpen()"
-      aria-controls="primary-nav"
-      (click)="toggleMenu()"
+    <nav
+      id="mainNav"
+      class="nav-links"
+      [class.is-open]="menuOpen()"
+      aria-label="Primary"
     >
-      {{ menuOpen() ? 'Close' : 'Menu' }}
-    </button>
+      <a
+        class="nav-link"
+        routerLink="/"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMenu()"
+      >
+        Home
+      </a>
+      <a class="nav-link" routerLink="/armory" routerLinkActive="is-active" (click)="closeMenu()">
+        Shop
+      </a>
+      <a class="nav-link" routerLink="/arena" routerLinkActive="is-active" (click)="closeMenu()">
+        Events
+      </a>
+      <a class="nav-link" routerLink="/lore" routerLinkActive="is-active" (click)="closeMenu()">
+        About
+      </a>
+      <a class="nav-link" routerLink="/auth" routerLinkActive="is-active" (click)="closeMenu()">
+        Admin / Publish
+      </a>
+    </nav>
 
-    <div class="panel" id="primary-nav" [class.open]="menuOpen()">
-      <nav aria-label="Primary">
-        <a routerLink="/armory" routerLinkActive="active" (click)="closeMenu()">Armory</a>
-        <a routerLink="/arena" routerLinkActive="active" (click)="closeMenu()">Arena</a>
-        <a routerLink="/lore" routerLinkActive="active" (click)="closeMenu()">The Sport</a>
-      </nav>
-
-      <div class="tools">
-        <span class="status label" [class.live]="backend.isOnline()">
-          <span class="dot" aria-hidden="true"></span>
-          {{ backend.isOnline() ? 'Live data' : 'Offline cache' }}
-        </span>
-
-        <a routerLink="/profile" class="tool" (click)="closeMenu()">
-          <app-icon name="user" [size]="1" />
-          <span>{{ auth.isAuthenticated() ? auth.currentUser()?.displayName : 'Sign in' }}</span>
-        </a>
-
-        <a routerLink="/checkout" class="tool cart" (click)="closeMenu()">
-          <app-icon name="bag" [size]="1" />
-          <span>Arsenal</span>
-          <span class="count mono" [class.lit]="cart.count() > 0" aria-live="polite">
-            {{ cart.count() }}
-          </span>
-        </a>
+    <div class="topbar__actions">
+      <div class="login-status">
+        <span class="status-dot" [class.is-online]="backend.isOnline()" aria-hidden="true"></span>
+        <span>{{ auth.isAuthenticated() ? auth.currentUser()?.displayName : 'Guest' }}</span>
       </div>
+
+      <a routerLink="/profile" class="icon-button account" (click)="closeMenu()" [attr.aria-label]="auth.isAuthenticated() ? 'Open profile' : 'Sign in'">
+        <app-icon name="user" [size]="2" />
+      </a>
+
+      <button
+        class="icon-button cart-button"
+        type="button"
+        aria-label="Open cart"
+        [attr.aria-expanded]="cart.drawerOpen()"
+        (click)="openCart()"
+      >
+        <app-icon name="bag" [size]="2" />
+        <span class="cart-badge" aria-live="polite">{{ cart.count() }}</span>
+      </button>
+
+      <button
+        class="hamburger"
+        type="button"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mainNav"
+        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        (click)="toggleMenu()"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 </header>

@@ -1,0 +1,81 @@
+<div
+  class="cart-drawer-backdrop"
+  [class.is-open]="cart.drawerOpen()"
+  [attr.aria-hidden]="!cart.drawerOpen()"
+  (click)="onBackdropClick($event)"
+>
+  <aside
+    class="cart-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-title"
+    [attr.inert]="cart.drawerOpen() ? null : ''"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="cart-drawer__header">
+      <h2 id="cart-drawer-title">Forge Cart</h2>
+      <button class="close-button" type="button" aria-label="Close cart" (click)="cart.closeDrawer()">
+        ×
+      </button>
+    </div>
+
+    <div class="cart-items">
+      @if (cart.lines().length === 0) {
+        <div class="empty-state">
+          The forge cart is empty.
+          <br />
+          Choose equipment from the armory.
+        </div>
+      } @else {
+        @for (line of cart.lines(); track line.weaponId) {
+          <article class="cart-item">
+            <div class="cart-item__info">
+              <strong>{{ line.weapon.name }}</strong>
+              <span>
+                {{ line.quantity }} × {{ line.weapon.price | currency: 'COP' : 'code' : '1.0-0' }}
+              </span>
+            </div>
+
+            <div class="cart-item__actions">
+              <button
+                type="button"
+                class="qty"
+                [attr.aria-label]="'Decrease ' + line.weapon.name"
+                (click)="cart.update(line.weaponId, line.quantity - 1)"
+              >
+                −
+              </button>
+              <span class="qty-value">{{ line.quantity }}</span>
+              <button
+                type="button"
+                class="qty"
+                [attr.aria-label]="'Increase ' + line.weapon.name"
+                (click)="cart.update(line.weaponId, line.quantity + 1)"
+              >
+                +
+              </button>
+              <button type="button" class="remove" (click)="cart.remove(line.weaponId)">Remove</button>
+            </div>
+          </article>
+        }
+      }
+    </div>
+
+    <div class="cart-drawer__footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong>{{ cart.total() | currency: 'COP' : 'code' : '1.0-0' }}</strong>
+      </div>
+
+      <a
+        routerLink="/checkout"
+        class="btn btn-primary"
+        [class.is-disabled]="cart.lines().length === 0"
+        [attr.aria-disabled]="cart.lines().length === 0"
+        (click)="cart.lines().length === 0 ? $event.preventDefault() : cart.closeDrawer()"
+      >
+        Begin Checkout
+      </a>
+    </div>
+  </aside>
+</div>

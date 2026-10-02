@@ -37,6 +37,19 @@ export class CartService {
 
   readonly count = computed(() => this.items().reduce((total, item) => total + item.quantity, 0));
   readonly total = computed(() => this.lines().reduce((sum, line) => sum + line.lineTotal, 0));
+  readonly drawerOpen = signal(false);
+
+  openDrawer(): void {
+    this.drawerOpen.set(true);
+  }
+
+  closeDrawer(): void {
+    this.drawerOpen.set(false);
+  }
+
+  toggleDrawer(): void {
+    this.drawerOpen.update((open) => !open);
+  }
 
   add(weaponId: string): void {
     const weapon = this.catalog.byId(weaponId);

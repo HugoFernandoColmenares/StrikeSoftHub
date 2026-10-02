@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { GROUP } from '../../core/config/group';
 import { AuthService } from '../../core/services/auth.service';
 import { BackendStatusService } from '../../core/services/backend-status.service';
 import { CartService } from '../../core/services/cart.service';
@@ -17,14 +16,34 @@ export class EpicNavbarComponent {
   readonly cart = inject(CartService);
   readonly auth = inject(AuthService);
   readonly backend = inject(BackendStatusService);
-  readonly group = GROUP;
   readonly menuOpen = signal(false);
 
   toggleMenu(): void {
-    this.menuOpen.update((open) => !open);
+    const next = !this.menuOpen();
+    this.menuOpen.set(next);
+    if (next) {
+      this.cart.closeDrawer();
+    }
   }
 
   closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  openCart(): void {
+    this.closeMenu();
+    this.cart.openDrawer();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeMenu();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (window.innerWidth > 700) {
+      this.closeMenu();
+    }
   }
 }
