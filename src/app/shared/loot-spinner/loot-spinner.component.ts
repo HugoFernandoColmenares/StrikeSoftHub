@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { COMMON_COPY } from '../../core/copy/common.copy';
 
 @Component({
   selector: 'app-loot-spinner',
   template: `
     <div class="loading" role="status" aria-live="polite">
       <span class="bar" aria-hidden="true"></span>
-      <span class="label">Reading the rack</span>
+      <span class="label">{{ copy.loading }}</span>
     </div>
   `,
   styles: `
@@ -53,4 +54,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LootSpinnerComponent {}
+export class LootSpinnerComponent {
+  readonly copy = COMMON_COPY;
+}

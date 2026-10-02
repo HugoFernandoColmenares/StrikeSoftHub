@@ -1,14 +1,16 @@
 # StrikeSoft Hub
 
-StrikeSoft Hub is the web home of **Armagedon Softcombat**, a softcombat group that meets every
-Sunday at 10:00 in Parque La Flora, Bucaramanga, Santander, Colombia. The site answers a newcomer's
-first question, where and when to show up, and then carries the group's calendar, workshop catalog,
-and community surfaces.
+StrikeSoft Hub is the web home of **Armagedón Softcombat**, a softcombat group that meets every
+Sunday at 10:00 in Parque La Flora, Bucaramanga, Santander, Colombia. The visitor-facing interface
+is in Spanish. Copy lives as TypeScript modules under `src/app/core/copy/`, not in templates.
 
-The interface is being refactored onto the **Armagedon forge** design language: stone canvas, iron
-frames, bronze trim, timber panels, parchment type, and an ember accent. Tokens, type, surfaces, and
-component recipes are defined in [docs/design_guidelines.md](docs/design_guidelines.md). How that
-prototype maps onto Angular features, routes, and models is in
+The first question the site answers is where and when to show up. From there it carries the
+calendar, a workshop catalog, and public chronicles transcribed from
+[@armagedonsoftcombat](https://www.instagram.com/armagedonsoftcombat/).
+
+The visual system is the **Armagedón forge** language: stone canvas, iron frames, bronze trim,
+parchment type, an ember accent, and rising embers on the home hero. Tokens and recipes are in
+[docs/design_guidelines.md](docs/design_guidelines.md). Feature mapping is in
 [docs/architecture_guidelines.md](docs/architecture_guidelines.md).
 
 A local HTML/CSS/JS mockup may exist under `public/design_ref/` as a visual source. That folder is
@@ -20,51 +22,45 @@ flows continue on LocalStorage without interrupting the visitor.
 
 ## Screenshots
 
-![Home, leading with the countdown to the next Sunday muster](public/screenshots/home.png)
+![Inicio, con el héroe de forja, ascuas y la cuenta atrás al domingo](public/screenshots/home.png)
 
-![The armory, a dense ledger of workshop pieces](public/screenshots/armory.png)
+![La forja, filtros de rol y clase y el libro de piezas](public/screenshots/armory.png)
 
-![Weapon detail with measured specifications and handling profile](public/screenshots/weapon-detail.png)
+![Detalle de arma con medidas y perfil de manejo](public/screenshots/weapon-detail.png)
 
-![The arena, with the standing fixture and announced events](public/screenshots/arena.png)
+![La arena, encuentro fijo y fechas tomadas de Instagram](public/screenshots/arena.png)
 
-![The sport, answering a first-time visitor's questions](public/screenshots/the-sport.png)
-
-Screenshots currently show the previous brutalist ledger UI. They will be recaptured after the forge
-visual refactor lands in the running app.
+![El deporte, preguntas de quien llega por primera vez](public/screenshots/the-sport.png)
 
 ## Features
 
-- A home page built around the recurring Sunday muster, moving toward the forge hero (featured
-  pieces, new arrivals, upcoming battle banner)
-- An armory that will render as a **product card grid** with sticky filters for category, material,
-  and maximum price
-- Weapon and gear detail with workshop photography when it exists, and CSS gear-art as fallback
-- Events and campaigns with location, ruleset, and RSVP
-- About the group: craft pillars, roster, and a first-class safety protocol
-- Cart as a right-hand drawer with a live badge, then an auth-guarded checkout
-- Optimistic cart updates announced to assistive technology
-- Admin/publish flow for catalog and events (guarded)
+- Spanish UI with copy files in `src/app/core/copy/`
+- Home hero with workshop photography, ember particles, and a live Sunday countdown in COT
+- Instagram chronicles on the home page (Sakura Fest, Bucara Geek Fest, Sunday call)
+- Armory with combat-role and weapon-class filters, measured specs, and prices in Colombian pesos
+- Weapon detail with workshop photography when it exists
+- Arena with the standing Sunday fixture plus announced dates from the public Instagram
+- Cart as a right-hand drawer, then an auth-guarded reservation flow
 - Notifications themed to iron and ember, centralized in `NotificationService`
 - Progressive Web App manifest and production service worker
 
 ## Honesty of the content
 
-The group, the venue, the weekly schedule, the Instagram account, and the workshop photography are
-real. Prices, stock counts, special-event dates, clan threads, and any fictional forge roster from
-the design prototype are provisional placeholders and must stay labeled as such in the interface.
-Pieces without a photograph show class or CSS gear-art rather than a substitute stock photo.
-`PRODUCT.md` records which facts are confirmed and which are not. Confirmed facts live in
-`src/app/core/config/group.ts` and are not duplicated across templates.
+The group, the venue, the weekly schedule, the Instagram account, the official bio, and the
+workshop photography are real. Instagram items are transcribed captions and on-image text from the
+public profile; they are not a live Instagram embed. Prices and stock counts are still indicative
+and labeled as such. Pieces without a photograph show their class rather than a substitute image.
+Confirmed facts live in `src/app/core/config/group.ts`.
 
 ## Stack
 
 - Angular 22 standalone components, signals, and lazy-loaded routes
-- Design tokens from the Armagedon forge prototype (`html` root at 62.5% so `1rem` equals `10px`)
+- `es-CO` locale for dates
+- Design tokens from the Armagedón forge prototype (`html` root at 62.5% so `1rem` equals `10px`)
 - Cinzel, MedievalSharp, and Inter
 - Supabase Auth and Postgres as the primary backend
 - LocalStorage as an automatic fallback and cache
-- SweetAlert2 through `NotificationService` (styled to the forge chrome)
+- SweetAlert2 through `NotificationService`
 
 ## Getting started
 
@@ -107,20 +103,22 @@ repository.
 
 ## Architecture
 
-The source tree follows a feature-driven layout. Prototype views map onto these folders:
-
 ```text
 src/app/
-  core/       config, models, guards, repositories, singleton services
-  features/   home, armory (shop), arena (events), lore (about), auth, checkout, profile
-  shared/     product card, event card, loading state, surface primitives
-  layout/     iron topbar, cart drawer, footer, shell
+  core/
+    config/     confirmed group facts
+    copy/       Spanish UI strings, one file per surface
+    data/       catalog, events, Instagram chronicles, first-Sunday steps
+    models/     typed records
+    repositories/  Supabase + LocalStorage
+    services/   cart, auth, muster, notifications
+  features/     home, armory, arena, lore, auth, checkout, profile
+  shared/       ember field, weapon card, stats, loading
+  layout/       iron topbar, cart drawer, footer, shell
 ```
 
 See [docs/architecture_guidelines.md](docs/architecture_guidelines.md) and
-[docs/design_guidelines.md](docs/design_guidelines.md). [docs/DESIGN.md](docs/DESIGN.md) still
-describes the currently shipped brutalist interface; update it when the forge tokens land in
-`src/styles.css`.
+[docs/design_guidelines.md](docs/design_guidelines.md).
 
 ## Author
 

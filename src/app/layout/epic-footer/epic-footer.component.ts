@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GROUP } from '../../core/config/group';
+import { LAYOUT_COPY } from '../../core/copy/layout.copy';
 import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
@@ -11,5 +12,6 @@ import { IconComponent } from '../../shared/icon/icon.component';
 })
 export class EpicFooterComponent {
   readonly group = GROUP;
+  readonly copy = LAYOUT_COPY;
   readonly year = new Date().getFullYear();
 }

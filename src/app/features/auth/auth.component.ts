@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AUTH_COPY } from '../../core/copy/auth.copy';
+import { NOTIFY_COPY } from '../../core/copy/notifications.copy';
 import { AuthService } from '../../core/services/auth.service';
 import { BackendStatusService } from '../../core/services/backend-status.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -19,6 +21,7 @@ export class AuthComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  readonly copy = AUTH_COPY;
   readonly backend = inject(BackendStatusService);
   readonly mode = signal<'login' | 'register'>('login');
   readonly submitting = signal(false);
@@ -57,7 +60,7 @@ export class AuthComponent {
         return;
       }
 
-      await this.notify.toast(this.mode() === 'login' ? 'Signed in' : 'Pass created');
+      await this.notify.toast(this.mode() === 'login' ? NOTIFY_COPY.signedIn : NOTIFY_COPY.passCreated);
       await this.router.navigateByUrl(this.route.snapshot.queryParamMap.get('redirect') || '/profile');
     } finally {
       this.submitting.set(false);

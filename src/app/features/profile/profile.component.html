@@ -4,17 +4,17 @@
       <h1>{{ auth.currentUser()?.displayName }}</h1>
       <p class="mono meta">
         {{ auth.currentUser()?.email }} ·
-        {{ auth.currentUser()?.source === 'supabase' ? 'server pass' : 'device pass' }}
+        {{ auth.currentUser()?.source === 'supabase' ? copy.serverPass : copy.devicePass }}
       </p>
-      <button type="button" class="btn-ghost" (click)="leave()">Sign out</button>
+      <button type="button" class="btn-ghost" (click)="leave()">{{ copy.signOut }}</button>
     </header>
 
     <section class="block">
-      <h2>Reservations</h2>
+      <h2>{{ copy.reservations }}</h2>
       @if (orders.history().length === 0) {
         <div class="empty">
-          <p>No reservations yet.</p>
-          <a routerLink="/armory" class="btn-ghost">Open the armory</a>
+          <p>{{ copy.empty }}</p>
+          <a routerLink="/armory" class="btn-ghost">{{ copy.openArmory }}</a>
         </div>
       } @else {
         <ul class="orders">
@@ -33,8 +33,8 @@
           }
         </ul>
         <p class="pickup fine">
-          Collect at the Sunday muster on
-          {{ muster.nextMuster() | date: 'MMM d' : 'UTC-5' }}.
+          {{ copy.collect }}
+          {{ muster.nextMuster() | date: 'd MMM' : 'UTC-5' }}.
         </p>
       }
     </section>

@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { STORAGE_KEYS } from '../config/storage-keys';
+import { NOTIFY_COPY } from '../copy/notifications.copy';
 import { LocalAccount, UserSession } from '../models/user-session.model';
 import { BackendStatusService } from './backend-status.service';
 import { createId, hashSecret } from './crypto.util';
@@ -27,7 +28,7 @@ export class AuthService {
       });
 
       if (error || !data.user) {
-        await this.notify.error('Registration failed', error?.message ?? 'The server rejected the request.');
+        await this.notify.error(NOTIFY_COPY.registerFailed, error?.message ?? NOTIFY_COPY.serverRejected);
         return false;
       }
 
@@ -42,7 +43,7 @@ export class AuthService {
 
     const accounts = this.store.read<LocalAccount[]>(STORAGE_KEYS.accounts, []);
     if (accounts.some((account) => account.email === email.toLowerCase())) {
-      await this.notify.warning('Already registered', 'That email already holds a pass on this device.');
+      await this.notify.warning(NOTIFY_COPY.alreadyRegistered, NOTIFY_COPY.emailHasPass);
       return false;
     }
 
@@ -81,7 +82,7 @@ export class AuthService {
     const accounts = this.store.read<LocalAccount[]>(STORAGE_KEYS.accounts, []);
     const match = accounts.find((account) => account.email === email.toLowerCase());
     if (!match || match.passwordHash !== (await hashSecret(password))) {
-      await this.notify.error('Sign in failed', 'Those credentials do not match a pass.');
+      await this.notify.error(NOTIFY_COPY.signInFailed, NOTIFY_COPY.badCredentials);
       return false;
     }
 

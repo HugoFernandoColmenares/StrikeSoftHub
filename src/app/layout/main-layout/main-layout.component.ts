@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LAYOUT_COPY } from '../../core/copy/layout.copy';
 import { CartDrawerComponent } from '../cart-drawer/cart-drawer.component';
 import { EpicFooterComponent } from '../epic-footer/epic-footer.component';
 import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
@@ -9,7 +10,7 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
   imports: [RouterOutlet, EpicNavbarComponent, EpicFooterComponent, CartDrawerComponent],
   template: `
     <div class="app-shell">
-      <a class="skip" href="#main">Skip to content</a>
+      <a class="skip" href="#main">{{ copy.skip }}</a>
       <app-epic-navbar />
       <main id="main" tabindex="-1">
         <router-outlet />
@@ -52,4 +53,6 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainLayoutComponent {}
+export class MainLayoutComponent {
+  readonly copy = LAYOUT_COPY;
+}

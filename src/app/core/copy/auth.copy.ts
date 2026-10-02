@@ -1,0 +1,15 @@
+export const AUTH_COPY = {
+  signIn: 'Entrar',
+  createPass: 'Crear un pase',
+  intro: 'El pase guarda tu arsenal entre visitas. Solo se pide para reservar, nunca para leer el calendario.',
+  offline: 'El servidor no responde. Tu pase se guardará solo en este dispositivo.',
+  displayName: 'Nombre visible',
+  email: 'Correo',
+  password: 'Contraseña',
+  emailError: 'Escribe un correo, por ejemplo luchador@example.com',
+  passwordError: 'Usa al menos 6 caracteres',
+  working: 'Trabajando',
+  register: 'Registrarse',
+  noPass: '¿Aún no tienes pase? Regístrate',
+  hasPass: '¿Ya tienes pase? Entra',
+} as const;

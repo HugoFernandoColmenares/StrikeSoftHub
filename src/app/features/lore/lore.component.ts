@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GROUP } from '../../core/config/group';
+import { LORE_COPY } from '../../core/copy/lore.copy';
 import { AccentZoneDirective } from '../../shared/accent-zone.directive';
 import { IconComponent } from '../../shared/icon/icon.component';
-import { answers } from '../../core/data/loreComponent.seed';
 
 @Component({
   selector: 'app-lore',
@@ -13,6 +13,5 @@ import { answers } from '../../core/data/loreComponent.seed';
 })
 export class LoreComponent {
   readonly group = GROUP;
-
-  readonly answers = answers;
+  readonly copy = LORE_COPY;
 }

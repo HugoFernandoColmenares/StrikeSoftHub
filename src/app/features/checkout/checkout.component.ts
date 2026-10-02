@@ -1,7 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { GROUP } from '../../core/config/group';
+import { CHECKOUT_COPY } from '../../core/copy/checkout.copy';
+import { NOTIFY_COPY } from '../../core/copy/notifications.copy';
 import { OrderRepository } from '../../core/repositories/order.repository';
 import { CartService } from '../../core/services/cart.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -19,7 +20,7 @@ export class CheckoutComponent {
   private readonly notify = inject(NotificationService);
   private readonly router = inject(Router);
 
-  readonly group = GROUP;
+  readonly copy = CHECKOUT_COPY;
   readonly placing = signal(false);
 
   async claim(): Promise<void> {
@@ -28,9 +29,9 @@ export class CheckoutComponent {
     }
 
     const confirmed = await this.notify.confirm(
-      'Reserve this arsenal?',
-      'This places a reservation with the workshop. Payment and handover happen in person at the field.',
-      'Reserve',
+      NOTIFY_COPY.reserveTitle,
+      NOTIFY_COPY.reserveBody,
+      NOTIFY_COPY.reserveConfirm,
     );
 
     if (!confirmed) {
@@ -42,11 +43,11 @@ export class CheckoutComponent {
     try {
       const order = await this.orders.place();
       if (!order) {
-        await this.notify.error('Reservation failed', 'The ledger could not take the order.');
+        await this.notify.error(NOTIFY_COPY.reserveFailed, NOTIFY_COPY.ledgerFailed);
         return;
       }
 
-      await this.notify.success('Reserved', 'Bring the reference to the next Sunday muster.');
+      await this.notify.success(NOTIFY_COPY.reserved, NOTIFY_COPY.bringRef);
       await this.router.navigateByUrl('/profile');
     } finally {
       this.placing.set(false);

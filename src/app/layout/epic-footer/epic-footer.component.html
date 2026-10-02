@@ -13,12 +13,12 @@
       </a>
       <a [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer" class="social">
         <app-icon name="marker" [size]="1" />
-        <span>Find the field</span>
+        <span>{{ copy.findField }}</span>
       </a>
     </div>
 
     <p class="credit label">
-      {{ year }} · Built by
+      {{ year }} · {{ copy.builtBy }}
       <a href="https://github.com/HugoFernandoColmenares" target="_blank" rel="noopener noreferrer"
         >Hugo Colmenares</a
       >

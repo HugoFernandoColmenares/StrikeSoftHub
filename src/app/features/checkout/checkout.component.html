@@ -1,11 +1,11 @@
 <section class="shell">
   <div class="checkout">
-    <h1>Your arsenal</h1>
+    <h1>{{ copy.title }}</h1>
 
     @if (cart.lines().length === 0) {
       <div class="empty">
-        <p>Nothing reserved yet.</p>
-        <a routerLink="/armory" class="btn-ghost">Open the armory</a>
+        <p>{{ copy.empty }}</p>
+        <a routerLink="/armory" class="btn-ghost">{{ copy.openArmory }}</a>
       </div>
     } @else {
       <ul class="lines">
@@ -14,43 +14,40 @@
             <div class="what">
               <p class="name">{{ line.weapon.name }}</p>
               <p class="unit mono">
-                {{ line.weapon.price | currency: 'COP' : 'code' : '1.0-0' }} each
+                {{ line.weapon.price | currency: 'COP' : 'code' : '1.0-0' }} {{ copy.each }}
               </p>
             </div>
 
-            <div class="qty" role="group" [attr.aria-label]="'Quantity for ' + line.weapon.name">
+            <div class="qty" role="group" [attr.aria-label]="copy.qtyAria + ' ' + line.weapon.name">
               <button type="button" (click)="cart.update(line.weaponId, line.quantity - 1)">
                 <span aria-hidden="true">&minus;</span>
-                <span class="sr">Decrease</span>
+                <span class="sr">{{ copy.decrease }}</span>
               </button>
               <span class="mono">{{ line.quantity }}</span>
               <button type="button" (click)="cart.update(line.weaponId, line.quantity + 1)">
                 <span aria-hidden="true">+</span>
-                <span class="sr">Increase</span>
+                <span class="sr">{{ copy.increase }}</span>
               </button>
             </div>
 
             <p class="sum mono">{{ line.lineTotal | currency: 'COP' : 'code' : '1.0-0' }}</p>
 
             <button type="button" class="remove label" (click)="cart.remove(line.weaponId)">
-              Remove
+              {{ copy.remove }}
             </button>
           </li>
         }
       </ul>
 
       <div class="total">
-        <span class="label">Total</span>
+        <span class="label">{{ copy.total }}</span>
         <span class="mono">{{ cart.total() | currency: 'COP' : 'code' : '1.0-0' }}</span>
       </div>
 
-      <p class="terms fine">
-        Prices are indicative. Reservations are settled in person at {{ group.venue }} during the
-        Sunday muster.
-      </p>
+      <p class="terms fine">{{ copy.terms }}</p>
 
       <button type="button" class="btn-primary" [disabled]="placing()" (click)="claim()">
-        {{ placing() ? 'Reserving' : 'Reserve with the workshop' }}
+        {{ placing() ? copy.reserving : copy.reserve }}
       </button>
     }
   </div>

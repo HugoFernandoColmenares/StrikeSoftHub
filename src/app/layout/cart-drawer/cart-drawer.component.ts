@@ -1,6 +1,7 @@
 import { CurrencyPipe, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, HostListener, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CART_COPY } from '../../core/copy/cart.copy';
 import { CartService } from '../../core/services/cart.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { CartService } from '../../core/services/cart.service';
 })
 export class CartDrawerComponent {
   readonly cart = inject(CartService);
+  readonly copy = CART_COPY;
   private readonly document = inject(DOCUMENT);
 
   constructor() {

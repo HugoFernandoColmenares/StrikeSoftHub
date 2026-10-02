@@ -1,0 +1,21 @@
+export const LAYOUT_COPY = {
+  skip: 'Saltar al contenido',
+  brandAria: 'Inicio de Armagedón',
+  brandName: 'ARMAGEDÓN',
+  brandTagline: 'Forja • Batalla • Leyenda',
+  nav: {
+    home: 'Inicio',
+    shop: 'Forja',
+    events: 'Eventos',
+    about: 'El deporte',
+    admin: 'Admin / Publicar',
+  },
+  guest: 'Invitado',
+  profileAria: 'Abrir perfil',
+  signInAria: 'Entrar',
+  openCart: 'Abrir carrito',
+  openMenu: 'Abrir menú',
+  closeMenu: 'Cerrar menú',
+  findField: 'Cómo llegar',
+  builtBy: 'Hecho por',
+} as const;

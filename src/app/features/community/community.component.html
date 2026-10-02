@@ -1,20 +1,17 @@
-<section class="shell arena" appAccentZone="#10b981">
+<section class="shell arena" appAccentZone="#72c68b">
   <header class="head">
-    <h1 class="section-title">The Arena</h1>
-    <p class="intro">
-      The weekly muster is fixed. Everything else on this page is announced as the group confirms
-      it.
-    </p>
+    <h1 class="section-title">{{ copy.title }}</h1>
+    <p class="intro">{{ copy.intro }}</p>
   </header>
 
   <article class="standing">
-    <p class="label">Standing fixture</p>
+    <p class="label">{{ copy.standing }}</p>
     <h2>{{ group.dayLabel }}, {{ group.timeLabel }}</h2>
     <p class="place mono">{{ group.venue }} · {{ group.city }}, {{ group.region }}</p>
-    <p class="next mono">Next: {{ muster.nextMuster() | date: 'EEEE, MMM d' : 'UTC-5' }}</p>
+    <p class="next mono">{{ copy.nextPrefix }} {{ muster.nextMuster() | date: "EEEE d 'de' MMMM" : 'UTC-5' }}</p>
     <a [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer" class="btn-primary">
-      <app-icon name="marker" [size]="1" />
-      Find the field
+      <app-icon name="marker" [size]="2" />
+      {{ copy.findField }}
     </a>
   </article>
 
@@ -23,44 +20,38 @@
   } @else {
     <div class="columns">
       <section>
-        <h2 class="col-title">Announced fixtures</h2>
+        <h2 class="col-title">{{ copy.fixturesTitle }}</h2>
         <ul class="ledger">
           @for (event of community.eventFeed(); track event.id) {
             <li>
-              <p class="date mono">{{ event.date | date: 'MMM dd, y' : 'UTC-5' }}</p>
+              <p class="date mono">{{ event.date | date: 'd MMM y' : 'UTC-5' }}</p>
               <h3>{{ event.title }}</h3>
               <p class="meta mono">{{ event.location }}</p>
               <p class="body">{{ event.description }}</p>
               <p class="ruleset mono">{{ event.ruleset }}</p>
               @if (event.isProvisional) {
-                <p class="flag label">Date not confirmed</p>
+                <p class="flag label">{{ copy.dateUnconfirmed }}</p>
               }
             </li>
           } @empty {
-            <li class="empty">
-              No fixtures announced yet. Follow {{ group.instagramHandle }} for the next call.
-            </li>
+            <li class="empty">{{ copy.fixturesEmpty }}</li>
           }
         </ul>
       </section>
 
       <section>
-        <h2 class="col-title">Clan board</h2>
-        <p class="board-note fine">
-          The board is not migrated yet. The threads below show the format it will use.
-        </p>
+        <h2 class="col-title">{{ copy.boardTitle }}</h2>
+        <p class="board-note fine">{{ copy.boardNote }}</p>
         <ul class="ledger">
           @for (post of community.clanBoard(); track post.id) {
             <li>
               <h3>{{ post.title }}</h3>
               <p class="meta mono">{{ post.clanName }} · {{ post.authorName }}</p>
               <p class="body">{{ post.body }}</p>
-              @if (post.isSample) {
-                <p class="flag label">Sample thread</p>
-              }
+              <p class="flag label">{{ copy.fromInstagram }}</p>
             </li>
           } @empty {
-            <li class="empty">No open calls right now.</li>
+            <li class="empty">{{ copy.boardEmpty }}</li>
           }
         </ul>
       </section>

@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { STORAGE_KEYS } from '../config/storage-keys';
+import { NOTIFY_COPY } from '../copy/notifications.copy';
 import { CartItemModel, CartLineModel } from '../models/cart-item.model';
 import { CatalogRepository } from '../repositories/catalog.repository';
 import { AuthService } from './auth.service';
@@ -54,7 +55,7 @@ export class CartService {
   add(weaponId: string): void {
     const weapon = this.catalog.byId(weaponId);
     if (!weapon || weapon.stock < 1) {
-      void this.notify.warning('Not available', 'This piece is still in the workshop queue.');
+      void this.notify.warning(NOTIFY_COPY.notAvailable, NOTIFY_COPY.workshopQueue);
       return;
     }
 
@@ -63,7 +64,7 @@ export class CartService {
     const nextQuantity = (existing?.quantity ?? 0) + 1;
 
     if (nextQuantity > weapon.stock) {
-      void this.notify.warning('Rack limit', `Only ${weapon.stock} available right now.`);
+      void this.notify.warning(NOTIFY_COPY.rackLimit, NOTIFY_COPY.onlyAvailable(weapon.stock));
       return;
     }
 
@@ -72,7 +73,7 @@ export class CartService {
       : [...current, { weaponId, quantity: 1 }];
 
     this.persist(next);
-    void this.notify.toast(`${weapon.name} added`);
+    void this.notify.toast(NOTIFY_COPY.added(weapon.name));
     void this.syncRemote(next);
   }
 

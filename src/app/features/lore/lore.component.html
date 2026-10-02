@@ -1,14 +1,12 @@
-<section class="shell" appAccentZone="#10b981">
+<section class="shell" appAccentZone="#72c68b">
   <div class="sport">
     <header class="head">
-      <h1>The sport</h1>
-      <p class="intro">
-        Everything a first-time visitor asks before walking on to the field, answered plainly.
-      </p>
+      <h1>{{ copy.title }}</h1>
+      <p class="intro">{{ copy.intro }}</p>
     </header>
 
     <dl class="answers">
-      @for (item of answers; track item.question) {
+      @for (item of copy.answers; track item.question) {
         <div>
           <dt>{{ item.question }}</dt>
           <dd>{{ item.body }}</dd>
@@ -17,9 +15,9 @@
     </dl>
 
     <aside class="contact">
-      <p>Still unsure? Ask before Sunday.</p>
+      <p>{{ copy.ask }}</p>
       <a [href]="group.instagramUrl" target="_blank" rel="noopener noreferrer" class="btn-primary">
-        <app-icon name="instagram" [size]="1" />
+        <app-icon name="instagram" [size]="2" />
         {{ group.instagramHandle }}
       </a>
     </aside>

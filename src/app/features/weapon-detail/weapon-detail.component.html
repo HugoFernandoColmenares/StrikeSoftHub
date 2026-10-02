@@ -1,5 +1,5 @@
 @if (weapon(); as item) {
-  <article class="shell detail" appAccentZone="#ff2a2a">
+  <article class="shell detail" appAccentZone="#ff5d20">
     <div class="visual">
       @if (item.imageUrl; as image) {
         <figure class="cinematic-frame hero">
@@ -11,7 +11,7 @@
               <figure class="cinematic-frame">
                 <img
                   [src]="shot"
-                  [alt]="item.name + ' detail'"
+                  [alt]="item.name + ' ' + copy.detailAlt"
                   width="900"
                   height="900"
                   loading="lazy"
@@ -22,62 +22,60 @@
         }
       } @else {
         <div class="plate">
-          <p class="plate-class">{{ item.weaponClass }}</p>
-          <p class="fine">
-            Photography pending. Specifications below describe the workshop build target.
-          </p>
+          <p class="plate-class">{{ labels.klass[item.weaponClass] }}</p>
+          <p class="fine">{{ copy.photoPendingLong }}</p>
         </div>
       }
     </div>
 
     <div class="copy">
       <h1>{{ item.name }}</h1>
-      <p class="role label">{{ item.combatRole }} · {{ item.weaponClass }}</p>
+      <p class="role label">{{ labels.role[item.combatRole] }} · {{ labels.klass[item.weaponClass] }}</p>
       <p class="price mono">{{ item.price | currency: 'COP' : 'code' : '1.0-0' }}</p>
-      <p class="indicative fine">Indicative price, pending the workshop's final list.</p>
+      <p class="indicative fine">{{ copy.priceNote }}</p>
 
       <p class="lore">{{ item.loreDescription }}</p>
 
       <dl class="specs">
         <div class="stat-row">
-          <dt>Weight</dt>
+          <dt>{{ copy.weight }}</dt>
           <dd>{{ item.specs.weightGrams }} g</dd>
         </div>
         <div class="stat-row">
-          <dt>Length</dt>
+          <dt>{{ copy.length }}</dt>
           <dd>{{ item.specs.totalLengthCm }} cm</dd>
         </div>
         <div class="stat-row">
-          <dt>Core</dt>
+          <dt>{{ copy.core }}</dt>
           <dd>{{ item.specs.coreMaterial }}</dd>
         </div>
         <div class="stat-row">
-          <dt>In rack</dt>
+          <dt>{{ copy.inRackLabel }}</dt>
           <dd>{{ item.stock }}</dd>
         </div>
       </dl>
 
       <div class="radar">
-        <p class="label">Handling profile</p>
+        <p class="label">{{ copy.handling }}</p>
         <app-stats-profile [stats]="item.stats" />
       </div>
 
       @if (item.stock > 0) {
-        <button type="button" class="btn-primary" (click)="addToArsenal()">Add to arsenal</button>
+        <button type="button" class="btn-primary" (click)="addToArsenal()">{{ copy.addToArsenal }}</button>
       } @else {
-        <p class="queued fine">This piece is in the workshop queue.</p>
+        <p class="queued fine">{{ copy.workshopQueue }}</p>
       }
 
       <a routerLink="/armory" class="back">
-        <app-icon name="arrow" [size]="1" />
-        Back to the armory
+        <app-icon name="arrow" [size]="2" />
+        {{ copy.back }}
       </a>
     </div>
   </article>
 } @else {
   <section class="shell missing">
-    <h1>Not in the ledger</h1>
-    <p>This weapon is not in the current catalog.</p>
-    <a routerLink="/armory" class="btn-ghost">Back to the armory</a>
+    <h1>{{ copy.missingTitle }}</h1>
+    <p>{{ copy.missingBody }}</p>
+    <a routerLink="/armory" class="btn-ghost">{{ copy.back }}</a>
   </section>
 }

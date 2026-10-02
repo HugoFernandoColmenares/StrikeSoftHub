@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { LAYOUT_COPY } from '../../core/copy/layout.copy';
 import { AuthService } from '../../core/services/auth.service';
 import { BackendStatusService } from '../../core/services/backend-status.service';
 import { CartService } from '../../core/services/cart.service';
@@ -16,6 +17,7 @@ export class EpicNavbarComponent {
   readonly cart = inject(CartService);
   readonly auth = inject(AuthService);
   readonly backend = inject(BackendStatusService);
+  readonly copy = LAYOUT_COPY;
   readonly menuOpen = signal(false);
 
   toggleMenu(): void {

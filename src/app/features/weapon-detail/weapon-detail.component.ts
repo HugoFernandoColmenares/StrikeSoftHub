@@ -1,6 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CATALOG_COPY } from '../../core/copy/catalog.copy';
+import { WEAPON_COPY } from '../../core/copy/weapon.copy';
 import { CatalogRepository } from '../../core/repositories/catalog.repository';
 import { CartService } from '../../core/services/cart.service';
 import { AccentZoneDirective } from '../../shared/accent-zone.directive';
@@ -21,6 +23,8 @@ export class WeaponDetailComponent {
 
   readonly weapon = computed(() => this.catalog.byId(this.route.snapshot.paramMap.get('id') ?? ''));
   readonly gallery = computed(() => this.weapon()?.gallery ?? []);
+  readonly copy = WEAPON_COPY;
+  readonly labels = CATALOG_COPY;
 
   addToArsenal(): void {
     const weapon = this.weapon();

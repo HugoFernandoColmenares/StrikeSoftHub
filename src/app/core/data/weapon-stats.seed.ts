@@ -1,8 +1,8 @@
-import { WeaponStats } from "../models/weapon.model";
+import { WeaponStats } from '../models/weapon.model';
 
 export const weaponStat = (stats: WeaponStats) => [
-    { label: 'Durability', value: stats.durability, note: 'Hits before the edge needs work' },
-    { label: 'Heft', value: stats.weight, note: 'Felt weight through a long bout' },
-    { label: 'Handling', value: stats.handling, note: 'Speed of recovery between strikes' },
-    { label: 'Reach', value: stats.range, note: 'Distance it keeps an opponent at' },
+  { label: 'Durabilidad', value: stats.durability, note: 'Golpes antes de que el filo pida arreglo' },
+  { label: 'Peso sentido', value: stats.weight, note: 'Peso que se siente en un asalto largo' },
+  { label: 'Manejo', value: stats.handling, note: 'Velocidad de recuperación entre golpes' },
+  { label: 'Alcance', value: stats.range, note: 'Distancia a la que mantiene al rival' },
 ];

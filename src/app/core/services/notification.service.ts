@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 import { strikeAlert } from '../config/strikeAlert';
+import { NOTIFY_COPY } from '../copy/notifications.copy';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
@@ -20,14 +21,14 @@ export class NotificationService {
     return this.fire('warning', title, text);
   }
 
-  async confirm(title: string, text = '', confirmText = 'Confirm'): Promise<boolean> {
+  async confirm(title: string, text = '', confirmText = NOTIFY_COPY.reserveConfirm): Promise<boolean> {
     const result = await strikeAlert.fire({
       title,
       text,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: confirmText,
-      cancelButtonText: 'Cancel',
+      cancelButtonText: NOTIFY_COPY.cancel,
     });
 
     return result.isConfirmed;

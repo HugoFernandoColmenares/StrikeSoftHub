@@ -1,4 +1,4 @@
-<section class="muster" appAccentZone="#ff2a2a">
+<section class="muster" appAccentZone="#ff5d20">
   <div class="photo cinematic-frame" aria-hidden="true">
     <picture>
       <source srcset="assets/weapons/sword-portrait.webp" media="(max-width: 47.99rem)" />
@@ -11,63 +11,61 @@
       />
     </picture>
   </div>
+  <app-ember-field />
 
   <div class="shell">
     <div class="block">
+      <span class="section-kicker">{{ copy.kicker }}</span>
       <h1>
-        Softcombat in<br />
+        {{ copy.titleLead }}<br />
         {{ group.city }}
       </h1>
-      <p class="definition">
-        {{ group.name }} is a softcombat group: full-contact sword fighting with foam weapons over a
-        flexible core, fought under a ruleset that makes armour unnecessary. We train in the open,
-        and anyone can walk on to the field.
-      </p>
+      <p class="definition">{{ copy.definition }}</p>
 
       @if (muster.isLive()) {
         <p class="live-now">
           <span class="pulse" aria-hidden="true"></span>
-          We are on the field right now
+          {{ copy.liveNow }}
         </p>
       } @else {
         <div class="countdown" role="timer">
-          <p class="label">Next muster starts in</p>
+          <p class="label">{{ copy.countdownLabel }}</p>
           <p class="digits mono">
             <span>{{ muster.countdown().days }}</span
-            ><i>d</i> <span>{{ muster.countdown().hours }}</span
-            ><i>h</i> <span>{{ muster.countdown().minutes }}</span
-            ><i>m</i> <span class="secs">{{ muster.countdown().seconds }}</span
-            ><i>s</i>
+            ><i>{{ copy.countdown.days }}</i> <span>{{ muster.countdown().hours }}</span
+            ><i>{{ copy.countdown.hours }}</i> <span>{{ muster.countdown().minutes }}</span
+            ><i>{{ copy.countdown.minutes }}</i> <span class="secs">{{ muster.countdown().seconds }}</span
+            ><i>{{ copy.countdown.seconds }}</i>
           </p>
         </div>
       }
 
       <dl class="facts">
         <div>
-          <dt class="label">When</dt>
+          <dt class="label">{{ copy.facts.when }}</dt>
           <dd class="mono">{{ group.dayLabel }}, {{ group.timeLabel }}</dd>
         </div>
         <div>
-          <dt class="label">Where</dt>
+          <dt class="label">{{ copy.facts.where }}</dt>
           <dd class="mono">{{ group.venue }}</dd>
         </div>
         <div>
-          <dt class="label">Next date</dt>
-          <dd class="mono">{{ muster.nextMuster() | date: 'MMM d, y' : 'UTC-5' }}</dd>
+          <dt class="label">{{ copy.facts.next }}</dt>
+          <dd class="mono">{{ muster.nextMuster() | date: 'd MMM y' : 'UTC-5' }}</dd>
         </div>
         <div>
-          <dt class="label">Cost</dt>
-          <dd class="mono">Free to attend</dd>
+          <dt class="label">{{ copy.facts.cost }}</dt>
+          <dd class="mono">{{ copy.facts.free }}</dd>
         </div>
       </dl>
 
       <div class="actions">
         <a class="btn-primary" [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer">
-          <app-icon name="marker" [size]="1" />
-          Find the field
+          <app-icon name="marker" [size]="2" />
+          {{ copy.findField }}
         </a>
         <a class="btn-ghost" [href]="group.instagramUrl" target="_blank" rel="noopener noreferrer">
-          <app-icon name="instagram" [size]="1" />
+          <app-icon name="instagram" [size]="2" />
           {{ group.instagramHandle }}
         </a>
       </div>
@@ -75,37 +73,61 @@
   </div>
 </section>
 
-<section class="fixtures shell" appAccentZone="#10b981">
+<section class="chronicles shell" appAccentZone="#ad7434">
   <header class="head">
-    <h2 class="section-title">Beyond Sunday</h2>
-    <p class="note fine">Dates below are proposals until the group confirms them.</p>
+    <div>
+      <span class="section-kicker">{{ copy.instagramKicker }}</span>
+      <h2 class="section-title">{{ copy.instagramTitle }}</h2>
+    </div>
+    <p class="note fine">{{ copy.instagramLead }}</p>
+  </header>
+
+  <ul class="chronicle-grid">
+    @for (post of posts; track post.id) {
+      <li class="surface chronicle">
+        <time class="mono" [attr.datetime]="post.postedAt">{{ post.postedAt | date: 'd MMM y' }}</time>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body }}</p>
+        <a [href]="post.sourceUrl" target="_blank" rel="noopener noreferrer" class="more">
+          {{ copy.instagramCta }}
+          <app-icon name="arrow" [size]="2" />
+        </a>
+      </li>
+    }
+  </ul>
+</section>
+
+<section class="fixtures shell" appAccentZone="#72c68b">
+  <header class="head">
+    <h2 class="section-title">{{ copy.fixturesTitle }}</h2>
+    <p class="note fine">{{ copy.fixturesNote }}</p>
   </header>
 
   <ul class="ledger">
     @for (fixture of fixtures(); track fixture.id) {
       <li>
-        <span class="date mono">{{ fixture.date | date: 'MMM dd' : 'UTC-5' }}</span>
+        <span class="date mono">{{ fixture.date | date: 'd MMM' : 'UTC-5' }}</span>
         <span class="title">{{ fixture.title }}</span>
         <span class="place mono">{{ fixture.location }}</span>
         <span class="ruleset mono">{{ fixture.ruleset }}</span>
         @if (fixture.isProvisional) {
-          <span class="flag label">Provisional</span>
+          <span class="flag label">{{ copy.provisional }}</span>
         }
       </li>
     } @empty {
-      <li class="empty">No special fixtures announced. The Sunday muster still runs.</li>
+      <li class="empty">{{ copy.fixturesEmpty }}</li>
     }
   </ul>
 
   <a routerLink="/arena" class="more">
-    Open the arena
-    <app-icon name="arrow" [size]="1" />
+    {{ copy.openArena }}
+    <app-icon name="arrow" [size]="2" />
   </a>
 </section>
 
-<section class="join" appAccentZone="#10b981">
+<section class="join" appAccentZone="#72c68b">
   <div class="shell">
-    <h2 class="section-title">Your first Sunday</h2>
+    <h2 class="section-title">{{ copy.firstSundayTitle }}</h2>
     <ol class="steps">
       @for (step of steps; track step.title; let index = $index) {
         <li>
@@ -121,16 +143,13 @@
 </section>
 
 @if (featured(); as piece) {
-  <section class="workshop shell" appAccentZone="#e5ff00">
+  <section class="workshop shell" appAccentZone="#ecc875">
     <div class="copy">
-      <h2 class="section-title">Built in the workshop</h2>
-      <p>
-        Every weapon is made by the group, not resold. Each piece is measured and matched to a
-        combat role, so you choose by how it fights rather than how it photographs.
-      </p>
+      <h2 class="section-title">{{ copy.workshopTitle }}</h2>
+      <p>{{ copy.workshopBody }}</p>
       <a routerLink="/armory" class="btn-ghost">
-        Enter the armory
-        <app-icon name="arrow" [size]="1" />
+        {{ copy.enterArmory }}
+        <app-icon name="arrow" [size]="2" />
       </a>
     </div>
     <app-weapon-card [weapon]="piece" />

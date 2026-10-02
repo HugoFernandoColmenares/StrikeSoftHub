@@ -1,54 +1,47 @@
 <section class="shell">
   <div class="gate">
-    <h1>{{ mode() === 'login' ? 'Sign in' : 'Create a pass' }}</h1>
-    <p class="intro">
-      A pass keeps your arsenal between visits. It is only needed for checkout, never to read the
-      calendar.
-    </p>
+    <h1>{{ mode() === 'login' ? copy.signIn : copy.createPass }}</h1>
+    <p class="intro">{{ copy.intro }}</p>
 
     @if (!backend.isOnline()) {
-      <p class="offline fine">
-        The server is unreachable. Your pass will be stored on this device only.
-      </p>
+      <p class="offline fine">{{ copy.offline }}</p>
     }
 
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       @if (mode() === 'register') {
         <label>
-          <span class="label">Display name</span>
+          <span class="label">{{ copy.displayName }}</span>
           <input formControlName="displayName" type="text" autocomplete="nickname" />
         </label>
       }
 
       <label>
-        <span class="label">Email</span>
+        <span class="label">{{ copy.email }}</span>
         <input formControlName="email" type="email" autocomplete="email" />
         @if (showError('email')) {
-          <span class="error mono"
-            >Enter an email address, for example fighter&#64;example.com</span
-          >
+          <span class="error mono">{{ copy.emailError }}</span>
         }
       </label>
 
       <label>
-        <span class="label">Password</span>
+        <span class="label">{{ copy.password }}</span>
         <input
           formControlName="password"
           type="password"
           [attr.autocomplete]="mode() === 'login' ? 'current-password' : 'new-password'"
         />
         @if (showError('password')) {
-          <span class="error mono">Use at least 6 characters</span>
+          <span class="error mono">{{ copy.passwordError }}</span>
         }
       </label>
 
       <button type="submit" class="btn-primary" [disabled]="submitting()">
-        {{ submitting() ? 'Working' : mode() === 'login' ? 'Sign in' : 'Register' }}
+        {{ submitting() ? copy.working : mode() === 'login' ? copy.signIn : copy.register }}
       </button>
     </form>
 
     <button type="button" class="switch" (click)="toggle()">
-      {{ mode() === 'login' ? 'No pass yet? Register' : 'Already have a pass? Sign in' }}
+      {{ mode() === 'login' ? copy.noPass : copy.hasPass }}
     </button>
   </div>
 </section>

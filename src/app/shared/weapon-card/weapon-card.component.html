@@ -6,8 +6,8 @@
       </span>
     } @else {
       <span class="plate">
-        <span class="plate-class">{{ weapon().weaponClass }}</span>
-        <span class="plate-note label">Photography pending</span>
+        <span class="plate-class">{{ labels.klass[weapon().weaponClass] }}</span>
+        <span class="plate-note label">{{ copy.photographyPending }}</span>
       </span>
     }
   </a>
@@ -16,27 +16,27 @@
     <h3>
       <a [routerLink]="['/armory', weapon().id]">{{ weapon().name }}</a>
     </h3>
-    <p class="role label">{{ weapon().combatRole }} · {{ weapon().specs.coreMaterial }}</p>
+    <p class="role label">{{ labels.role[weapon().combatRole] }} · {{ weapon().specs.coreMaterial }}</p>
 
     <div class="stat-row">
       <span>{{ weapon().specs.weightGrams }} g</span>
       <span>{{ weapon().specs.totalLengthCm }} cm</span>
-      <span>{{ weapon().stock }} in rack</span>
+      <span>{{ weapon().stock }} {{ copy.inRack }}</span>
     </div>
 
     <p class="price mono">
       {{ weapon().price | currency: 'COP' : 'code' : '1.0-0' }}
       @if (weapon().isPremium) {
-        <span class="premium label">Champion</span>
+        <span class="premium label">{{ copy.champion }}</span>
       }
     </p>
 
     @if (weapon().stock > 0) {
       <button type="button" class="btn-primary" (click)="addToArsenal()">
-        Add to arsenal
+        {{ copy.addToArsenal }}
       </button>
     } @else {
-      <p class="out label">In the workshop queue</p>
+      <p class="out label">{{ copy.workshopQueue }}</p>
     }
   </div>
 </article>

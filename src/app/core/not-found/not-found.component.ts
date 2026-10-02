@@ -1,22 +1,19 @@
-import { LowerCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GROUP } from '../config/group';
+import { NOT_FOUND_COPY } from '../copy/not-found.copy';
 
 @Component({
   selector: 'app-not-found',
-  imports: [RouterLink, LowerCasePipe],
+  imports: [RouterLink],
   template: `
     <section class="shell lost">
       <p class="code mono">404</p>
-      <h1>Off the field</h1>
-      <p class="body">
-        This path is not on the map. The group is still where it always is: {{ group.venue }},
-        {{ group.dayLabel | lowercase }} at {{ group.timeLabel }}.
-      </p>
+      <h1>{{ copy.title }}</h1>
+      <p class="body">{{ copy.body(group.venue, group.dayLabel, group.timeLabel) }}</p>
       <div class="actions">
-        <a routerLink="/" class="btn-primary">Back to the muster</a>
-        <a routerLink="/armory" class="btn-ghost">Open the armory</a>
+        <a routerLink="/" class="btn-primary">{{ copy.backMuster }}</a>
+        <a routerLink="/armory" class="btn-ghost">{{ copy.openArmory }}</a>
       </div>
     </section>
   `,
@@ -56,4 +53,5 @@ import { GROUP } from '../config/group';
 })
 export class NotFoundComponent {
   readonly group = GROUP;
+  readonly copy = NOT_FOUND_COPY;
 }

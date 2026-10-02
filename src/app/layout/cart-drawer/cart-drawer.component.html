@@ -13,8 +13,8 @@
     (click)="$event.stopPropagation()"
   >
     <div class="cart-drawer__header">
-      <h2 id="cart-drawer-title">Forge Cart</h2>
-      <button class="close-button" type="button" aria-label="Close cart" (click)="cart.closeDrawer()">
+      <h2 id="cart-drawer-title">{{ copy.title }}</h2>
+      <button class="close-button" type="button" [attr.aria-label]="copy.close" (click)="cart.closeDrawer()">
         ×
       </button>
     </div>
@@ -22,9 +22,9 @@
     <div class="cart-items">
       @if (cart.lines().length === 0) {
         <div class="empty-state">
-          The forge cart is empty.
+          {{ copy.empty }}
           <br />
-          Choose equipment from the armory.
+          {{ copy.emptyHint }}
         </div>
       } @else {
         @for (line of cart.lines(); track line.weaponId) {
@@ -33,6 +33,7 @@
               <strong>{{ line.weapon.name }}</strong>
               <span>
                 {{ line.quantity }} × {{ line.weapon.price | currency: 'COP' : 'code' : '1.0-0' }}
+                {{ copy.each }}
               </span>
             </div>
 
@@ -40,7 +41,7 @@
               <button
                 type="button"
                 class="qty"
-                [attr.aria-label]="'Decrease ' + line.weapon.name"
+                [attr.aria-label]="copy.decrease + ' ' + line.weapon.name"
                 (click)="cart.update(line.weaponId, line.quantity - 1)"
               >
                 −
@@ -49,12 +50,12 @@
               <button
                 type="button"
                 class="qty"
-                [attr.aria-label]="'Increase ' + line.weapon.name"
+                [attr.aria-label]="copy.increase + ' ' + line.weapon.name"
                 (click)="cart.update(line.weaponId, line.quantity + 1)"
               >
                 +
               </button>
-              <button type="button" class="remove" (click)="cart.remove(line.weaponId)">Remove</button>
+              <button type="button" class="remove" (click)="cart.remove(line.weaponId)">{{ copy.remove }}</button>
             </div>
           </article>
         }
@@ -63,7 +64,7 @@
 
     <div class="cart-drawer__footer">
       <div class="cart-total">
-        <span>Total</span>
+        <span>{{ copy.total }}</span>
         <strong>{{ cart.total() | currency: 'COP' : 'code' : '1.0-0' }}</strong>
       </div>
 
@@ -74,7 +75,7 @@
         [attr.aria-disabled]="cart.lines().length === 0"
         (click)="cart.lines().length === 0 ? $event.preventDefault() : cart.closeDrawer()"
       >
-        Begin Checkout
+        {{ copy.checkout }}
       </a>
     </div>
   </aside>

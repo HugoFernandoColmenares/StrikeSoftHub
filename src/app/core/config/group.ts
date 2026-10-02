@@ -1,11 +1,12 @@
 /** Confirmed facts about the physical group. Everything here is verified and binding. */
 export const GROUP = {
-  name: 'Armagedon Softcombat',
+  name: 'Armagedón Softcombat',
   platformName: 'StrikeSoft Hub',
   city: 'Bucaramanga',
   region: 'Santander, Colombia',
   venue: 'Parque La Flora',
-  dayLabel: 'Every Sunday',
+  dayLabel: 'Todos los domingos',
+  bio: 'Somos un grupo de Soft Combat que se reúne los domingos en el Parque La Flora. Ven a hacer amigos, y golpéalos con espadas.',
   timeLabel: '10:00',
   timeZoneLabel: 'COT (UTC-5)',
   instagramUrl: 'https://www.instagram.com/armagedonsoftcombat/',

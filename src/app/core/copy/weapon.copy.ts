@@ -1,0 +1,18 @@
+export const WEAPON_COPY = {
+  photographyPending: 'Fotografía pendiente',
+  inRack: 'en rack',
+  workshopQueue: 'En la cola del taller',
+  addToArsenal: 'Añadir al arsenal',
+  champion: 'Campeón',
+  priceNote: 'Precio indicativo, a la espera de la lista final del taller.',
+  photoPendingLong: 'Fotografía pendiente. Las medidas de abajo describen el objetivo de construcción del taller.',
+  weight: 'Peso',
+  length: 'Largo',
+  core: 'Núcleo',
+  inRackLabel: 'En rack',
+  handling: 'Perfil de manejo',
+  missingTitle: 'No está en el libro',
+  missingBody: 'Esta arma no está en el catálogo actual.',
+  back: 'Volver a la forja',
+  detailAlt: 'detalle',
+} as const;

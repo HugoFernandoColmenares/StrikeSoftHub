@@ -1,58 +1,62 @@
+import { GROUP } from '../config/group';
 import { BattleEventModel } from '../models/battle-event.model';
 import { ClanPostModel } from '../models/clan-post.model';
 
 /**
- * Special fixtures beyond the weekly muster. Dates are working proposals until the
- * group confirms them, which the interface states on screen.
+ * Special fixtures beyond the weekly muster. Dates taken from public Instagram
+ * announcements are labeled as such; future dates stay provisional until confirmed.
  */
 export const EVENT_SEED: BattleEventModel[] = [
   {
-    id: 'santander-open',
-    title: 'Santander Open',
-    location: 'Parque La Flora, Bucaramanga',
-    date: '2026-10-04T15:00:00.000Z',
-    ruleset: 'Open lists, single elimination',
-    description: 'A full-day tournament on the regular field, open to visiting groups.',
-    isProvisional: true,
+    id: 'sakura-espada-larga-2026',
+    title: 'Primer torneo de espada larga — Sakura Fest',
+    location: 'Neomundo, Bucaramanga',
+    date: '2026-09-12T15:00:00.000Z',
+    ruleset: 'Espada larga, premio Ōdachi',
+    description:
+      'Anunciado en Instagram: 12 y 13 de septiembre de 2026, primer torneo de espada larga de Armagedón, con patrocinio de Sakura Fest.',
+    isProvisional: false,
   },
   {
-    id: 'floridablanca-line-battle',
-    title: 'Line Battle',
-    location: 'Floridablanca',
-    date: '2026-10-25T14:00:00.000Z',
-    ruleset: 'Line battle, shields legal',
-    description: 'Team formations with capture points and a shared respawn line.',
-    isProvisional: true,
+    id: 'bucara-geek-fest-2026',
+    title: 'Bucara Geek Fest',
+    location: 'Neomundo, Bucaramanga',
+    date: '2026-08-21T15:00:00.000Z',
+    ruleset: 'Presencia del grupo',
+    description:
+      'Convocatoria publicada en Instagram: 21, 22 y 23 de agosto de 2026 en Neomundo.',
+    isProvisional: false,
   },
   {
-    id: 'newcomer-clinic',
-    title: 'Newcomer Clinic',
-    location: 'Parque La Flora, Bucaramanga',
-    date: '2026-09-27T15:00:00.000Z',
-    ruleset: 'Training, loaner weapons',
-    description: 'A guided first session for visitors who have never held a boffer.',
-    isProvisional: true,
+    id: 'encuentro-domingo',
+    title: 'Encuentro semanal',
+    location: `${GROUP.venue}, ${GROUP.city}`,
+    date: '2026-10-05T15:00:00.000Z',
+    ruleset: 'Entrenamiento abierto, armas de préstamo',
+    description:
+      'Convocatoria habitual del grupo: domingo 10:00 en el Parque La Flora. Haz amigos, y golpéalos con espadas.',
+    isProvisional: false,
   },
 ];
 
-/** Placeholder threads. The real board is not migrated yet. */
+/** Field notes transcribed from the public Instagram, not a live clan board. */
 export const CLAN_POST_SEED: ClanPostModel[] = [
   {
-    id: 'sample-line-holders',
-    title: 'Line holders wanted',
-    clanName: 'Sample clan',
-    body: 'Example thread showing how a recruitment post reads once the board goes live.',
-    authorName: 'Placeholder author',
-    createdAt: '2026-09-08T12:00:00.000Z',
-    isSample: true,
+    id: 'ig-haz-amigos',
+    title: 'Haz amigos, y golpéalos con espadas',
+    clanName: GROUP.instagramHandle,
+    body: 'Lema público del grupo. Las sesiones del domingo son abiertas: llega al Parque La Flora a las 10:00 y pregunta en el campo.',
+    authorName: 'Armagedón Soft Combat',
+    createdAt: '2026-08-11T15:00:00.000Z',
+    isSample: false,
   },
   {
-    id: 'sample-spear-partner',
-    title: 'Looking for a spear partner',
-    clanName: 'Sample clan',
-    body: 'Example thread showing how a pairing request reads once the board goes live.',
-    authorName: 'Placeholder author',
-    createdAt: '2026-09-10T16:40:00.000Z',
-    isSample: true,
+    id: 'ig-primer-torneo',
+    title: 'Se cerró el primer torneo de espada larga',
+    clanName: GROUP.instagramHandle,
+    body: 'Sakura Fest patrocinó el primer torneo de Armagedón en Neomundo. El grupo agradece el espacio y busca seguir abriendo fechas para la comunidad.',
+    authorName: 'Armagedón Soft Combat',
+    createdAt: '2026-09-14T15:00:00.000Z',
+    isSample: false,
   },
 ];

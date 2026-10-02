@@ -4,14 +4,15 @@
   align-items: end;
   min-height: 74dvh;
   padding: var(--step-5) 0 var(--step-4);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.2rem solid #403b36;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .photo {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
 }
 
 .photo::before {
@@ -19,17 +20,21 @@
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(
+  background:
+    radial-gradient(circle at 50% 80%, rgba(255, 88, 19, 0.18), transparent 32%),
+    linear-gradient(
       to right,
-      rgba(8, 8, 8, 0.96) 0%,
-      rgba(8, 8, 8, 0.88) 34%,
-      rgba(8, 8, 8, 0.3) 68%,
-      rgba(8, 8, 8, 0.15) 100%
+      rgba(11, 12, 14, 0.94) 0%,
+      rgba(11, 12, 14, 0.78) 34%,
+      rgba(11, 12, 14, 0.28) 68%,
+      rgba(11, 12, 14, 0.12) 100%
     ),
-    linear-gradient(to top, var(--bg) 1%, transparent 38%);
+    linear-gradient(to top, var(--color-stone-bg) 1%, transparent 38%);
 }
 
 .block {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: var(--step-3);
   max-width: 46rem;
@@ -248,6 +253,40 @@ h1 {
   font-size: 0.9375rem;
 }
 
+.chronicles {
+  padding-block: var(--step-5);
+}
+
+.chronicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: var(--content-gap);
+}
+
+.chronicle {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.8rem;
+  border-radius: var(--radius-md);
+}
+
+.chronicle time {
+  color: var(--color-ember-hot);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.chronicle h3 {
+  font-size: 2rem;
+  color: #efdbb6;
+}
+
+.chronicle p {
+  color: var(--fg-dim);
+  font-size: 1.35rem;
+}
+
 .workshop {
   display: grid;
   gap: var(--step-4);
@@ -266,8 +305,10 @@ h1 {
 
 @media (max-width: 59.99rem) {
   .photo::before {
-    background: linear-gradient(to right, rgba(8, 8, 8, 0.86), rgba(8, 8, 8, 0.62)),
-      linear-gradient(to top, var(--bg) 2%, transparent 55%);
+    background:
+      radial-gradient(circle at 50% 80%, rgba(255, 88, 19, 0.16), transparent 36%),
+      linear-gradient(to right, rgba(11, 12, 14, 0.88), rgba(11, 12, 14, 0.58)),
+      linear-gradient(to top, var(--color-stone-bg) 2%, transparent 55%);
   }
 }
 

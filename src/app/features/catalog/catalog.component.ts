@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CATALOG_COPY } from '../../core/copy/catalog.copy';
 import { CombatRole, WeaponClass, WeaponModel } from '../../core/models/weapon.model';
 import { CatalogRepository } from '../../core/repositories/catalog.repository';
 import { CartService } from '../../core/services/cart.service';
@@ -21,6 +22,7 @@ export class CatalogComponent {
 
   readonly loading = signal(true);
   readonly role = signal<CombatRole | 'ALL'>('ALL');
+  readonly copy = CATALOG_COPY;
   readonly weaponClass = signal<WeaponClass | 'ALL'>('ALL');
   readonly roles: Array<CombatRole | 'ALL'> = ['ALL', 'TANK', 'ASSASSIN', 'SKIRMISHER'];
   readonly classes: Array<WeaponClass | 'ALL'> = ['ALL', 'SWORD', 'AXE', 'MACE', 'SHIELD', 'POLEARM'];
