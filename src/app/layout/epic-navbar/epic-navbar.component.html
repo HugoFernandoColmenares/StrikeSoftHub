@@ -40,26 +40,9 @@
       <a class="nav-link" routerLink="/lore" routerLinkActive="is-active" (click)="closeMenu()">
         {{ copy.nav.about }}
       </a>
-      <a class="nav-link" routerLink="/auth" routerLinkActive="is-active" (click)="closeMenu()">
-        {{ copy.nav.admin }}
-      </a>
     </nav>
 
     <div class="topbar__actions">
-      <div class="login-status">
-        <span class="status-dot" [class.is-online]="backend.isOnline()" aria-hidden="true"></span>
-        <span>{{ auth.isAuthenticated() ? auth.currentUser()?.displayName : copy.guest }}</span>
-      </div>
-
-      <a
-        routerLink="/profile"
-        class="icon-button account"
-        (click)="closeMenu()"
-        [attr.aria-label]="auth.isAuthenticated() ? copy.profileAria : copy.signInAria"
-      >
-        <app-icon name="user" [size]="2" />
-      </a>
-
       <button
         class="icon-button cart-button"
         type="button"

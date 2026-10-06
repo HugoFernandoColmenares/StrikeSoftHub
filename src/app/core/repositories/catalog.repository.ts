@@ -13,8 +13,11 @@ export class CatalogRepository {
   private readonly backend = inject(BackendStatusService);
   private readonly supabase = inject(SupabaseClientService);
   private readonly weapons = signal<WeaponModel[]>(this.store.read(STORAGE_KEYS.weapons, CATALOG_SEED));
+  private readonly hydrated = signal(false);
+  private inflight: Promise<WeaponModel[]> | null = null;
 
   readonly catalog = this.weapons.asReadonly();
+  readonly ready = this.hydrated.asReadonly();
 
   constructor() {
     if (this.weapons().length === 0) {
@@ -23,12 +26,29 @@ export class CatalogRepository {
   }
 
   async load(): Promise<WeaponModel[]> {
+    if (this.hydrated()) {
+      return this.weapons();
+    }
+
+    if (this.inflight) {
+      return this.inflight;
+    }
+
+    this.inflight = this.refresh().finally(() => {
+      this.inflight = null;
+    });
+
+    return this.inflight;
+  }
+
+  private async refresh(): Promise<WeaponModel[]> {
     if (this.backend.isOnline() && this.supabase.client) {
       const { data, error } = await this.supabase.client.from('weapons').select('*').order('name');
 
       if (!error && data?.length) {
         const mapped = (data as WeaponRow[]).map((row) => this.mapRow(row));
         this.cache(mapped);
+        this.hydrated.set(true);
         return mapped;
       }
     }
@@ -39,6 +59,7 @@ export class CatalogRepository {
       this.cache(CATALOG_SEED);
     }
 
+    this.hydrated.set(true);
     return this.weapons();
   }
 

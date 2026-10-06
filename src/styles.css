@@ -5,9 +5,9 @@
   --color-steel: #8d939a;
   --color-steel-light: #c6ccd1;
 
-  --color-ember: #1b7a3a;
-  --color-ember-hot: #47a866;
-  --color-ember-deep: #0c3d1f;
+  --color-viridian: #1b7a3a;
+  --color-viridian-hot: #47a866;
+  --color-viridian-deep: #0c3d1f;
 
   --color-stone-bg: #0e0f11;
   --color-stone: #1a1b1e;
@@ -38,11 +38,11 @@
     0 1.4rem 3rem rgba(0, 0, 0, 0.55),
     inset 0 0.1rem 0 rgba(255, 255, 255, 0.05);
 
-  --shadow-ember:
-    0 0 1rem color-mix(in srgb, var(--color-ember) 42%, transparent),
-    0 0 3rem color-mix(in srgb, var(--color-ember) 16%, transparent);
+  --shadow-viridian:
+    0 0 1rem color-mix(in srgb, var(--color-viridian) 42%, transparent),
+    0 0 3rem color-mix(in srgb, var(--color-viridian) 16%, transparent);
 
-  --glow-ember: color-mix(in srgb, var(--color-ember) 36%, transparent);
+  --glow-viridian: color-mix(in srgb, var(--color-viridian) 36%, transparent);
   --scrim-strong: color-mix(in srgb, var(--color-stone-bg) 94%, transparent);
   --scrim-mid: color-mix(in srgb, var(--color-stone-bg) 78%, transparent);
   --scrim-soft: color-mix(in srgb, var(--color-stone-bg) 28%, transparent);
@@ -65,11 +65,11 @@
   --fg: var(--color-parchment);
   --fg-dim: #9d9fa4;
   --fg-mute: #5f6369;
-  --accent: var(--color-ember);
+  --accent: var(--color-viridian);
   --silver: var(--color-steel-light);
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.18);
-  --section-accent: var(--color-ember);
+  --section-accent: var(--color-viridian);
 
   --step-1: 0.8rem;
   --step-2: 1.6rem;
@@ -90,7 +90,7 @@
   --touch: 4.4rem;
 
   color-scheme: dark;
-  accent-color: var(--color-ember);
+  accent-color: var(--color-viridian);
 }
 
 @property --section-accent {
@@ -107,21 +107,20 @@
 
 html {
   font-size: 62.5%;
-  scroll-behavior: smooth;
 }
 
 html,
-body {
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
+body,
+app-root {
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
   color: var(--fg);
   background:
-    radial-gradient(circle at 20% 10%, var(--glow-ember), transparent 28%),
+    radial-gradient(circle at 20% 10%, var(--glow-viridian), transparent 28%),
     radial-gradient(circle at 85% 80%, color-mix(in srgb, var(--color-steel) 12%, transparent), transparent 24%),
     linear-gradient(180deg, var(--color-stone-bg) 0%, var(--bg) 55%, var(--color-iron-dark) 100%);
   font-family: var(--font-body);
@@ -219,7 +218,7 @@ svg {
 }
 
 ::selection {
-  background: var(--color-ember);
+  background: var(--color-viridian);
   color: var(--color-ink);
 }
 
@@ -282,7 +281,7 @@ svg {
 }
 
 .section-kicker {
-  color: var(--color-ember-hot);
+  color: var(--color-viridian-hot);
   font-family: var(--font-medieval);
   font-size: var(--text-body);
   letter-spacing: 0.16em;
@@ -313,32 +312,33 @@ svg {
   text-transform: uppercase;
   cursor: pointer;
   transition:
-    transform var(--transition-fast),
-    filter var(--transition-fast),
-    box-shadow var(--transition-fast),
     background var(--transition-fast),
-    border-color var(--transition-fast);
+    border-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .btn:hover:not(:disabled),
-.btn-primary:hover:not(:disabled),
-.btn-ghost:hover:not(:disabled),
-.btn-danger:hover:not(:disabled) {
-  transform: translateY(-0.2rem);
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-viridian-hot);
+  border-color: var(--color-viridian-hot);
 }
 
-.btn:active:not(:disabled),
-.btn-primary:active:not(:disabled),
-.btn-ghost:active:not(:disabled),
-.btn-danger:active:not(:disabled) {
-  transform: translateY(0);
+.btn-ghost:hover:not(:disabled) {
+  background: var(--color-iron-light);
+  border-color: var(--color-steel);
+  color: var(--fg);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-danger) 80%, white);
+  border-color: color-mix(in srgb, var(--color-danger) 80%, white);
 }
 
 .btn-primary {
-  background: var(--color-ember);
-  border-color: var(--color-ember-hot);
+  background: var(--color-viridian);
+  border-color: var(--color-viridian-hot);
   color: var(--silver);
-  box-shadow: var(--shadow-ember);
+  box-shadow: var(--shadow-viridian);
 }
 
 .btn-ghost {
@@ -365,7 +365,6 @@ svg {
 .btn-danger:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  transform: none;
 }
 
 .icon-button,
@@ -418,7 +417,7 @@ input[type='password'] {
   outline: none;
   background: var(--bg-raised);
   color: var(--fg);
-  caret-color: var(--color-ember);
+  caret-color: var(--color-viridian);
   box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.35);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -439,15 +438,15 @@ input::placeholder {
 input[type='text']:focus,
 input[type='email']:focus,
 input[type='password']:focus {
-  border-color: var(--color-ember);
+  border-color: var(--color-viridian);
   box-shadow:
-    0 0 0 0.2rem var(--glow-ember),
+    0 0 0 0.2rem var(--glow-viridian),
     inset 0 0 1rem rgba(0, 0, 0, 0.35);
 }
 
 input[type='range'] {
   width: 100%;
-  accent-color: var(--color-ember);
+  accent-color: var(--color-viridian);
 }
 
 ::-webkit-scrollbar {
@@ -465,8 +464,8 @@ input[type='range'] {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ember);
-  border-color: var(--color-ember-hot);
+  background: var(--color-viridian);
+  border-color: var(--color-viridian-hot);
 }
 
 @media (max-width: 76.79rem) {
@@ -558,9 +557,9 @@ input[type='range'] {
 }
 
 .swal-strike-confirm {
-  background: var(--color-ember) !important;
+  background: var(--color-viridian) !important;
   color: var(--silver) !important;
-  border: 0.1rem solid var(--color-ember-hot) !important;
+  border: 0.1rem solid var(--color-viridian-hot) !important;
 }
 
 .swal-strike-cancel {
@@ -577,11 +576,11 @@ input[type='range'] {
 }
 
 .swal2-icon.swal2-success [class^='swal2-success-line'] {
-  background-color: var(--color-ember) !important;
+  background-color: var(--color-viridian) !important;
 }
 
 .swal2-icon.swal2-success .swal2-success-ring {
-  border-color: var(--glow-ember) !important;
+  border-color: var(--glow-viridian) !important;
 }
 
 .swal2-icon.swal2-error {
@@ -601,5 +600,5 @@ input[type='range'] {
 }
 
 .swal2-timer-progress-bar {
-  background: var(--color-ember) !important;
+  background: var(--color-viridian) !important;
 }

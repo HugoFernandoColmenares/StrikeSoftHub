@@ -1,31 +1,52 @@
-<section class="shell armory" appAccentZone="var(--color-ember)" aria-labelledby="armory-title">
+<section class="shell armory" appAccentZone="var(--color-viridian)" aria-labelledby="armory-title">
   <header class="head">
     <h1 id="armory-title" class="section-title">{{ copy.title }}</h1>
     <p class="intro">{{ copy.intro }}</p>
     <p class="fine">{{ copy.disclaimer }}</p>
   </header>
 
-  <div class="filters" role="group" [attr.aria-label]="copy.filtersAria">
-    <fieldset>
-      <legend class="label">{{ copy.roleLegend }}</legend>
-      @for (option of roles; track option) {
-        <button type="button" [class.active]="role() === option" (click)="role.set(option)">
-          {{ copy.role[option] }}
-        </button>
-      }
-    </fieldset>
-    <fieldset>
-      <legend class="label">{{ copy.classLegend }}</legend>
-      @for (option of classes; track option) {
-        <button
-          type="button"
-          [class.active]="weaponClass() === option"
-          (click)="weaponClass.set(option)"
-        >
-          {{ copy.klass[option] }}
-        </button>
-      }
-    </fieldset>
+  <div class="toolbar">
+    <div class="filters" role="group" [attr.aria-label]="copy.filtersAria">
+      <fieldset>
+        <legend class="label">{{ copy.roleLegend }}</legend>
+        @for (option of roles; track option) {
+          <button type="button" [class.active]="role() === option" (click)="role.set(option)">
+            {{ copy.role[option] }}
+          </button>
+        }
+      </fieldset>
+      <fieldset>
+        <legend class="label">{{ copy.classLegend }}</legend>
+        @for (option of classes; track option) {
+          <button
+            type="button"
+            [class.active]="weaponClass() === option"
+            (click)="weaponClass.set(option)"
+          >
+            {{ copy.klass[option] }}
+          </button>
+        }
+      </fieldset>
+    </div>
+
+    <div class="views" role="group" [attr.aria-label]="copy.viewAria">
+      <button
+        type="button"
+        [class.active]="gridView()"
+        [attr.aria-pressed]="gridView()"
+        (click)="gridView.set(true)"
+      >
+        {{ copy.viewCards }}
+      </button>
+      <button
+        type="button"
+        [class.active]="!gridView()"
+        [attr.aria-pressed]="!gridView()"
+        (click)="gridView.set(false)"
+      >
+        {{ copy.viewList }}
+      </button>
+    </div>
   </div>
 
   @if (loading()) {
@@ -36,51 +57,48 @@
       <p>{{ copy.emptyBody }}</p>
       <button type="button" class="btn-ghost" (click)="reset()">{{ copy.clearFilters }}</button>
     </div>
+  } @else if (gridView()) {
+    <div class="cards">
+      @for (weapon of filtered(); track weapon.id) {
+        <app-weapon-card [weapon]="weapon" />
+      }
+    </div>
   } @else {
-    <div class="results">
-      @if (featured(); as piece) {
-        <div class="feature">
-          <h2 class="label">{{ copy.reference }}</h2>
-          <app-weapon-card [weapon]="piece" />
+    <div class="ledger" role="table" [attr.aria-label]="copy.tableAria">
+      <div class="row heading label" role="row">
+        <span role="columnheader">{{ copy.columns.weapon }}</span>
+        <span role="columnheader">{{ copy.columns.role }}</span>
+        <span role="columnheader">{{ copy.columns.weight }}</span>
+        <span role="columnheader">{{ copy.columns.length }}</span>
+        <span role="columnheader">{{ copy.columns.price }}</span>
+        <span role="columnheader"><span class="sr">{{ copy.columns.action }}</span></span>
+      </div>
+
+      @for (weapon of filtered(); track weapon.id) {
+        <div class="row" role="row">
+          <a class="name" [routerLink]="['/armory', weapon.id]" role="cell">
+            {{ weapon.name }}
+            <span class="klass label"
+              >{{ copy.klass[weapon.weaponClass] }} · {{ weapon.specs.coreMaterial }}</span
+            >
+          </a>
+          <span class="mono cell" role="cell">{{ copy.role[weapon.combatRole] }}</span>
+          <span class="mono cell" role="cell">{{ weapon.specs.weightGrams }} g</span>
+          <span class="mono cell" role="cell">{{ weapon.specs.totalLengthCm }} cm</span>
+          <span class="mono cell price" role="cell">
+            {{ weapon.price | currency: 'COP' : 'code' : '1.0-0' }}
+          </span>
+          <span class="cell action" role="cell">
+            @if (weapon.stock > 0) {
+              <button type="button" class="btn-ghost small" (click)="addToArsenal(weapon)">
+                {{ copy.add }}
+              </button>
+            } @else {
+              <span class="label queued">{{ copy.queued }}</span>
+            }
+          </span>
         </div>
       }
-
-      <div class="ledger" role="table" [attr.aria-label]="copy.tableAria">
-        <div class="row heading label" role="row">
-          <span role="columnheader">{{ copy.columns.weapon }}</span>
-          <span role="columnheader">{{ copy.columns.role }}</span>
-          <span role="columnheader">{{ copy.columns.weight }}</span>
-          <span role="columnheader">{{ copy.columns.length }}</span>
-          <span role="columnheader">{{ copy.columns.price }}</span>
-          <span role="columnheader"><span class="sr">{{ copy.columns.action }}</span></span>
-        </div>
-
-        @for (weapon of rows(); track weapon.id) {
-          <div class="row" role="row">
-            <a class="name" [routerLink]="['/armory', weapon.id]" role="cell">
-              {{ weapon.name }}
-              <span class="klass label"
-                >{{ copy.klass[weapon.weaponClass] }} · {{ weapon.specs.coreMaterial }}</span
-              >
-            </a>
-            <span class="mono cell" role="cell">{{ copy.role[weapon.combatRole] }}</span>
-            <span class="mono cell" role="cell">{{ weapon.specs.weightGrams }} g</span>
-            <span class="mono cell" role="cell">{{ weapon.specs.totalLengthCm }} cm</span>
-            <span class="mono cell price" role="cell">
-              {{ weapon.price | currency: 'COP' : 'code' : '1.0-0' }}
-            </span>
-            <span class="cell action" role="cell">
-              @if (weapon.stock > 0) {
-                <button type="button" class="btn-ghost small" (click)="addToArsenal(weapon)">
-                  {{ copy.add }}
-                </button>
-              } @else {
-                <span class="label queued">{{ copy.queued }}</span>
-              }
-            </span>
-          </div>
-        }
-      </div>
     </div>
   }
 </section>

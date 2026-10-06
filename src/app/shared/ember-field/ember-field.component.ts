@@ -9,7 +9,7 @@ interface EmberSpec {
   scale: string;
 }
 
-const EMBER_COUNT = 42;
+const EMBER_COUNT = 10;
 
 function createEmbers(): EmberSpec[] {
   return Array.from({ length: EMBER_COUNT }, () => ({
@@ -45,6 +45,7 @@ function createEmbers(): EmberSpec[] {
       inset: 0;
       z-index: 1;
       pointer-events: none;
+      contain: strict;
     }
 
     .embers {
@@ -59,10 +60,10 @@ function createEmbers(): EmberSpec[] {
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 50%;
-      background: var(--color-ember-hot);
+      background: var(--color-viridian-hot);
       box-shadow:
-        0 0 0.8rem var(--color-ember),
-        0 0 1.5rem var(--glow-ember);
+        0 0 0.8rem var(--color-viridian),
+        0 0 1.5rem var(--glow-viridian);
       animation: emberRise var(--ember-duration) linear var(--ember-delay) infinite;
       opacity: 0;
     }

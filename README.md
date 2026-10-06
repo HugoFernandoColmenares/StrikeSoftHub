@@ -9,9 +9,11 @@ calendar, a workshop catalog, and public chronicles transcribed from
 [@armagedonsoftcombat](https://www.instagram.com/armagedonsoftcombat/).
 
 The visual system is the **Armagedón forge** language: stone canvas, iron frames, silver trim,
-parchment type, and a heraldic green accent taken from the club shield. Rising particles on the
-home hero use that same green. Color tokens live only in `src/styles.css`. Feature mapping is in
-[docs/architecture_guidelines.md](docs/architecture_guidelines.md).
+parchment type, and a heraldic **viridian** accent taken from the club shield
+(`--color-viridian`). Rising particles on the home hero use that same green. Color tokens live
+only in `src/styles.css`. Feature mapping is in
+[docs/architecture_guidelines.md](docs/architecture_guidelines.md). Hover never moves an
+element: only color, background, or border may change.
 
 A local HTML/CSS/JS mockup may exist under `public/design_ref/` as a visual source. That folder is
 gitignored and is not part of the shipped Angular app.
@@ -35,9 +37,9 @@ flows continue on LocalStorage without interrupting the visitor.
 ## Features
 
 - Spanish UI with copy files in `src/app/core/copy/`
-- Home hero with workshop photography, ember particles, and a live Sunday countdown in COT
+- Home hero with workshop photography, viridian particles, and a live Sunday countdown in COT
 - Instagram chronicles on the home page (Sakura Fest, Bucara Geek Fest, Sunday call)
-- Armory with combat-role and weapon-class filters, measured specs, and prices in Colombian pesos
+- Armory with combat-role and weapon-class filters, a card/list toggle (`gridView` signal), a fixed CSS card grid, measured specs, and prices in Colombian pesos
 - Weapon detail with workshop photography when it exists
 - Arena with the standing Sunday fixture plus announced dates from the public Instagram
 - Cart as a right-hand drawer, then an auth-guarded reservation flow
@@ -54,9 +56,9 @@ Confirmed facts live in `src/app/core/config/group.ts`.
 
 ## Stack
 
-- Angular 22 standalone components, signals, and lazy-loaded routes
+- Angular 22 standalone components, signals, lazy-loaded routes, and `PreloadAllModules` after first paint
 - `es-CO` locale for dates
-- Design tokens in `src/styles.css` (`html` root at 62.5% so `1rem` equals `10px`): green accent, silver highlight, stone/iron ground
+- Design tokens in `src/styles.css` (`html` root at 62.5% so `1rem` equals `10px`): viridian accent, silver highlight, stone/iron ground
 - Cinzel, MedievalSharp, and Inter
 - Supabase Auth and Postgres as the primary backend
 - LocalStorage as an automatic fallback and cache
@@ -75,10 +77,19 @@ npm install
 npm start
 ```
 
-Open `http://localhost:4200/`.
+Open `http://localhost:4200/`. Auth (`/auth`) and profile (`/profile`) are not linked from the
+header; open those URLs directly.
 
 `npm start` and `npm run build` run `scripts/apply-env.mjs`, which writes
 `src/environments/environment.secrets.ts` from `.env`.
+
+On boot the app probes Supabase Auth health. If the probe succeeds, repositories read live tables
+and cache the result. If it fails, seed data and user actions stay in LocalStorage. Returning
+online does not require a reload; the next probe switches the write path back to Supabase for
+authenticated sessions.
+
+`.env` is gitignored. Do not add `docs/DESIGN.md`, `docs/PRODUCT.md`, or `docs/setup.md`. Those
+notes belong in this README, `docs/design_guidelines.md`, and `docs/architecture_guidelines.md`.
 
 ## Supabase setup
 
@@ -113,12 +124,21 @@ src/app/
     repositories/  Supabase + LocalStorage
     services/   cart, auth, muster, notifications
   features/     home, armory, arena, lore, auth, checkout, profile
-  shared/       ember field, weapon card, stats, loading
-  layout/       iron topbar, cart drawer, footer, shell
+  shared/       viridian particle field, weapon card, stats, loading
+  layout/       iron topbar, cart drawer, footer, fixed-height shell
 ```
+
+The layout shell is a viewport-high grid. `html` and `body` do not scroll; `<main>` uses
+`overflow-y: scroll`. Repositories skip a second network/local read when already hydrated.
 
 See [docs/architecture_guidelines.md](docs/architecture_guidelines.md) and
 [docs/design_guidelines.md](docs/design_guidelines.md).
+
+## Screenshots from the running app
+
+`scripts/shoot.ps1` drives headless Chrome over the running dev server and writes one PNG per
+route. The files land in `.impeccable/review/`. The ones published above are copied into
+`public/screenshots/` and resized to 1280 pixels wide.
 
 ## Author
 

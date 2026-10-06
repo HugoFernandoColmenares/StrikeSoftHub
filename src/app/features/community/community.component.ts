@@ -20,9 +20,13 @@ export class CommunityComponent {
   readonly muster = inject(MusterService);
   readonly group = GROUP;
   readonly copy = COMMUNITY_COPY;
-  readonly loading = signal(true);
+  readonly loading = signal(!this.community.ready());
 
   constructor() {
+    if (this.community.ready()) {
+      return;
+    }
+
     void this.community.load().finally(() => this.loading.set(false));
   }
 }

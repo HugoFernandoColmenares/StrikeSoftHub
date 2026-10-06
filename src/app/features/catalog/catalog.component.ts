@@ -20,7 +20,8 @@ export class CatalogComponent {
   private readonly catalog = inject(CatalogRepository);
   private readonly cart = inject(CartService);
 
-  readonly loading = signal(true);
+  readonly loading = signal(!this.catalog.ready());
+  readonly gridView = signal(true);
   readonly role = signal<CombatRole | 'ALL'>('ALL');
   readonly copy = CATALOG_COPY;
   readonly weaponClass = signal<WeaponClass | 'ALL'>('ALL');
@@ -28,10 +29,12 @@ export class CatalogComponent {
   readonly classes: Array<WeaponClass | 'ALL'> = ['ALL', 'SWORD', 'AXE', 'MACE', 'SHIELD', 'POLEARM'];
 
   readonly filtered = computed(() => this.catalog.catalog().filter((weapon) => this.matches(weapon)));
-  readonly featured = computed(() => this.filtered().find((weapon) => weapon.imageUrl));
-  readonly rows = computed(() => this.filtered().filter((weapon) => weapon !== this.featured()));
 
   constructor() {
+    if (this.catalog.ready()) {
+      return;
+    }
+
     void this.catalog.load().finally(() => this.loading.set(false));
   }
 

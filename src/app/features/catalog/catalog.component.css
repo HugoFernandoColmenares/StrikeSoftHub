@@ -14,11 +14,23 @@
   color: var(--fg-dim);
 }
 
-.filters {
+.toolbar {
   display: grid;
   gap: var(--step-3);
   padding-block: var(--step-3);
   border-block: 1px solid var(--border);
+}
+
+.filters,
+.views {
+  display: grid;
+  gap: var(--step-2);
+}
+
+.views {
+  justify-items: start;
+  grid-auto-flow: column;
+  justify-content: start;
 }
 
 fieldset {
@@ -36,7 +48,8 @@ legend {
   padding: 0 0 0.45rem;
 }
 
-fieldset button {
+fieldset button,
+.views button {
   min-height: var(--touch);
   padding: 0.6rem 1.2rem;
   background: transparent;
@@ -45,29 +58,27 @@ fieldset button {
   font-size: var(--text-small);
   letter-spacing: 0.08em;
   cursor: pointer;
-  transition: all 0.2s var(--ease-out);
+  transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
 }
 
-fieldset button:hover {
+fieldset button:hover,
+.views button:hover {
   color: var(--fg);
   border-color: var(--fg);
 }
 
-fieldset button.active {
+fieldset button.active,
+.views button.active {
   background: var(--section-accent);
   border-color: var(--section-accent);
   color: var(--color-ink);
 }
 
-.results {
+.cards {
   display: grid;
-  gap: var(--step-4);
-}
-
-.feature {
-  display: grid;
-  gap: 0.5rem;
-  align-content: start;
+  grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+  gap: var(--content-gap);
+  align-items: stretch;
 }
 
 .ledger {
@@ -81,12 +92,12 @@ fieldset button.active {
   padding: var(--step-2) 0;
   border-bottom: 1px solid var(--border);
   align-items: center;
-  transition: background 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+  transition: background 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
 }
 
 .row:not(.heading):hover {
   background: var(--bg-elevated);
-  transform: translateX(0.6rem);
+  border-color: var(--border-strong);
 }
 
 .heading {
@@ -185,13 +196,17 @@ fieldset button.active {
 }
 
 @media (min-width: 102.4rem) {
-  .results {
-    grid-template-columns: minmax(28rem, 34rem) minmax(0, 1fr);
-    align-items: start;
-  }
-
   .head {
     max-width: none;
+  }
+
+  .toolbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
   }
 
   .row {

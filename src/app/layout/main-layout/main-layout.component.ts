@@ -21,15 +21,15 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
   `,
   styles: `
     .app-shell {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
     }
 
     main {
-      display: block;
-      flex: 1;
-      min-height: 60dvh;
+      min-height: 0;
+      overflow-y: scroll;
     }
 
     main:focus {

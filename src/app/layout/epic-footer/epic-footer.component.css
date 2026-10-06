@@ -59,7 +59,7 @@
 .social:hover,
 .social:focus-visible {
   color: var(--silver);
-  border-color: var(--color-ember);
+  border-color: var(--color-viridian);
 }
 
 .handle {

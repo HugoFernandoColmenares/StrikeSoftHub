@@ -17,8 +17,27 @@ export class CommunityRepository {
 
   readonly eventFeed = this.events.asReadonly();
   readonly clanBoard = this.posts.asReadonly();
+  private readonly hydrated = signal(false);
+  private inflight: Promise<void> | null = null;
+  readonly ready = this.hydrated.asReadonly();
 
   async load(): Promise<void> {
+    if (this.hydrated()) {
+      return;
+    }
+
+    if (this.inflight) {
+      return this.inflight;
+    }
+
+    this.inflight = this.refresh().finally(() => {
+      this.inflight = null;
+    });
+
+    return this.inflight;
+  }
+
+  private async refresh(): Promise<void> {
     if (this.backend.isOnline() && this.supabase.client) {
       const [eventResult, postResult] = await Promise.all([
         this.supabase.client.from('battle_events').select('*').order('event_date'),
@@ -54,6 +73,7 @@ export class CommunityRepository {
       }
 
       if (eventResult.data?.length || postResult.data?.length) {
+        this.hydrated.set(true);
         return;
       }
     }
@@ -67,5 +87,7 @@ export class CommunityRepository {
       this.posts.set(CLAN_POST_SEED);
       this.store.write(STORAGE_KEYS.clanPosts, CLAN_POST_SEED);
     }
+
+    this.hydrated.set(true);
   }
 }

@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { GROUP } from '../../core/config/group';
 import { LAYOUT_COPY } from '../../core/copy/layout.copy';
-import { AuthService } from '../../core/services/auth.service';
-import { BackendStatusService } from '../../core/services/backend-status.service';
 import { CartService } from '../../core/services/cart.service';
 import { IconComponent } from '../../shared/icon/icon.component';
 
@@ -16,8 +14,6 @@ import { IconComponent } from '../../shared/icon/icon.component';
 })
 export class EpicNavbarComponent {
   readonly cart = inject(CartService);
-  readonly auth = inject(AuthService);
-  readonly backend = inject(BackendStatusService);
   readonly copy = LAYOUT_COPY;
   readonly group = GROUP;
   readonly menuOpen = signal(false);
