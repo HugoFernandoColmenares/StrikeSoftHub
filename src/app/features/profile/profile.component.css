@@ -1,7 +1,8 @@
 .profile {
   display: grid;
   gap: var(--step-4);
-  max-width: 72rem;
+  width: min(100%, 88rem);
+  margin-inline: auto;
   padding-block: var(--step-4) var(--step-5);
 }
 

@@ -12,6 +12,7 @@ export const GROUP = {
   instagramUrl: 'https://www.instagram.com/armagedonsoftcombat/',
   instagramHandle: '@armagedonsoftcombat',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Parque+La+Flora+Bucaramanga',
+  logoUrl: 'assets/logo/club_logo.jpeg',
 } as const;
 
 /** Sunday 10:00 in Bogota is 15:00 UTC. Colombia does not observe daylight saving. */

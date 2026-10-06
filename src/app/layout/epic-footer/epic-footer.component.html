@@ -1,6 +1,7 @@
 <footer class="foot" aria-labelledby="footer-title">
   <div class="shell grid">
     <div class="mark">
+      <img class="crest" [src]="group.logoUrl" alt="" width="80" height="100" />
       <p id="footer-title" class="name">{{ group.name }}</p>
       <p class="where mono">{{ group.venue }} · {{ group.city }}, {{ group.region }}</p>
       <p class="when mono">{{ group.dayLabel }} · {{ group.timeLabel }} {{ group.timeZoneLabel }}</p>

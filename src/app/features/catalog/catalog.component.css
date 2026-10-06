@@ -56,7 +56,7 @@ fieldset button:hover {
 fieldset button.active {
   background: var(--section-accent);
   border-color: var(--section-accent);
-  color: #000;
+  color: var(--color-ink);
 }
 
 .results {
@@ -76,11 +76,11 @@ fieldset button.active {
 
 .row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.3rem var(--step-2);
   padding: var(--step-2) 0;
   border-bottom: 1px solid var(--border);
-  align-items: baseline;
+  align-items: center;
   transition: background 0.2s var(--ease-out), transform 0.2s var(--ease-out);
 }
 
@@ -96,6 +96,7 @@ fieldset button.active {
 }
 
 .name {
+  grid-column: 1;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-h3);
@@ -124,6 +125,7 @@ fieldset button.active {
 }
 
 .price {
+  grid-column: 1;
   color: var(--fg);
   font-weight: 700;
 }
@@ -132,6 +134,7 @@ fieldset button.active {
   grid-column: 2;
   grid-row: 1 / span 2;
   align-self: center;
+  justify-self: end;
 }
 
 .btn-ghost.small {
@@ -181,13 +184,18 @@ fieldset button.active {
   }
 
   .row {
-    grid-template-columns: minmax(0, 2fr) 7rem 5rem 5rem 9rem 5rem;
+    grid-template-columns: minmax(0, 2fr) 8rem 6rem 6rem minmax(11rem, 14rem) auto;
     gap: var(--step-2);
   }
 
+  .name,
+  .price,
   .action {
     grid-column: auto;
     grid-row: auto;
+  }
+
+  .action {
     justify-self: end;
   }
 }
@@ -198,7 +206,11 @@ fieldset button.active {
     align-items: start;
   }
 
+  .head {
+    max-width: none;
+  }
+
   .row {
-    grid-template-columns: minmax(0, 2fr) 6.5rem 4.5rem 4.5rem 8.5rem 4.5rem;
+    grid-template-columns: minmax(0, 2.2fr) 9rem 7rem 7rem minmax(12rem, 16rem) auto;
   }
 }

@@ -2,7 +2,8 @@
   display: grid;
   gap: var(--step-3);
   justify-items: start;
-  max-width: 72rem;
+  width: min(100%, 88rem);
+  margin-inline: auto;
   padding-block: var(--step-4) var(--step-5);
 }
 
@@ -66,7 +67,7 @@ h1 {
 
 .qty button:hover {
   background: var(--section-accent);
-  color: #000;
+  color: var(--color-ink);
 }
 
 .qty span.mono {

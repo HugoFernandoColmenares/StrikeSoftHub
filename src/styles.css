@@ -16,6 +16,21 @@
   --color-ember-hot: #ff9a45;
   --color-ember-deep: #8b2411;
 
+  --color-herald: #1b7a3a;
+  --color-herald-hot: #47a866;
+  --color-herald-deep: #0c3d1f;
+  --color-ink: #19130e;
+  --color-void: #0b0c0e;
+  --color-void-soft: #101113;
+  --color-panel: #121416;
+  --color-chip: #1d1f22;
+  --color-steel: #6d7278;
+  --color-steel-dim: #5d6269;
+  --color-mist: #bfc1c5;
+  --color-warm: #ffcf8b;
+  --color-badge: #ffe0b7;
+  --color-wood-edge: #403b36;
+
   --color-stone-bg: #0e0f11;
   --color-stone: #1a1b1e;
   --color-stone-light: #24262a;
@@ -55,6 +70,21 @@
     0 0 1rem rgba(255, 93, 32, 0.35),
     0 0 3rem rgba(255, 93, 32, 0.12);
 
+  --shadow-herald:
+    0 0 1rem color-mix(in srgb, var(--color-herald) 42%, transparent),
+    0 0 3rem color-mix(in srgb, var(--color-herald) 16%, transparent);
+
+  --glow-herald: color-mix(in srgb, var(--color-herald) 36%, transparent);
+  --nav-from: color-mix(in srgb, var(--color-iron-light) 96%, transparent);
+  --nav-to: color-mix(in srgb, var(--color-void) 98%, transparent);
+  --scrim-strong: color-mix(in srgb, var(--color-void) 94%, transparent);
+  --scrim-mid: color-mix(in srgb, var(--color-void) 78%, transparent);
+  --scrim-soft: color-mix(in srgb, var(--color-void) 28%, transparent);
+  --overlay-panel: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  --wash-strong: color-mix(in srgb, var(--fg) 4%, transparent);
+  --wash-soft: color-mix(in srgb, var(--fg) 2%, transparent);
+  --scrim-backdrop: color-mix(in srgb, var(--color-void) 72%, transparent);
+
   --page-width: 176rem;
   --nav-height: 7rem;
   --section-padding: 7rem;
@@ -70,12 +100,12 @@
   --fg: var(--color-parchment);
   --fg-dim: #9d9fa4;
   --fg-mute: #5f6369;
-  --accent: var(--color-ember);
-  --green: var(--color-success);
+  --accent: var(--color-herald);
+  --green: var(--color-herald);
   --yellow: var(--color-gold);
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.18);
-  --section-accent: var(--color-ember);
+  --section-accent: var(--color-herald);
 
   --step-1: 0.8rem;
   --step-2: 1.6rem;
@@ -100,13 +130,13 @@
   --bp-desktop: 128rem;
 
   color-scheme: dark;
-  accent-color: var(--color-ember);
+  accent-color: var(--color-herald);
 }
 
 @property --section-accent {
   syntax: '<color>';
   inherits: true;
-  initial-value: #ff5d20;
+  initial-value: #1b7a3a;
 }
 
 *,
@@ -232,8 +262,18 @@ svg {
 }
 
 ::selection {
-  background: var(--color-ember);
-  color: #19130e;
+  background: var(--color-herald);
+  color: var(--color-ink);
+}
+
+.measure {
+  width: min(100%, 88rem);
+  margin-inline: auto;
+}
+
+.measure-narrow {
+  width: min(100%, 56rem);
+  margin-inline: auto;
 }
 
 .container,
@@ -599,24 +639,42 @@ input[type='range'] {
 
 .swal2-container {
   font-family: var(--font-body);
+  z-index: 200;
+}
+
+.swal2-container.swal2-bottom-end {
+  z-index: 70;
+  pointer-events: none;
+}
+
+.swal2-container.swal2-bottom-end .swal2-popup {
+  pointer-events: auto;
+}
+
+.swal-strike-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .swal-strike-popup {
   background: var(--color-stone) !important;
   color: var(--color-parchment) !important;
-  border: 0.2rem solid #545a61 !important;
+  border: var(--border-iron) !important;
   border-radius: 1.2rem !important;
   padding: 2rem !important;
-  box-shadow:
-    0 2.5rem 6rem rgba(0, 0, 0, 0.65),
-    inset 0 0.1rem 0 rgba(255, 255, 255, 0.08) !important;
+  box-shadow: var(--shadow-heavy) !important;
 }
 
 .swal-strike-title {
   font-family: var(--font-display) !important;
   font-weight: 800 !important;
   letter-spacing: 0.05em !important;
-  color: #eed9b1 !important;
+  color: var(--fg) !important;
 }
 
 .swal-strike-html {
@@ -627,6 +685,8 @@ input[type='range'] {
 .swal-strike-confirm,
 .swal-strike-cancel {
   min-height: var(--touch) !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
   border-radius: var(--radius-sm) !important;
   font-family: var(--font-display) !important;
   font-weight: 700 !important;
@@ -637,22 +697,22 @@ input[type='range'] {
 }
 
 .swal-strike-confirm {
-  background: linear-gradient(180deg, #d06a32, #8c2e18) !important;
-  color: #f5e4bd !important;
-  border: 0.1rem solid #e48a4a !important;
+  background: var(--color-herald) !important;
+  color: var(--color-badge) !important;
+  border: 0.1rem solid var(--color-herald-hot) !important;
 }
 
 .swal-strike-cancel {
-  background: linear-gradient(180deg, #51565d, #272a2e) !important;
-  color: #f5e4bd !important;
-  border: 0.1rem solid #7a8088 !important;
+  background: var(--color-iron) !important;
+  color: var(--color-parchment) !important;
+  border: 0.1rem solid var(--color-iron-light) !important;
 }
 
 .swal-strike-toast {
-  background: linear-gradient(145deg, #2d3136, #17191c) !important;
-  border: 0.1rem solid #575d64 !important;
+  background: var(--bg-raised) !important;
+  border: var(--border-dark) !important;
   border-radius: 0.7rem !important;
-  color: #ddd1b5 !important;
+  color: var(--fg) !important;
 }
 
 .swal2-icon.swal2-success [class^='swal2-success-line'] {

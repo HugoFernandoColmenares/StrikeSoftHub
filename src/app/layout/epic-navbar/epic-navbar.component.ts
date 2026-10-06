@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { GROUP } from '../../core/config/group';
 import { LAYOUT_COPY } from '../../core/copy/layout.copy';
 import { AuthService } from '../../core/services/auth.service';
 import { BackendStatusService } from '../../core/services/backend-status.service';
@@ -18,6 +19,7 @@ export class EpicNavbarComponent {
   readonly auth = inject(AuthService);
   readonly backend = inject(BackendStatusService);
   readonly copy = LAYOUT_COPY;
+  readonly group = GROUP;
   readonly menuOpen = signal(false);
   readonly compactNav = signal(false);
 

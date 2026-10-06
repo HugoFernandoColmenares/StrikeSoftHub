@@ -5,7 +5,7 @@
   display: block;
   visibility: hidden;
   pointer-events: none;
-  background: rgba(2, 2, 3, 0.7);
+  background: var(--scrim-backdrop);
   backdrop-filter: blur(0.5rem);
   opacity: 0;
   transition: opacity var(--transition-medium), visibility var(--transition-medium);
@@ -25,11 +25,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.03), transparent 32%),
-    #121416;
-  border-inline-start: 0.2rem solid #555a61;
-  box-shadow: -2rem 0 4rem rgba(0, 0, 0, 0.45);
+  background: var(--color-panel);
+  border-inline-start: var(--border-iron);
+  box-shadow: var(--shadow-heavy);
   transform: translateX(100%);
   transition: transform var(--transition-medium);
 }
@@ -44,13 +42,13 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1.8rem;
-  border-block-end: 0.1rem solid rgba(255, 255, 255, 0.07);
+  border-block-end: var(--border-dark);
 }
 
 .cart-drawer__header h2 {
   margin: 0;
   font-size: var(--text-h3);
-  color: #ead8b7;
+  color: var(--fg);
 }
 
 .cart-items {
@@ -63,15 +61,14 @@
 }
 
 .cart-item {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 1.2rem;
   border-radius: 0.8rem;
   border: var(--border-dark);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--wash-soft);
 }
 
 .cart-item__info {
@@ -82,13 +79,16 @@
 }
 
 .cart-item__info strong {
-  color: #dbc89f;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg);
   font-family: var(--font-display);
   font-size: var(--text-h3);
 }
 
 .cart-item__info span {
-  color: #81858c;
+  color: var(--fg-dim);
   font-size: var(--text-small);
 }
 
@@ -102,10 +102,10 @@
 .qty,
 .remove {
   min-height: var(--touch);
-  border: 0.1rem solid #555b62;
+  border: var(--border-dark);
   border-radius: 0.5rem;
-  background: #1d1f22;
-  color: #d6c7a9;
+  background: var(--color-chip);
+  color: var(--fg);
 }
 
 .qty {
@@ -133,14 +133,14 @@
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
-  border-block-start: 0.1rem solid rgba(255, 255, 255, 0.07);
+  border-block-start: var(--border-dark);
 }
 
 .cart-total {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  color: #9fa2a8;
+  color: var(--fg-dim);
 }
 
 .cart-total strong {
@@ -155,9 +155,9 @@
   display: grid;
   place-items: center;
   padding: 2rem;
-  border: 0.1rem dashed #454a50;
+  border: 0.1rem dashed var(--color-steel-dim);
   border-radius: 0.8rem;
-  color: #72767c;
+  color: var(--fg-dim);
   text-align: center;
 }
 

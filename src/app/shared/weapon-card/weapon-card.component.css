@@ -84,9 +84,15 @@ h3 a {
   font-weight: 700;
 }
 
+:host(.is-compact) .photo,
+:host(.is-compact) .plate {
+  aspect-ratio: 16 / 10;
+  max-height: 26rem;
+}
+
 .premium {
   font-size: var(--text-small);
-  color: #19130e;
+  color: var(--color-ink);
   background: var(--yellow);
   padding: 0.3rem 0.6rem;
 }

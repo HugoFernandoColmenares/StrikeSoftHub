@@ -1,7 +1,14 @@
 <header class="topbar">
   <div class="topbar__inner">
     <a routerLink="/" class="brand" (click)="closeMenu()" [attr.aria-label]="copy.brandAria">
-      <span class="brand__sigil" aria-hidden="true">A</span>
+      <img
+        class="brand__logo"
+        [src]="group.logoUrl"
+        alt=""
+        width="64"
+        height="80"
+        aria-hidden="true"
+      />
       <span class="brand__text">
         <span class="brand__name">{{ copy.brandName }}</span>
         <span class="brand__tagline">{{ copy.brandTagline }}</span>

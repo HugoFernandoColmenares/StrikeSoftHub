@@ -5,12 +5,9 @@
   min-height: var(--nav-height);
   display: flex;
   align-items: center;
-  border-block-end: 0.2rem solid #6d7278;
-  background: linear-gradient(180deg, rgba(77, 82, 89, 0.96), rgba(19, 21, 24, 0.98));
-  box-shadow:
-    0 1rem 2.5rem rgba(0, 0, 0, 0.55),
-    inset 0 -0.2rem 0 rgba(0, 0, 0, 0.65),
-    inset 0 0.1rem 0 rgba(255, 255, 255, 0.09);
+  border-block-end: 0.2rem solid var(--color-steel);
+  background: linear-gradient(180deg, var(--nav-from), var(--nav-to));
+  box-shadow: var(--shadow-heavy);
   backdrop-filter: blur(1.2rem);
 }
 
@@ -34,23 +31,14 @@
   min-height: var(--touch);
 }
 
-.brand__sigil {
-  width: 4.2rem;
-  height: 4.2rem;
-  display: grid;
-  place-items: center;
-  border: 0.2rem solid var(--color-bronze);
-  border-radius: 0.8rem;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(255, 162, 73, 0.32), transparent 42%),
-    linear-gradient(145deg, #3d4146, #101113);
-  color: var(--color-ember-hot);
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 800;
-  box-shadow:
-    inset 0 0.1rem 0 rgba(255, 255, 255, 0.14),
-    var(--shadow-ember);
+.brand__logo {
+  width: 4.8rem;
+  height: 4.8rem;
+  object-fit: contain;
+  background: var(--color-void);
+  border: 0.1rem solid var(--color-herald);
+  border-radius: 0.6rem;
+  box-shadow: var(--shadow-herald);
 }
 
 .brand__text {
@@ -60,19 +48,19 @@
 }
 
 .brand__name {
-  color: #ff9b4c;
+  color: var(--color-herald-hot);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 2vw, 2.5rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.08em;
   text-shadow:
-    0 0 0.8rem rgba(255, 104, 27, 0.6),
-    0 0 2.2rem rgba(255, 104, 27, 0.18);
+    0 0 0.8rem var(--glow-herald),
+    0 0 2.2rem var(--shadow-herald);
 }
 
 .brand__tagline {
-  color: #9d9fa4;
+  color: var(--fg-dim);
   font-size: var(--text-small);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -95,7 +83,7 @@
   border: 0;
   border-radius: 0.5rem;
   background: transparent;
-  color: #bfc1c5;
+  color: var(--color-mist);
   font-family: var(--font-display);
   font-size: var(--text-ui);
   font-weight: 700;
@@ -112,14 +100,14 @@
   bottom: 0.2rem;
   height: 0.2rem;
   transform: scaleX(0);
-  background: linear-gradient(90deg, transparent, var(--color-ember), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-herald), transparent);
   transition: transform var(--transition-fast);
 }
 
 .nav-link:hover,
 .nav-link.is-active {
-  color: #ffcf8b;
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-warm);
+  background: var(--wash-strong);
 }
 
 .nav-link:hover::after,
@@ -140,7 +128,7 @@
   padding: 0.7rem 1rem;
   border: var(--border-dark);
   border-radius: 0.7rem;
-  color: #aeb1b6;
+  color: var(--fg-dim);
   font-size: var(--text-small);
   white-space: nowrap;
 }
@@ -149,13 +137,12 @@
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
-  background: #71747a;
-  box-shadow: 0 0 0.8rem rgba(120, 120, 120, 0.2);
+  background: var(--color-steel);
 }
 
 .status-dot.is-online {
-  background: var(--color-success);
-  box-shadow: 0 0 1rem rgba(114, 198, 139, 0.55);
+  background: var(--color-herald);
+  box-shadow: 0 0 1rem var(--glow-herald);
 }
 
 .icon-button {
@@ -171,10 +158,10 @@
   display: grid;
   place-items: center;
   padding-inline: 0.4rem;
-  border: 0.1rem solid #ffbd7b;
+  border: 0.1rem solid var(--color-herald-hot);
   border-radius: 1rem;
-  background: var(--color-ember-deep);
-  color: #ffe0b7;
+  background: var(--color-herald-deep);
+  color: var(--color-badge);
   font-size: var(--text-small);
   font-weight: 800;
 }
@@ -187,10 +174,10 @@
   justify-content: center;
   flex-direction: column;
   gap: 0.5rem;
-  border: 0.1rem solid #60656c;
+  border: 0.1rem solid var(--color-steel);
   border-radius: 0.7rem;
-  background: linear-gradient(145deg, #454a51, #1d1f22);
-  color: #f0d9af;
+  background: var(--color-iron);
+  color: var(--color-parchment);
 }
 
 .hamburger span {
@@ -222,9 +209,9 @@
     align-items: stretch;
     justify-content: start;
     flex-direction: column;
-    background: linear-gradient(145deg, #25282d, #121416);
-    border-inline-start: 0.2rem solid #555a61;
-    box-shadow: -1.5rem 2rem 4rem rgba(0, 0, 0, 0.45);
+    background: var(--color-panel);
+    border-inline-start: var(--border-iron);
+    box-shadow: var(--shadow-heavy);
     transform: translateX(100%);
     transition: transform var(--transition-medium);
     overflow-y: auto;
@@ -237,8 +224,8 @@
   .nav-link {
     justify-content: flex-start;
     min-height: var(--touch);
-    border: 0.1rem solid rgba(255, 255, 255, 0.05);
-    background: rgba(255, 255, 255, 0.015);
+    border: var(--border-dark);
+    background: var(--wash-soft);
   }
 
   .nav-link::after {

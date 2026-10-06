@@ -1,9 +1,9 @@
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 export const strikeAlert = Swal.mixin({
-  background: '#1a1b1e',
-  color: '#ead7ae',
   buttonsStyling: false,
+  allowOutsideClick: true,
+  allowEscapeKey: true,
   showClass: { popup: '' },
   hideClass: { popup: '' },
   customClass: {
@@ -12,5 +12,6 @@ export const strikeAlert = Swal.mixin({
     htmlContainer: 'swal-strike-html',
     confirmButton: 'swal-strike-confirm',
     cancelButton: 'swal-strike-cancel',
+    actions: 'swal-strike-actions',
   },
 });

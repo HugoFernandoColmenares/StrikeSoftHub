@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
+import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 import { strikeAlert } from '../config/strikeAlert';
 import { NOTIFY_COPY } from '../copy/notifications.copy';
 
@@ -22,32 +22,55 @@ export class NotificationService {
   }
 
   async confirm(title: string, text = '', confirmText = NOTIFY_COPY.reserveConfirm): Promise<boolean> {
+    if (Swal.isVisible()) {
+      Swal.close();
+    }
+
     const result = await strikeAlert.fire({
       title,
       text,
       icon: 'question',
       showCancelButton: true,
+      focusCancel: true,
       confirmButtonText: confirmText,
       cancelButtonText: NOTIFY_COPY.cancel,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
     });
 
     return result.isConfirmed;
   }
 
-  toast(title: string, icon: SweetAlertIcon = 'success'): Promise<SweetAlertResult> {
+  async toast(title: string, icon: SweetAlertIcon = 'success'): Promise<SweetAlertResult> {
+    if (Swal.isVisible()) {
+      Swal.close();
+    }
+
     return strikeAlert.fire({
       toast: true,
-      position: 'top-end',
+      position: 'bottom-end',
       icon,
       title,
       showConfirmButton: false,
-      timer: 2400,
+      showCloseButton: true,
+      timer: 8000,
       timerProgressBar: true,
+      allowOutsideClick: true,
       customClass: { popup: 'swal-strike-toast', title: 'swal-strike-title' },
     });
   }
 
-  private fire(icon: SweetAlertIcon, title: string, text: string): Promise<SweetAlertResult> {
-    return strikeAlert.fire({ icon, title, text });
+  private async fire(icon: SweetAlertIcon, title: string, text: string): Promise<SweetAlertResult> {
+    if (Swal.isVisible()) {
+      Swal.close();
+    }
+
+    return strikeAlert.fire({
+      icon,
+      title,
+      text,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+    });
   }
 }

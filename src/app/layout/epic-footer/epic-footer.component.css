@@ -9,6 +9,19 @@
   gap: var(--step-3);
 }
 
+.mark {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: start;
+}
+
+.crest {
+  width: 6.4rem;
+  height: 8rem;
+  object-fit: contain;
+  background: var(--color-void);
+}
+
 .name {
   font-family: var(--font-display);
   font-weight: 800;
@@ -35,9 +48,9 @@
   gap: 0.8rem;
   min-height: var(--touch);
   padding: 0.6rem 1.2rem;
-  border: 0.1rem solid #555a61;
+  border: var(--border-iron);
   border-radius: var(--radius-sm);
-  background: linear-gradient(145deg, #2a2d32, #151719);
+  background: var(--color-chip);
   color: var(--color-parchment);
   font-size: var(--text-body);
   box-shadow: var(--shadow-metal);
@@ -45,7 +58,7 @@
 
 .social:hover,
 .social:focus-visible {
-  color: #ffcf8b;
+  color: var(--color-warm);
   border-color: var(--color-bronze);
 }
 
