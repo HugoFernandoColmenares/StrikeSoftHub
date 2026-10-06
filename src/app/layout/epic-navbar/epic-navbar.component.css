@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   border-block-end: 0.2rem solid var(--color-steel);
-  background: linear-gradient(180deg, var(--nav-from), var(--nav-to));
+  background: var(--bg-elevated);
   box-shadow: var(--shadow-heavy);
   backdrop-filter: blur(1.2rem);
 }
@@ -35,10 +35,10 @@
   width: 4.8rem;
   height: 4.8rem;
   object-fit: contain;
-  background: var(--color-void);
-  border: 0.1rem solid var(--color-herald);
+  background: var(--color-stone-bg);
+  border: 0.1rem solid var(--color-ember);
   border-radius: 0.6rem;
-  box-shadow: var(--shadow-herald);
+  box-shadow: var(--shadow-ember);
 }
 
 .brand__text {
@@ -48,15 +48,15 @@
 }
 
 .brand__name {
-  color: var(--color-herald-hot);
+  color: var(--color-ember-hot);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 2vw, 2.5rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.08em;
   text-shadow:
-    0 0 0.8rem var(--glow-herald),
-    0 0 2.2rem var(--shadow-herald);
+    0 0 0.8rem var(--glow-ember),
+    0 0 2.2rem var(--shadow-ember);
 }
 
 .brand__tagline {
@@ -83,7 +83,7 @@
   border: 0;
   border-radius: 0.5rem;
   background: transparent;
-  color: var(--color-mist);
+  color: var(--color-steel-light);
   font-family: var(--font-display);
   font-size: var(--text-ui);
   font-weight: 700;
@@ -100,13 +100,13 @@
   bottom: 0.2rem;
   height: 0.2rem;
   transform: scaleX(0);
-  background: linear-gradient(90deg, transparent, var(--color-herald), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-ember), transparent);
   transition: transform var(--transition-fast);
 }
 
 .nav-link:hover,
 .nav-link.is-active {
-  color: var(--color-warm);
+  color: var(--silver);
   background: var(--wash-strong);
 }
 
@@ -141,8 +141,8 @@
 }
 
 .status-dot.is-online {
-  background: var(--color-herald);
-  box-shadow: 0 0 1rem var(--glow-herald);
+  background: var(--color-ember);
+  box-shadow: 0 0 1rem var(--glow-ember);
 }
 
 .icon-button {
@@ -158,10 +158,10 @@
   display: grid;
   place-items: center;
   padding-inline: 0.4rem;
-  border: 0.1rem solid var(--color-herald-hot);
+  border: 0.1rem solid var(--color-ember-hot);
   border-radius: 1rem;
-  background: var(--color-herald-deep);
-  color: var(--color-badge);
+  background: var(--color-ember-deep);
+  color: var(--silver);
   font-size: var(--text-small);
   font-weight: 800;
 }
@@ -209,7 +209,7 @@
     align-items: stretch;
     justify-content: start;
     flex-direction: column;
-    background: var(--color-panel);
+    background: var(--bg-elevated);
     border-inline-start: var(--border-iron);
     box-shadow: var(--shadow-heavy);
     transform: translateX(100%);

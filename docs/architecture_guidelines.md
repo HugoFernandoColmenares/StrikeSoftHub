@@ -66,11 +66,11 @@ About owns: craft pillars, team roster, safety protocol.
 * Arrival tile if distinct from the full card.
 * Event card / event banner.
 * Spec list, meta pills, section title (kicker + heading + lede).
-* Buttons remain **global classes** (`.btn`, `.btn-primary`, `.btn-secondary`, `.btn-bronze`, `.btn-danger`, `.btn-small`) in `src/styles.css`.
+* Buttons remain **global classes** (`.btn`, `.btn-primary`, `.btn-ghost`, `.btn-danger`, `.btn-small`) in `src/styles.css`.
 
 #### `layout/`
 
-* **Topbar:** sticky iron header. Brand sigil + Armagedon wordmark + tagline. Center nav: Home, Shop, Events, About, Admin/Publish. Right: session chip, cart badge, hamburger.
+* **Topbar:** sticky iron header. Club shield + Armagedón wordmark + tagline. Center nav: Home, Shop, Events, About, Admin/Publish. Right: session chip, cart badge, hamburger.
 * **Cart drawer:** right sheet + backdrop, matching the prototype (not a dedicated checkout-only page for browse).
 * **Footer:** three-column forge footer.
 * **Main layout:** `app-shell` column; views render in `<main>`.
@@ -230,22 +230,25 @@ Login panel → dashboard with product form and event form (title, category, pri
 
 ## 7. CSS architecture (implementation)
 
-* Tokens and button/surface/utility classes live in `src/styles.css` using the `:root` block in [design_guidelines.md](design_guidelines.md).
-* Feature CSS files compose those tokens; they do not redefine ember, bronze, or Cinzel.
-* `html { font-size: 62.5%; }` so prototype rem values transfer unchanged.
-* Do not keep `--section-accent` as a scroll-driven accent unless a later design pass reintroduces it on purpose.
+* Tokens and button/surface/utility classes live only in `src/styles.css`. Feature files compose those tokens; they do not declare hex colors or extra palettes.
+* **Accent is heraldic green.** `--color-ember`, `--color-ember-hot`, and `--color-ember-deep` are the club-shield greens (`#1b7a3a`, `#47a866`, `#0c3d1f`). There is no orange or gold token.
+* **Highlight and hover trim is silver.** `--color-steel` / `--color-steel-light` (aliased as `--silver`) cover focus rings, prices, hover type, and secondary chrome.
+* Semantic aliases: `--accent` and `--section-accent` resolve to `--color-ember`. `--fg` is parchment; `--fg-dim` is muted steel type.
+* Shared utilities to reuse: `.shell`, `.surface`, `.btn-primary`, `.btn-ghost`, `.btn-danger`, `.label`, `.fine`, `.mono`, `.sr`, `.section-kicker`, `.section-title`.
+* `html { font-size: 62.5%; }` so `1rem` equals `10px`.
+* `AccentZoneDirective` writes `--section-accent` from CSS variables (`var(--color-ember)`), never from hex in templates.
 
 ---
 
 ## 8. Scrollbar and chrome
 
-Theme leftover browser chrome from tokens (bronze thumb on stone track). Example:
+Theme leftover browser chrome from tokens (green thumb on stone track). Example:
 
 ```css
 .horizontal-grid {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-bronze) #131517;
+  scrollbar-color: var(--color-ember) var(--color-stone-bg);
 }
 ```
 
-Form caret and `accent-color` use `--color-ember`. See [design_guidelines.md](design_guidelines.md).
+Form caret, `accent-color`, primary buttons, and hero particles use `--color-ember`. Focus-visible rings use `--color-steel-light`.

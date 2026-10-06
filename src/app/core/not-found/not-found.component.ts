@@ -33,7 +33,6 @@ import { NOT_FOUND_COPY } from '../copy/not-found.copy';
     }
 
     h1 {
-      font-size: var(--text-h1);
       text-transform: uppercase;
     }
 

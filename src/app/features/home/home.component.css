@@ -4,7 +4,7 @@
   align-items: end;
   min-height: 74dvh;
   padding: var(--step-5) 0 var(--step-4);
-  border-bottom: 0.2rem solid var(--color-wood-edge);
+  border-bottom: 0.2rem solid var(--color-iron);
   overflow: hidden;
   isolation: isolate;
 }
@@ -21,7 +21,7 @@
   inset: 0;
   z-index: 2;
   background:
-    radial-gradient(circle at 50% 80%, var(--glow-herald), transparent 32%),
+    radial-gradient(circle at 50% 80%, var(--glow-ember), transparent 32%),
     linear-gradient(
       to right,
       var(--scrim-strong) 0%,
@@ -83,13 +83,13 @@ h1 {
   gap: 0.6rem;
   font-family: var(--font-mono);
   font-size: var(--text-body);
-  color: var(--green);
+  color: var(--accent);
 }
 
 .pulse {
   width: 0.65rem;
   height: 0.65rem;
-  background: var(--green);
+  background: var(--accent);
   animation: pulse 1.6s ease-out infinite;
 }
 
@@ -278,14 +278,8 @@ h1 {
   text-transform: uppercase;
 }
 
-.chronicle h3 {
-  font-size: var(--text-h3);
-  color: var(--fg);
-}
-
 .chronicle p {
   color: var(--fg-dim);
-  font-size: var(--text-body);
 }
 
 .workshop {
@@ -307,17 +301,13 @@ h1 {
 @media (max-width: 76.79rem) {
   .photo::before {
     background:
-      radial-gradient(circle at 50% 80%, var(--glow-herald), transparent 36%),
+      radial-gradient(circle at 50% 80%, var(--glow-ember), transparent 36%),
       linear-gradient(to right, var(--scrim-strong), var(--scrim-mid)),
       linear-gradient(to top, var(--color-stone-bg) 2%, transparent 55%);
   }
 }
 
 @media (min-width: 76.8rem) {
-  .facts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .chronicle-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

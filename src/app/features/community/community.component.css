@@ -61,10 +61,6 @@
   border-bottom: 1px solid var(--border);
 }
 
-.ledger h3 {
-  font-size: var(--text-h3);
-}
-
 .date {
   font-size: var(--text-small);
   color: var(--section-accent);
@@ -79,7 +75,6 @@
 
 .body {
   color: var(--fg-dim);
-  font-size: var(--text-body);
 }
 
 .ruleset {

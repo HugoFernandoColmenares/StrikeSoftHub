@@ -93,7 +93,7 @@ h3 a {
 .premium {
   font-size: var(--text-small);
   color: var(--color-ink);
-  background: var(--yellow);
+  background: var(--silver);
   padding: 0.3rem 0.6rem;
 }
 

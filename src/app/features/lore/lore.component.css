@@ -12,13 +12,11 @@
 }
 
 h1 {
-  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
 .intro {
   color: var(--fg-dim);
-  font-size: var(--text-body);
 }
 
 .answers {

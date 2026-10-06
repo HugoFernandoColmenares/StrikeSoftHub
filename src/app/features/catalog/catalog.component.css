@@ -137,14 +137,7 @@ fieldset button.active {
   justify-self: end;
 }
 
-.btn-ghost.small {
-  min-height: var(--touch);
-  padding: 0.6rem 1.2rem;
-  font-size: var(--text-small);
-}
-
 .queued {
-  font-size: var(--text-small);
   color: var(--fg-dim);
 }
 
@@ -158,15 +151,6 @@ fieldset button.active {
 
 .empty p {
   color: var(--fg-dim);
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
 }
 
 @media (min-width: 76.8rem) {

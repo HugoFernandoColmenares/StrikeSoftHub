@@ -8,9 +8,9 @@ The first question the site answers is where and when to show up. From there it 
 calendar, a workshop catalog, and public chronicles transcribed from
 [@armagedonsoftcombat](https://www.instagram.com/armagedonsoftcombat/).
 
-The visual system is the **Armagedón forge** language: stone canvas, iron frames, bronze trim,
-parchment type, an ember accent, and rising embers on the home hero. Tokens and recipes are in
-[docs/design_guidelines.md](docs/design_guidelines.md). Feature mapping is in
+The visual system is the **Armagedón forge** language: stone canvas, iron frames, silver trim,
+parchment type, and a heraldic green accent taken from the club shield. Rising particles on the
+home hero use that same green. Color tokens live only in `src/styles.css`. Feature mapping is in
 [docs/architecture_guidelines.md](docs/architecture_guidelines.md).
 
 A local HTML/CSS/JS mockup may exist under `public/design_ref/` as a visual source. That folder is
@@ -41,7 +41,7 @@ flows continue on LocalStorage without interrupting the visitor.
 - Weapon detail with workshop photography when it exists
 - Arena with the standing Sunday fixture plus announced dates from the public Instagram
 - Cart as a right-hand drawer, then an auth-guarded reservation flow
-- Notifications themed to iron and ember, centralized in `NotificationService`
+- Notifications themed to iron, green, and silver, centralized in `NotificationService`
 - Progressive Web App manifest and production service worker
 
 ## Honesty of the content
@@ -56,7 +56,7 @@ Confirmed facts live in `src/app/core/config/group.ts`.
 
 - Angular 22 standalone components, signals, and lazy-loaded routes
 - `es-CO` locale for dates
-- Design tokens from the Armagedón forge prototype (`html` root at 62.5% so `1rem` equals `10px`)
+- Design tokens in `src/styles.css` (`html` root at 62.5% so `1rem` equals `10px`): green accent, silver highlight, stone/iron ground
 - Cinzel, MedievalSharp, and Inter
 - Supabase Auth and Postgres as the primary backend
 - LocalStorage as an automatic fallback and cache

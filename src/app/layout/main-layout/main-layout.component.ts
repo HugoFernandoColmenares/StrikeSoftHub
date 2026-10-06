@@ -45,7 +45,7 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
       display: inline-flex;
       align-items: center;
       padding: 0.8rem 1.6rem;
-      background: var(--color-gold);
+      background: var(--silver);
       color: var(--color-ink);
       font-weight: 700;
       transform: translateY(-160%);

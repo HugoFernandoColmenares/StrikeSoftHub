@@ -7,17 +7,15 @@
 }
 
 h1 {
-  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
 .intro {
   color: var(--fg-dim);
-  font-size: var(--text-body);
 }
 
 .offline {
-  color: var(--yellow);
+  color: var(--silver);
   padding: 0.6rem 0.8rem;
   border: 1px solid var(--border-strong);
 }

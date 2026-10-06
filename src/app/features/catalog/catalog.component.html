@@ -52,7 +52,7 @@
           <span role="columnheader">{{ copy.columns.weight }}</span>
           <span role="columnheader">{{ copy.columns.length }}</span>
           <span role="columnheader">{{ copy.columns.price }}</span>
-          <span role="columnheader"><span class="visually-hidden">{{ copy.columns.action }}</span></span>
+          <span role="columnheader"><span class="sr">{{ copy.columns.action }}</span></span>
         </div>
 
         @for (weapon of rows(); track weapon.id) {

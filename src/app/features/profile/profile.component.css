@@ -13,7 +13,6 @@
 }
 
 h1 {
-  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
@@ -71,7 +70,7 @@ h2 {
 .state {
   justify-self: start;
   font-size: var(--text-small);
-  color: var(--green);
+  color: var(--accent);
   border: 1px solid var(--border-strong);
   padding: 0.3rem 0.6rem;
 }

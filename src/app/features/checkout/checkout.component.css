@@ -8,7 +8,6 @@
 }
 
 h1 {
-  font-size: var(--text-h1);
   text-transform: uppercase;
 }
 
@@ -113,15 +112,6 @@ h1 {
 
 .terms {
   max-width: 52ch;
-}
-
-.sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
 }
 
 @media (min-width: 76.8rem) {

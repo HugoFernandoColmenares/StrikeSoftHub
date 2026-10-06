@@ -19,7 +19,7 @@
   width: 6.4rem;
   height: 8rem;
   object-fit: contain;
-  background: var(--color-void);
+  background: var(--bg);
 }
 
 .name {
@@ -50,7 +50,7 @@
   padding: 0.6rem 1.2rem;
   border: var(--border-iron);
   border-radius: var(--radius-sm);
-  background: var(--color-chip);
+  background: var(--bg-raised);
   color: var(--color-parchment);
   font-size: var(--text-body);
   box-shadow: var(--shadow-metal);
@@ -58,8 +58,8 @@
 
 .social:hover,
 .social:focus-visible {
-  color: var(--color-warm);
-  border-color: var(--color-bronze);
+  color: var(--silver);
+  border-color: var(--color-ember);
 }
 
 .handle {
@@ -82,8 +82,8 @@
 
 .credit a:hover,
 .credit a:focus-visible {
-  color: var(--color-gold);
-  border-color: var(--color-gold);
+  color: var(--silver);
+  border-color: var(--silver);
 }
 
 @media (max-width: 47.99rem) {
