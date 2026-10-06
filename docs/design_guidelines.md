@@ -61,7 +61,7 @@ Aliases: `--bg` → canvas, `--fg` → text, `--accent` and `--section-accent` �
 
 ## Page atmosphere
 
-Body color is `--fg`. Background is a stacked gradient on canvas, not a flat hex. Hero particles on Home reuse `--color-main`. Those particles belong on the home hero only. Honor `prefers-reduced-motion` by hiding them.
+Body color is `--fg`. Background is a stacked gradient on canvas, not a flat hex. The home hero uses the club shield (`group.logoUrl`) plus accent particles. Those particles belong on the home hero only. Honor `prefers-reduced-motion` by hiding them.
 
 ## Typography
 

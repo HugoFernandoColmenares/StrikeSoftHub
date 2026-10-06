@@ -24,7 +24,7 @@ flows continue on LocalStorage without interrupting the visitor.
 
 ## Screenshots
 
-![Inicio, con el héroe de forja, ascuas y la cuenta atrás al domingo](public/screenshots/home.png)
+![Inicio, con el escudo del club en el héroe y la cuenta atrás al domingo](public/screenshots/home.png)
 
 ![La forja, filtros de rol y clase y el libro de piezas](public/screenshots/armory.png)
 
@@ -37,7 +37,7 @@ flows continue on LocalStorage without interrupting the visitor.
 ## Features
 
 - Spanish UI with copy files in `src/app/core/copy/`
-- Home hero with workshop photography, accent particles, and a live Sunday countdown in COT
+- Home hero with the club shield, accent particles, and a live Sunday countdown in COT
 - Instagram chronicles on the home page (Sakura Fest, Bucara Geek Fest, Sunday call)
 - Armory with combat-role and weapon-class filters, a card/list toggle (`gridView` signal), a fixed CSS card grid, measured specs, and prices in Colombian pesos
 - Weapon detail with workshop photography when it exists
@@ -138,9 +138,8 @@ See [docs/architecture_guidelines.md](docs/architecture_guidelines.md) and
 
 ## Screenshots from the running app
 
-`scripts/shoot.ps1` drives headless Chrome over the running dev server and writes one PNG per
-route. The files land in `.impeccable/review/`. The ones published above are copied into
-`public/screenshots/` and resized to 1280 pixels wide.
+`scripts/shoot.ps1` captures one PNG per public route into `public/screenshots/`. Use a fresh
+Chrome profile (the script already does) so a stale service worker does not serve an old build.
 
 ## Author
 

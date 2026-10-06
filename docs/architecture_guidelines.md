@@ -145,7 +145,7 @@ export const appRoutes: Route[] = [
 
 ### Home
 
-* Full-bleed hero: artisan kicker, Cinzel headline, two CTAs (Explore the Armory, Join Next Battle), meta pills, forge anvil + accent particles.
+* Full-bleed hero: artisan kicker, Cinzel headline, club shield, two CTAs, muster facts, accent particles.
 * Featured products (`featured: true`) in `.product-grid`.
 * New arrivals (`arrival: true`) in `.horizontal-grid`.
 * Upcoming battle as `.event-banner.metal-frame`.

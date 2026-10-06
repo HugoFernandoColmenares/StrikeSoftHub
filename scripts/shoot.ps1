@@ -8,6 +8,11 @@ param(
 )
 
 $chrome = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+$profile = Join-Path $env:TEMP 'ssh-chrome-screens'
+if (Test-Path $profile) {
+  Remove-Item -Recurse -Force $profile
+}
+New-Item -ItemType Directory -Force $profile | Out-Null
 $routes = [ordered]@{
   'home'          = '/'
   'armory'        = '/armory'
@@ -21,7 +26,8 @@ New-Item -ItemType Directory -Force $OutDir | Out-Null
 foreach ($name in $routes.Keys) {
   $out = Join-Path (Resolve-Path $OutDir) "$name.png"
   & $chrome --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 `
-    --virtual-time-budget=8000 --window-size="$Width,$Height" `
+    --user-data-dir="$profile" --disable-application-cache --incognito `
+    --virtual-time-budget=12000 --window-size="$Width,$Height" `
     --screenshot="$out" "$Base$($routes[$name])" 2>$null
   Write-Output $out
 }

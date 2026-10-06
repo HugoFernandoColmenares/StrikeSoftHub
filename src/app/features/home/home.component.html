@@ -1,15 +1,13 @@
 <section class="muster" appAccentZone="var(--color-main)" aria-labelledby="home-hero-title">
-  <div class="photo cinematic-frame" aria-hidden="true">
-    <picture>
-      <source srcset="assets/weapons/sword-portrait.webp" media="(max-width: 76.8rem)" />
-      <img
-        src="assets/weapons/sword-hero.webp"
-        alt=""
-        width="1600"
-        height="760"
-        fetchpriority="high"
-      />
-    </picture>
+  <div class="photo" aria-hidden="true">
+    <img
+      class="crest"
+      [src]="group.logoUrl"
+      alt=""
+      width="640"
+      height="800"
+      fetchpriority="high"
+    />
   </div>
   <app-ember-field />
 

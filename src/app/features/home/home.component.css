@@ -13,6 +13,18 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+}
+
+.photo .crest {
+  position: absolute;
+  inset-block: 6%;
+  inset-inline-end: max(2.4rem, calc((100% - var(--page-width)) / 2 + 4rem));
+  width: min(44vw, 54rem);
+  height: auto;
+  max-height: 88%;
+  object-fit: contain;
+  object-position: right center;
 }
 
 .photo::before {
@@ -21,15 +33,15 @@
   inset: 0;
   z-index: 2;
   background:
-    radial-gradient(circle at 50% 80%, var(--glow-main), transparent 32%),
+    radial-gradient(circle at 78% 48%, var(--glow-main), transparent 36%),
     linear-gradient(
       to right,
       var(--scrim-strong) 0%,
-      var(--scrim-mid) 34%,
-      var(--scrim-soft) 68%,
+      var(--scrim-mid) 42%,
+      var(--scrim-soft) 72%,
       transparent 100%
     ),
-    linear-gradient(to top, var(--color-canvas) 1%, transparent 38%);
+    linear-gradient(to top, var(--color-canvas) 0%, transparent 28%);
 }
 
 .block {
@@ -299,9 +311,18 @@ h1 {
 }
 
 @media (max-width: 76.79rem) {
+  .photo .crest {
+    inset-inline: 0;
+    margin-inline: auto;
+    width: min(72vw, 38rem);
+    max-height: 70%;
+    object-position: center;
+    opacity: 0.28;
+  }
+
   .photo::before {
     background:
-      radial-gradient(circle at 50% 80%, var(--glow-main), transparent 36%),
+      radial-gradient(circle at 50% 42%, var(--glow-main), transparent 42%),
       linear-gradient(to right, var(--scrim-strong), var(--scrim-mid)),
       linear-gradient(to top, var(--color-canvas) 2%, transparent 55%);
   }
