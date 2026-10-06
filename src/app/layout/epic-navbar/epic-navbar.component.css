@@ -5,7 +5,7 @@
   min-height: var(--nav-height);
   display: flex;
   align-items: center;
-  border-block-end: 0.2rem solid var(--color-steel);
+  border-block-end: 0.2rem solid var(--color-trim);
   background: var(--bg-elevated);
   box-shadow: var(--shadow-heavy);
   backdrop-filter: blur(1.2rem);
@@ -35,10 +35,10 @@
   width: 4.8rem;
   height: 4.8rem;
   object-fit: contain;
-  background: var(--color-stone-bg);
-  border: 0.1rem solid var(--color-viridian);
+  background: var(--color-canvas);
+  border: 0.1rem solid var(--color-main);
   border-radius: 0.6rem;
-  box-shadow: var(--shadow-viridian);
+  box-shadow: var(--shadow-main);
 }
 
 .brand__text {
@@ -48,15 +48,15 @@
 }
 
 .brand__name {
-  color: var(--color-viridian-hot);
+  color: var(--color-main-hot);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 2vw, 2.5rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.08em;
   text-shadow:
-    0 0 0.8rem var(--glow-viridian),
-    0 0 2.2rem var(--shadow-viridian);
+    0 0 0.8rem var(--glow-main),
+    0 0 2.2rem var(--shadow-main);
 }
 
 .brand__tagline {
@@ -83,7 +83,7 @@
   border: 0;
   border-radius: 0.5rem;
   background: transparent;
-  color: var(--color-steel-light);
+  color: var(--color-trim-strong);
   font-family: var(--font-display);
   font-size: var(--text-ui);
   font-weight: 700;
@@ -100,13 +100,13 @@
   bottom: 0.2rem;
   height: 0.2rem;
   opacity: 0;
-  background: var(--color-viridian);
+  background: var(--color-main);
   transition: opacity var(--transition-fast);
 }
 
 .nav-link:hover,
 .nav-link.is-active {
-  color: var(--silver);
+  color: var(--highlight);
   background: var(--wash-strong);
 }
 
@@ -137,12 +137,12 @@
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
-  background: var(--color-steel);
+  background: var(--color-trim);
 }
 
 .status-dot.is-online {
-  background: var(--color-viridian);
-  box-shadow: 0 0 1rem var(--glow-viridian);
+  background: var(--color-main);
+  box-shadow: 0 0 1rem var(--glow-main);
 }
 
 .icon-button {
@@ -158,10 +158,10 @@
   display: grid;
   place-items: center;
   padding-inline: 0.4rem;
-  border: 0.1rem solid var(--color-viridian-hot);
+  border: 0.1rem solid var(--color-main-hot);
   border-radius: 1rem;
-  background: var(--color-viridian-deep);
-  color: var(--silver);
+  background: var(--color-main-deep);
+  color: var(--highlight);
   font-size: var(--text-small);
   font-weight: 800;
 }
@@ -174,10 +174,10 @@
   justify-content: center;
   flex-direction: column;
   gap: 0.5rem;
-  border: 0.1rem solid var(--color-steel);
+  border: 0.1rem solid var(--color-trim);
   border-radius: 0.7rem;
-  background: var(--color-iron);
-  color: var(--color-parchment);
+  background: var(--color-panel);
+  color: var(--color-text);
 }
 
 .hamburger span {
@@ -210,7 +210,7 @@
     justify-content: start;
     flex-direction: column;
     background: var(--bg-elevated);
-    border-inline-start: var(--border-iron);
+    border-inline-start: var(--border-panel);
     box-shadow: var(--shadow-heavy);
     transform: translateX(100%);
     transition: transform var(--transition-medium);

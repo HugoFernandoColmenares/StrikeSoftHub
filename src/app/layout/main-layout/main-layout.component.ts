@@ -14,8 +14,8 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
       <app-epic-navbar />
       <main id="main" tabindex="-1">
         <router-outlet />
+        <app-epic-footer />
       </main>
-      <app-epic-footer />
       <app-cart-drawer />
     </div>
   `,
@@ -23,13 +23,14 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
     .app-shell {
       height: 100%;
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr;
       overflow: hidden;
     }
 
     main {
       min-height: 0;
       overflow-y: scroll;
+      padding-bottom: var(--footer-mini-height);
     }
 
     main:focus {
@@ -45,7 +46,7 @@ import { EpicNavbarComponent } from '../epic-navbar/epic-navbar.component';
       display: inline-flex;
       align-items: center;
       padding: 0.8rem 1.6rem;
-      background: var(--silver);
+      background: var(--highlight);
       color: var(--color-ink);
       font-weight: 700;
       transform: translateY(-160%);

@@ -4,7 +4,7 @@
   align-items: end;
   min-height: 74dvh;
   padding: var(--step-5) 0 var(--step-4);
-  border-bottom: 0.2rem solid var(--color-iron);
+  border-bottom: 0.2rem solid var(--color-panel);
   overflow: hidden;
   isolation: isolate;
 }
@@ -21,7 +21,7 @@
   inset: 0;
   z-index: 2;
   background:
-    radial-gradient(circle at 50% 80%, var(--glow-viridian), transparent 32%),
+    radial-gradient(circle at 50% 80%, var(--glow-main), transparent 32%),
     linear-gradient(
       to right,
       var(--scrim-strong) 0%,
@@ -29,7 +29,7 @@
       var(--scrim-soft) 68%,
       transparent 100%
     ),
-    linear-gradient(to top, var(--color-stone-bg) 1%, transparent 38%);
+    linear-gradient(to top, var(--color-canvas) 1%, transparent 38%);
 }
 
 .block {
@@ -273,7 +273,7 @@ h1 {
 }
 
 .chronicle time {
-  color: var(--color-viridian-hot);
+  color: var(--color-main-hot);
   font-size: var(--text-small);
   text-transform: uppercase;
 }
@@ -301,9 +301,9 @@ h1 {
 @media (max-width: 76.79rem) {
   .photo::before {
     background:
-      radial-gradient(circle at 50% 80%, var(--glow-viridian), transparent 36%),
+      radial-gradient(circle at 50% 80%, var(--glow-main), transparent 36%),
       linear-gradient(to right, var(--scrim-strong), var(--scrim-mid)),
-      linear-gradient(to top, var(--color-stone-bg) 2%, transparent 55%);
+      linear-gradient(to top, var(--color-canvas) 2%, transparent 55%);
   }
 }
 

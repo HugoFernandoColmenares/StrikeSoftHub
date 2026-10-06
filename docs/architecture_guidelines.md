@@ -54,7 +54,7 @@ Prototype `data-view` → Angular route:
 | Cart drawer | layout overlay, not a page | opened from topbar |
 | Checkout (toast in prototype) | `features/checkout` | `'checkout'` + `authGuard` |
 
-Home owns: hero + viridian particles, featured piece, Instagram chronicles, Sunday countdown, next fixtures.
+Home owns: hero + accent particles, featured piece, Instagram chronicles, Sunday countdown, next fixtures.
 
 Shop owns: role/class filters, a `gridView` toggle, and either a fixed card grid or a ledger.
 
@@ -74,14 +74,14 @@ About owns: craft pillars, team roster, safety protocol.
 
 * **Topbar:** sticky iron header. Club shield + Armagedón wordmark + tagline. Public nav only: Inicio, Forja, Eventos, El deporte. Right: cart badge and hamburger. Auth, admin, and profile are **not** linked from the header; they stay on `/auth` and `/profile` for direct URL access.
 * **Cart drawer:** right sheet + backdrop (not a dedicated checkout-only page for browse).
-* **Footer:** venue, Instagram, GitHub credit.
-* **Main layout:** fixed-height `app-shell` grid (`auto 1fr auto`). `html` / `body` / `app-root` do not scroll. `<main>` has `overflow-y: scroll`.
+* **Footer:** lives at the end of `<main>`. An `IntersectionObserver` (root `#main`) sets `expanded` when the full footer enters the pane. Until then a compact fixed bar stays visible.
+* **Main layout:** fixed-height `app-shell` grid (`auto 1fr`). `html` / `body` / `app-root` do not scroll. `<main>` has `overflow-y: scroll` and owns the full footer.
 
 ---
 
 ## 3. Angular 22+ standards
 
-Zoneless, standalone, signal-first. Notifications stay in `NotificationService`; restyle SweetAlert2 (or toasts) to iron / viridian per the design guidelines.
+Zoneless, standalone, signal-first. Notifications stay in `NotificationService`; restyle SweetAlert2 (or toasts) to panel / `--color-main` per the design guidelines.
 
 Route chunks use `loadComponent`. After the first paint, `withPreloading(PreloadAllModules)` warms the remaining feature chunks so section changes do not wait on a network hop. Repositories expose a `ready` signal after the boot initializer; catalog and arena screens skip a second `load()` when data is already hydrated. The home particle field stays small (about ten sparks) and `contain: strict` so it does not tax other routes.
 
@@ -145,7 +145,7 @@ export const appRoutes: Route[] = [
 
 ### Home
 
-* Full-bleed hero: artisan kicker, Cinzel headline, two CTAs (Explore the Armory, Join Next Battle), meta pills, forge anvil + viridian particles.
+* Full-bleed hero: artisan kicker, Cinzel headline, two CTAs (Explore the Armory, Join Next Battle), meta pills, forge anvil + accent particles.
 * Featured products (`featured: true`) in `.product-grid`.
 * New arrivals (`arrival: true`) in `.horizontal-grid`.
 * Upcoming battle as `.event-banner.metal-frame`.
@@ -235,12 +235,12 @@ Login panel → dashboard with product form and event form (title, category, pri
 ## 7. CSS architecture (implementation)
 
 * Tokens and button/surface/utility classes live only in `src/styles.css`. Feature files compose those tokens; they do not declare hex colors or extra palettes.
-* **Accent is heraldic green.** `--color-viridian`, `--color-viridian-hot`, and `--color-viridian-deep` are the club-shield greens (`#1b7a3a`, `#47a866`, `#0c3d1f`). There is no orange or gold token.
-* **Highlight and hover trim is silver.** `--color-steel` / `--color-steel-light` (aliased as `--silver`) cover focus rings, prices, hover type, and secondary chrome.
-* Semantic aliases: `--accent` and `--section-accent` resolve to `--color-viridian`. `--fg` is parchment; `--fg-dim` is muted steel type.
+* **Tokens are role-based.** `--color-main`, `--color-main-hot`, and `--color-main-deep` hold the accent (currently club-shield green). Surfaces use `--color-canvas`, `--color-surface`, `--color-panel`. Trim uses `--color-trim` / `--color-trim-strong`. Type uses `--color-text`. There is no orange, gold, or pigment-named token.
+* **Highlight** is `--highlight` (`--color-trim-strong`): focus rings, prices, hover type.
+* Semantic aliases: `--accent` and `--section-accent` resolve to `--color-main`. `--fg` is `--color-text`; `--fg-dim` is muted type.
 * Shared utilities to reuse: `.shell`, `.surface`, `.btn-primary`, `.btn-ghost`, `.btn-danger`, `.label`, `.fine`, `.mono`, `.sr`, `.section-kicker`, `.section-title`.
 * `html { font-size: 62.5%; }` so `1rem` equals `10px`.
-* `AccentZoneDirective` writes `--section-accent` from CSS variables (`var(--color-viridian)`), never from hex in templates.
+* `AccentZoneDirective` writes `--section-accent` from CSS variables (`var(--color-main)`), never from hex in templates.
 
 ---
 
@@ -251,11 +251,11 @@ Theme leftover browser chrome from tokens (green thumb on stone track). Example:
 ```css
 .horizontal-grid {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-viridian) var(--color-stone-bg);
+  scrollbar-color: var(--color-main) var(--color-canvas);
 }
 ```
 
-Form caret, `accent-color`, primary buttons, and hero particles use `--color-viridian`. Focus-visible rings use `--color-steel-light`.
+Form caret, `accent-color`, primary buttons, and hero particles use `--color-main`. Focus-visible rings use `--color-trim-strong`.
 
 ---
 

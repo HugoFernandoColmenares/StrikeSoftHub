@@ -15,7 +15,7 @@
 }
 
 .card:hover {
-  border-color: var(--color-viridian);
+  border-color: var(--color-main);
 }
 
 .visual {
@@ -105,7 +105,7 @@ h3 a {
 .premium {
   font-size: var(--text-small);
   color: var(--color-ink);
-  background: var(--silver);
+  background: var(--highlight);
   padding: 0.3rem 0.6rem;
 }
 

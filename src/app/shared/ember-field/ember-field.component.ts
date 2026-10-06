@@ -60,10 +60,10 @@ function createEmbers(): EmberSpec[] {
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 50%;
-      background: var(--color-viridian-hot);
+      background: var(--color-main-hot);
       box-shadow:
-        0 0 0.8rem var(--color-viridian),
-        0 0 1.5rem var(--glow-viridian);
+        0 0 0.8rem var(--color-main),
+        0 0 1.5rem var(--glow-main);
       animation: emberRise var(--ember-duration) linear var(--ember-delay) infinite;
       opacity: 0;
     }

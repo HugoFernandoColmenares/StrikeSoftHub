@@ -1,44 +1,107 @@
-<footer class="foot" aria-labelledby="footer-title">
-  <div class="shell grid">
-    <div class="mark">
-      <img class="crest" [src]="group.logoUrl" alt="" width="80" height="100" />
-      <p id="footer-title" class="name">{{ group.name }}</p>
-      <p class="where mono">{{ group.venue }} · {{ group.city }}, {{ group.region }}</p>
-      <p class="when mono">{{ group.dayLabel }} · {{ group.timeLabel }} {{ group.timeZoneLabel }}</p>
-    </div>
-
-    <nav class="links" [attr.aria-label]="copy.socialNav">
+<aside
+  class="mini"
+  [class.is-hidden]="expanded()"
+  [attr.aria-hidden]="expanded()"
+  [attr.inert]="expanded() ? '' : null"
+>
+  <div class="shell mini-bar">
+    <p class="mini-brand">
+      <img class="mini-crest" [src]="group.logoUrl" alt="" width="32" height="40" />
+      <span>{{ copy.brandName }}</span>
+    </p>
+    <p class="mini-muster">
+      {{ group.venue }} · {{ group.dayLabel }} {{ group.timeLabel }}
+    </p>
+    <nav class="mini-links" [attr.aria-label]="copy.footerCompactAria">
       <a
-        class="social"
         [href]="group.instagramUrl"
         target="_blank"
         rel="noopener noreferrer"
         [attr.aria-label]="copy.instagramAria"
       >
         <app-icon name="instagram" [size]="2" />
-        <span>{{ copy.instagram }}</span>
-        <span class="handle">{{ group.instagramHandle }}</span>
       </a>
       <a
-        class="social"
         [href]="copy.githubUrl"
         target="_blank"
         rel="noopener noreferrer"
         [attr.aria-label]="copy.githubAria"
       >
         <app-icon name="github" [size]="2" />
-        <span>{{ copy.github }}</span>
-        <span class="handle">Hugo Colmenares</span>
       </a>
       <a
-        class="social"
         [href]="group.mapsUrl"
         target="_blank"
         rel="noopener noreferrer"
         [attr.aria-label]="copy.mapsAria"
       >
         <app-icon name="marker" [size]="2" />
-        <span>{{ copy.findField }}</span>
+      </a>
+    </nav>
+  </div>
+</aside>
+
+<footer #full class="full" aria-labelledby="footer-title">
+  <div class="shell full-grid">
+    <div class="col">
+      <p class="kicker label">{{ copy.footerGroup }}</p>
+      <img class="crest" [src]="group.logoUrl" alt="" width="56" height="70" />
+      <p id="footer-title" class="name">{{ group.name }}</p>
+      <p class="lede">{{ group.city }}, {{ group.region }}</p>
+    </div>
+
+    <div class="col">
+      <p class="kicker label">{{ copy.footerMuster }}</p>
+      <p class="fact">
+        <span class="fact-label">{{ copy.footerPlace }}</span>
+        <span>{{ group.venue }}</span>
+      </p>
+      <p class="fact">
+        <span class="fact-label">{{ copy.footerWhen }}</span>
+        <span>{{ group.dayLabel }} · {{ group.timeLabel }} {{ group.timeZoneLabel }}</span>
+      </p>
+    </div>
+
+    <nav class="col links" [attr.aria-label]="copy.socialNav">
+      <p class="kicker label">{{ copy.footerContact }}</p>
+      <a
+        class="link"
+        [href]="group.instagramUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.instagramAria"
+      >
+        <app-icon name="instagram" [size]="2" />
+        <span class="link-copy">
+          <span>{{ copy.instagram }}</span>
+          <span class="handle">{{ group.instagramHandle }}</span>
+        </span>
+      </a>
+      <a
+        class="link"
+        [href]="copy.githubUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.githubAria"
+      >
+        <app-icon name="github" [size]="2" />
+        <span class="link-copy">
+          <span>{{ copy.github }}</span>
+          <span class="handle">Hugo Colmenares</span>
+        </span>
+      </a>
+      <a
+        class="link"
+        [href]="group.mapsUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="copy.mapsAria"
+      >
+        <app-icon name="marker" [size]="2" />
+        <span class="link-copy">
+          <span>{{ copy.findField }}</span>
+          <span class="handle">{{ group.venue }}</span>
+        </span>
       </a>
     </nav>
 

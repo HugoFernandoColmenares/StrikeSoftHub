@@ -9,9 +9,9 @@ calendar, a workshop catalog, and public chronicles transcribed from
 [@armagedonsoftcombat](https://www.instagram.com/armagedonsoftcombat/).
 
 The visual system is the **Armagedón forge** language: stone canvas, iron frames, silver trim,
-parchment type, and a heraldic **viridian** accent taken from the club shield
-(`--color-viridian`). Rising particles on the home hero use that same green. Color tokens live
-only in `src/styles.css`. Feature mapping is in
+warm type, and a club-shield accent in `--color-main`. Rising particles on the home hero use
+that same accent. Color tokens live only in `src/styles.css` and are named by role (`main`,
+`canvas`, `panel`, `trim`, `text`) so the hex values can change later. Feature mapping is in
 [docs/architecture_guidelines.md](docs/architecture_guidelines.md). Hover never moves an
 element: only color, background, or border may change.
 
@@ -37,7 +37,7 @@ flows continue on LocalStorage without interrupting the visitor.
 ## Features
 
 - Spanish UI with copy files in `src/app/core/copy/`
-- Home hero with workshop photography, viridian particles, and a live Sunday countdown in COT
+- Home hero with workshop photography, accent particles, and a live Sunday countdown in COT
 - Instagram chronicles on the home page (Sakura Fest, Bucara Geek Fest, Sunday call)
 - Armory with combat-role and weapon-class filters, a card/list toggle (`gridView` signal), a fixed CSS card grid, measured specs, and prices in Colombian pesos
 - Weapon detail with workshop photography when it exists
@@ -58,7 +58,7 @@ Confirmed facts live in `src/app/core/config/group.ts`.
 
 - Angular 22 standalone components, signals, lazy-loaded routes, and `PreloadAllModules` after first paint
 - `es-CO` locale for dates
-- Design tokens in `src/styles.css` (`html` root at 62.5% so `1rem` equals `10px`): viridian accent, silver highlight, stone/iron ground
+- Design tokens in `src/styles.css` (`html` root at 62.5% so `1rem` equals `10px`): `--color-main` accent, `--highlight` trim, canvas/panel ground
 - Cinzel, MedievalSharp, and Inter
 - Supabase Auth and Postgres as the primary backend
 - LocalStorage as an automatic fallback and cache
@@ -124,12 +124,14 @@ src/app/
     repositories/  Supabase + LocalStorage
     services/   cart, auth, muster, notifications
   features/     home, armory, arena, lore, auth, checkout, profile
-  shared/       viridian particle field, weapon card, stats, loading
-  layout/       iron topbar, cart drawer, footer, fixed-height shell
+  shared/       accent particle field, weapon card, stats, loading
+  layout/       topbar, cart drawer, compact/full footer, fixed-height shell
 ```
 
-The layout shell is a viewport-high grid. `html` and `body` do not scroll; `<main>` uses
-`overflow-y: scroll`. Repositories skip a second network/local read when already hydrated.
+The layout shell is a viewport-high grid (`auto 1fr`). `html` and `body` do not scroll; `<main>`
+uses `overflow-y: scroll` and holds the full footer. A compact contact bar stays fixed until the
+visitor reaches the end of the content. Repositories skip a second network/local read when
+already hydrated.
 
 See [docs/architecture_guidelines.md](docs/architecture_guidelines.md) and
 [docs/design_guidelines.md](docs/design_guidelines.md).
