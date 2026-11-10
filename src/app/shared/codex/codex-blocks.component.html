@@ -1,0 +1,131 @@
+@for (block of section().blocks; track $index) {
+  @switch (block.type) {
+    @case ('p') {
+      @let text = p(block).text;
+      <p
+        class="para"
+        [class.is-proposal]="isProposal(text)"
+        [class.is-incomplete]="isIncomplete(text)"
+      >
+        @if (isProposal(text)) {
+          <span class="badge badge--proposal" [attr.aria-label]="copy.proposalAria">{{
+            copy.proposalBadge
+          }}</span>
+        }
+        <app-codex-text [text]="text" />
+      </p>
+    }
+    @case ('h') {
+      <h3 class="sub">{{ text(block) }}</h3>
+    }
+    @case ('house') {
+      <h3 class="sub sub--house">{{ text(block) }}</h3>
+    }
+    @case ('note') {
+      <p class="note"><app-codex-text [text]="text(block)" /></p>
+    }
+    @case ('list') {
+      @let l = list(block);
+      @if (l.lead) {
+        <p class="lead"><app-codex-text [text]="l.lead" /></p>
+      }
+      <ul class="items">
+        @for (item of l.items; track $index) {
+          <li [class.is-proposal]="isProposal(item.text)">
+            @if (item.title) {
+              <strong class="item-title">{{ item.title }}</strong>
+            }
+            <span><app-codex-text [text]="item.text" /></span>
+          </li>
+        }
+      </ul>
+    }
+    @case ('table') {
+      @let t = table(block);
+      <div class="table-wrap" tabindex="0" role="region" [attr.aria-label]="t.head.join(', ')">
+        <table>
+          <thead>
+            <tr>
+              @for (cell of t.head; track $index) {
+                <th scope="col">{{ cell }}</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of t.rows; track $index) {
+              <tr [class.is-proposal]="rowIsProposal(row)">
+                @for (cell of row; track $index; let first = $first) {
+                  @if (first) {
+                    <th scope="row">
+                      <app-codex-text [text]="cell" />
+                      @if (rowIsProposal(row)) {
+                        <span class="badge badge--proposal" [attr.aria-label]="copy.proposalAria">{{
+                          copy.proposalBadge
+                        }}</span>
+                      }
+                    </th>
+                  } @else {
+                    <td><app-codex-text [text]="cell" /></td>
+                  }
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      @if (t.caption) {
+        <p class="note"><app-codex-text [text]="t.caption" /></p>
+      }
+    }
+    @case ('figure') {
+      @let f = figure(block);
+      <figure class="figure">
+        <img
+          [src]="f.src"
+          [alt]="f.alt"
+          [width]="f.width"
+          [height]="f.height"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption><app-codex-text [text]="f.caption" /></figcaption>
+      </figure>
+    }
+    @case ('glossary') {
+      <label class="filter">
+        <span class="label">{{ copy.glossaryFilter }}</span>
+        <input type="search" class="input" [value]="query()" (input)="onQuery($event)" />
+      </label>
+      @if (glossary().length) {
+        <dl class="glossary">
+          @for (entry of glossary(); track entry.term) {
+            <div>
+              <dt>{{ entry.term }}</dt>
+              <dd>{{ entry.definition }}</dd>
+            </div>
+          }
+        </dl>
+      } @else {
+        <p class="note" role="status">{{ copy.glossaryEmpty }}</p>
+      }
+    }
+    @case ('pending') {
+      @let pd = pending(block);
+      <aside class="pending-table" [attr.aria-label]="pd.title">
+        <p class="pending-title">{{ pd.title }}</p>
+        <p>{{ pd.intro }}</p>
+        <ul>
+          @for (item of pd.items; track $index) {
+            <li>
+              <span class="badge badge--pending">{{ copy.pendingBadge }}</span>
+              {{ item }}
+            </li>
+          }
+        </ul>
+      </aside>
+    }
+    @case ('record') {
+      <app-codex-record />
+    }
+  }
+}

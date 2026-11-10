@@ -46,6 +46,7 @@ Names describe **role**. Hex lives only in `:root`. Current values are the club-
 | `--color-trim` / `--color-trim-strong` / `--color-trim-soft` | `#8d939a` / `#c6ccd1` / `#6d737a` | Secondary metal, focus, muted strokes |
 | `--color-text` / `--color-text-soft` | `#ead7ae` / `#bba982` | Primary and softened reading |
 | `--shadow-main` / `--glow-main` | derived from `--color-main` | Accent glow |
+| `--color-proposal` / `--color-pending` | trim-strong / danger | Codex marks: † provisions awaiting the group's approval, and facts pending consultation |
 
 Aliases: `--bg` → canvas, `--fg` → text, `--accent` and `--section-accent` → `--color-main`, `--highlight` → `--color-trim-strong`. `AccentZoneDirective` writes `--section-accent` from `var(--color-main)` (or `--color-trim` / `--highlight` on calmer sections), never from hex in templates.
 
@@ -95,11 +96,15 @@ Focus-visible rings use `--color-trim-strong` or `--color-main-hot` (2px). Never
 
 ## Topbar and footer
 
-Sticky header, club shield, Cinzel name, public nav only: Inicio, Forja, Eventos, El deporte. Cart badge on the right. **Auth, admin, and profile are not in the header.** Those routes stay reachable only by URL (`/auth`, `/profile`).
+Sticky header, club shield, Cinzel name, public nav only: Inicio, Forja, Eventos, El deporte, La Compañía, Reglamento. Between 1024px and 1280px the links tighten and the tagline hides so the six fit on one row. Cart badge on the right. **Auth, admin, and profile are not in the header.** Those routes stay reachable only by URL (`/auth`, `/profile`).
 
 **Compact footer:** one row, `var(--footer-mini-height)`. Brand (crest + name) on the start, venue/time in the center (hidden under 48rem), icon-only contact links on the end. Hover changes icon color and border only.
 
 **Full footer:** shown when `<main>` is within 48px of its end. Three start-aligned columns on wide screens — El grupo, Encuentro, Contacto — then a credit rule. Links are stacked rows (icon + label + handle), not oversized chips. Type stays at `--text-small` or larger; touch targets stay `--touch`.
+
+## Codex pages
+
+Pages built from the Compañía's books share one layout: codex tabs, title, source line, a "Descargar PDF" button with the file size, a "Cómo leer las marcas" legend, an in-page index (buttons that call `scrollIntoView`, because `<main>` scrolls), the chapters and a closing download. A † provision carries a "Propuesta †" outlined badge and a 0.2rem `--color-proposal` rule on its start edge. A pending fact is red italic text with a dashed underline, or an outlined "Pendiente de consultar" badge in the founders' table; never a guessed value. Wide tables scroll inside their own frame.
 
 ## Motion that remains
 

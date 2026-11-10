@@ -50,6 +50,7 @@ Prototype `data-view` → Angular route:
 | `shop` | `features/catalog` (Armory / Shop the Forge) | `'armory'` |
 | `events` | `features/community` | `'arena'` (or rename path to `'events'` when routes are updated) |
 | `about` | `features/lore` | `'lore'` (or `'about'`) |
+| Codex (the Compañía's two books) | `features/codex/codex-page` (one component, `data.slug`) | `'compania'`, `'el-arte'`, `'armas-y-forja'`, `'escuela'`, `'casas'`, `'reglamento'`, `'glosario'`, `'unete'` |
 | Admin / Publish modal | `features/auth` + admin dashboard (modal or route) | guarded |
 | Cart drawer | layout overlay, not a page | opened from topbar |
 | Checkout (toast in prototype) | `features/checkout` | `'checkout'` + `authGuard` |
@@ -72,7 +73,7 @@ About owns: craft pillars, team roster, safety protocol.
 
 #### `layout/`
 
-* **Topbar:** sticky iron header. Club shield + Armagedón wordmark + tagline. Public nav only: Inicio, Forja, Eventos, El deporte. Right: cart badge and hamburger. Auth, admin, and profile are **not** linked from the header; they stay on `/auth` and `/profile` for direct URL access.
+* **Topbar:** sticky iron header. Club shield + Armagedón wordmark + tagline. Public nav only: Inicio, Forja, Eventos, El deporte, La Compañía, Reglamento. The other codex pages are reached from the codex sub-navigation (`shared/codex/codex-nav`). Right: cart badge and hamburger. Auth, admin, and profile are **not** linked from the header; they stay on `/auth` and `/profile` for direct URL access.
 * **Cart drawer:** right sheet + backdrop (not a dedicated checkout-only page for browse).
 * **Footer:** lives at the end of `<main>`. An `IntersectionObserver` (root `#main`) sets `expanded` when the full footer enters the pane. Until then a compact fixed bar stays visible.
 * **Main layout:** fixed-height `app-shell` grid (`auto 1fr`). `html` / `body` / `app-root` do not scroll. `<main>` has `overflow-y: scroll` and owns the full footer.
@@ -124,6 +125,8 @@ export const appRoutes: Route[] = [
       { path: 'armory', loadComponent: () => import('./features/catalog/catalog.component').then((m) => m.CatalogComponent) },
       { path: 'arena', loadComponent: () => import('./features/community/community.component').then((m) => m.CommunityComponent) },
       { path: 'lore', loadComponent: () => import('./features/lore/lore.component').then((m) => m.LoreComponent) },
+      // one lazy route per entry of core/data/codex/codex-pages.ts
+      ...CODEX_PAGES.map((page) => ({ path: page.slug, data: { slug: page.slug }, loadComponent: () => import('./features/codex/codex-page.component').then((m) => m.CodexPageComponent) })),
     ],
   },
   { path: '**', loadComponent: () => import('./core/not-found/not-found.component').then((m) => m.NotFoundComponent) },

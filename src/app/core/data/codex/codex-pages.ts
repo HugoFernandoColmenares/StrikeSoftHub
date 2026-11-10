@@ -1,0 +1,92 @@
+import { CodexPage } from '../../models/codex.model';
+
+/**
+ * Order of the tabs in the codex sub-navigation. Kept apart from the book text so the router
+ * can list the routes without pulling the text into the initial bundle.
+ */
+export const CODEX_PAGES: readonly CodexPage[] = [
+  {
+    slug: 'compania',
+    navLabel: 'La Compañía',
+    title: 'La Compañía',
+    lede: 'Quiénes somos, de dónde viene el libro y la historia del grupo, en borrador.',
+    source: 'libro',
+    sectionIds: ['prologo', 'compania', 'historia'],
+    notice: true,
+    index: true,
+  },
+  {
+    slug: 'el-arte',
+    navLabel: 'El arte',
+    title: 'El arte',
+    lede: 'Qué es el softcombat y sus dos caminos: el juego del LARP y el estudio del HEMA.',
+    source: 'libro',
+    sectionIds: ['softcombat', 'larp', 'hema'],
+    index: true,
+  },
+  {
+    slug: 'armas-y-forja',
+    navLabel: 'Armas y forja',
+    title: 'Armas y forja',
+    lede: 'Anatomía del arma, el oficio de forjar y las categorías que se reciben en los torneos.',
+    source: 'libro',
+    sectionIds: ['armas-y-forja'],
+  },
+  {
+    slug: 'escuela',
+    navLabel: 'Escuela',
+    title: 'La escuela',
+    lede: 'Los ejercicios del maestro Fioré: desplazamiento, guardias, cortes y técnicas.',
+    source: 'libro',
+    sectionIds: ['escuela'],
+  },
+  {
+    slug: 'casas',
+    navLabel: 'Las casas',
+    title: 'Las cuatro casas',
+    lede: 'Cuatro oficios, un campo, un lema.',
+    source: 'libro',
+    sectionIds: ['casas'],
+  },
+  {
+    slug: 'reglamento',
+    navLabel: 'Reglamento',
+    title: 'Reglamento y arbitraje',
+    lede: 'Armas, zonas, puntos, faltas, banderas y la organización del torneo.',
+    source: 'manual',
+    sectionIds: [
+      'preambulo',
+      'filosofia',
+      'armas-y-torneos',
+      'campo-y-voces',
+      'zonas-y-puntuacion',
+      'tacticas',
+      'faltas',
+      'arbitro',
+      'organizacion',
+      'anexo-a',
+      'anexo-b',
+      'anexo-c',
+      'colofon',
+    ],
+    notice: true,
+    index: true,
+  },
+  {
+    slug: 'glosario',
+    navLabel: 'Glosario',
+    title: 'Glosario',
+    lede: 'La lengua del campo, término por término.',
+    source: 'manual',
+    sectionIds: ['glosario'],
+  },
+  {
+    slug: 'unete',
+    navLabel: 'Únete',
+    title: 'Únete',
+    lede: 'Dónde y cuándo encontrarnos, y los dos libros de la Compañía para descargar.',
+    source: 'libro',
+    sectionIds: ['colofon'],
+    join: true,
+  },
+];

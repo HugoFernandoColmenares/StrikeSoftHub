@@ -1,0 +1,137 @@
+@let p = page();
+@let doc = document();
+<section class="shell" appAccentZone="var(--color-main)" [attr.aria-labelledby]="'codex-' + p.slug">
+  <div class="codex">
+    <app-codex-nav />
+
+    <header class="head">
+      <p class="label">{{ doc.title }}</p>
+      <h1 [id]="'codex-' + p.slug">{{ p.title }}</h1>
+      <p class="lede">{{ p.lede }}</p>
+      <p class="source">
+        {{ copy.sourcePrefix }} <em>{{ doc.title }}</em> — {{ doc.edition }}
+      </p>
+      @if (!p.join) {
+        <div class="actions">
+          <app-codex-download [source]="p.source" />
+        </div>
+      }
+    </header>
+
+    @if (proposals() || pending() || p.notice) {
+      <aside class="legend" [attr.aria-label]="copy.legendTitle">
+        <p class="label">{{ copy.legendTitle }}</p>
+        @if (p.notice) {
+          <p class="notice"><app-codex-text [text]="notice()" /></p>
+        }
+        <ul>
+          <li><span class="mark mark--cross" aria-hidden="true">†</span>{{ copy.legendCross }}</li>
+          <li>
+            <span class="mark mark--pending" aria-hidden="true">?</span>{{ copy.legendPending }}
+          </li>
+          <li><span class="mark" aria-hidden="true">[…]</span>{{ copy.legendGap }}</li>
+        </ul>
+        @if (proposals() || pending()) {
+          <p class="counts">
+            @if (proposals()) {
+              <span>{{ copy.countsProposals(proposals()) }}</span>
+            }
+            @if (pending()) {
+              <span>{{ copy.countsPending(pending()) }}</span>
+            }
+          </p>
+        }
+      </aside>
+    }
+
+    @if (p.join) {
+      <div class="join">
+        <div class="muster">
+          <p class="label">{{ copy.joinMusterTitle }}</p>
+          <dl>
+            <div>
+              <dt>{{ copy.joinPlace }}</dt>
+              <dd>{{ group.venue }}, {{ group.city }}</dd>
+            </div>
+            <div>
+              <dt>{{ copy.joinWhen }}</dt>
+              <dd>{{ group.dayLabel }} · {{ group.timeLabel }} {{ group.timeZoneLabel }}</dd>
+            </div>
+          </dl>
+          <div class="actions">
+            <a [href]="group.mapsUrl" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+              <app-icon name="marker" [size]="2" />
+              {{ copy.joinFindField }}
+            </a>
+            <a
+              [href]="group.instagramUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-ghost"
+            >
+              <app-icon name="instagram" [size]="2" />
+              {{ group.instagramHandle }}
+            </a>
+          </div>
+        </div>
+
+        <section class="downloads" id="descargas" aria-labelledby="downloads-title">
+          <h2 id="downloads-title" class="section-title">{{ copy.downloadsTitle }}</h2>
+          <p class="lede">{{ copy.downloadsLede }}</p>
+          <ul class="shelf">
+            @for (id of sources; track id) {
+              @let d = documents[id];
+              <li class="book">
+                <app-icon name="book" [size]="2.4" />
+                <h3>{{ d.title }}</h3>
+                <p>{{ d.subtitle }}</p>
+                <p class="source">{{ copy.pagesLabel(d.pages) }} · {{ d.edition }}</p>
+                <app-codex-download [source]="id" />
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    }
+
+    @if (p.index && sections().length > 1) {
+      <nav class="index" [attr.aria-label]="copy.indexTitle">
+        <p class="label">{{ copy.indexTitle }}</p>
+        <ol>
+          @for (section of sections(); track section.id) {
+            <li>
+              <button type="button" class="index-link" (click)="jump(section.id)">
+                <span class="kicker">{{ section.kicker }}</span>
+                {{ section.title }}
+              </button>
+            </li>
+          }
+        </ol>
+      </nav>
+    }
+
+    @for (section of sections(); track section.id) {
+      <article
+        class="chapter"
+        [id]="section.id"
+        tabindex="-1"
+        [attr.aria-labelledby]="section.id + '-title'"
+      >
+        <header class="chapter-head">
+          @if (section.kicker) {
+            <p class="label">{{ section.kicker }}</p>
+          }
+          <h2 [id]="section.id + '-title'" class="section-title">{{ section.title }}</h2>
+        </header>
+        <app-codex-blocks [section]="section" />
+      </article>
+    }
+
+    @if (!p.join) {
+      <aside class="closing">
+        <p>{{ doc.tagline }}</p>
+        <app-codex-download [source]="p.source" />
+      </aside>
+    }
+  </div>
+</section>

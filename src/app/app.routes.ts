@@ -1,5 +1,14 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { CODEX_PAGES } from './core/data/codex/codex-pages';
+
+/** Pages built from the Compañía's two books; `data.slug` tells the shared page which one. */
+const codexRoutes: Routes = CODEX_PAGES.map((page) => ({
+  path: page.slug,
+  data: { slug: page.slug },
+  loadComponent: () =>
+    import('./features/codex/codex-page.component').then((m) => m.CodexPageComponent),
+}));
 
 export const routes: Routes = [
   {
@@ -19,7 +28,9 @@ export const routes: Routes = [
       {
         path: 'armory/:id',
         loadComponent: () =>
-          import('./features/weapon-detail/weapon-detail.component').then((m) => m.WeaponDetailComponent),
+          import('./features/weapon-detail/weapon-detail.component').then(
+            (m) => m.WeaponDetailComponent,
+          ),
       },
       {
         path: 'arena',
@@ -30,6 +41,7 @@ export const routes: Routes = [
         path: 'lore',
         loadComponent: () => import('./features/lore/lore.component').then((m) => m.LoreComponent),
       },
+      ...codexRoutes,
       {
         path: 'auth',
         loadComponent: () => import('./features/auth/auth.component').then((m) => m.AuthComponent),
@@ -50,6 +62,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    loadComponent: () => import('./core/not-found/not-found.component').then((m) => m.NotFoundComponent),
+    loadComponent: () =>
+      import('./core/not-found/not-found.component').then((m) => m.NotFoundComponent),
   },
 ];

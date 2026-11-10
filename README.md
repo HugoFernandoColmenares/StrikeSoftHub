@@ -34,6 +34,15 @@ flows continue on LocalStorage without interrupting the visitor.
 
 ![El deporte, preguntas de quien llega por primera vez](public/screenshots/the-sport.png)
 
+![Reglamento y arbitraje, con el aviso al lector, las marcas † y la descarga del manual](public/screenshots/reglamento.png)
+
+![La Compañía, con los datos pendientes de consultar marcados en rojo](public/screenshots/compania.png)
+
+<p>
+  <img src="public/screenshots/reglamento-mobile.png" width="260" alt="Reglamento en el móvil" />
+  <img src="public/screenshots/unete-mobile.png" width="260" alt="Únete en el móvil: dónde y cuándo, y las descargas" />
+</p>
+
 ## Features
 
 - Spanish UI with copy files in `src/app/core/copy/`
@@ -42,6 +51,7 @@ flows continue on LocalStorage without interrupting the visitor.
 - Armory with combat-role and weapon-class filters, a card/list toggle (`gridView` signal), a fixed CSS card grid, measured specs, and prices in Colombian pesos
 - Weapon detail with workshop photography when it exists
 - Arena with the standing Sunday fixture plus announced dates from the public Instagram
+- The Compañía's two books as site pages (see [The codex](#the-codex)): La Compañía, El arte, Armas y forja, Escuela, Las casas, Reglamento, Glosario and Únete, with both PDFs downloadable
 - Cart as a right-hand drawer, then an auth-guarded reservation flow
 - Notifications themed to iron, green, and silver, centralized in `NotificationService`
 - Progressive Web App manifest and production service worker
@@ -53,6 +63,22 @@ workshop photography are real. Instagram items are transcribed captions and on-i
 public profile; they are not a live Instagram embed. Prices and stock counts are still indicative
 and labeled as such. Pieces without a photograph show their class rather than a substitute image.
 Confirmed facts live in `src/app/core/config/group.ts`.
+
+## The codex
+
+Two PDFs written for the group live on the site as structured text and as downloads:
+
+| PDF | Download | Pages on the site |
+| :--- | :--- | :--- |
+| *Manual de Arbitraje* (19 p.) | `public/docs/manual-de-arbitraje-armagedon.pdf` | `/reglamento`, `/glosario` |
+| *Libro del Grupo Armagedón* (30 p.) | `public/docs/libro-del-grupo-armagedon.pdf` | `/compania`, `/el-arte`, `/armas-y-forja`, `/escuela`, `/casas`, `/unete` |
+
+- The text is TypeScript data in `src/app/core/data/codex/` (`manual.data.ts`, `libro.data.ts`), typed by `core/models/codex.model.ts`. The Spanish wording is the PDFs' wording; do not paraphrase it in templates.
+- `codex-pages.ts` lists the pages, their order in the sub-navigation and the sections each one shows. It holds no text, so `app.routes.ts` can build one lazy route per page without pulling the books into the initial bundle. One shared component, `features/codex/codex-page`, renders every page from `data.slug`.
+- Inline marks inside the data: `*cursiva*`, `**negrita**`, `†` (a provision proposed by the redaction and **pending the group's approval**: the paragraph, list item or table row gets a "Propuesta †" badge and a silver rule), `[†]` (the glyph when the text only explains it), `{{…}}` (a fact still **pending consultation** with the founders, shown in red, never filled in), and `[…]` (text the PDF itself cuts at a page break).
+- Colors for those marks are role tokens: `--color-proposal` and `--color-pending` in `src/styles.css`.
+- Download buttons show the file size, computed from `CODEX_DOCUMENTS[...].bytes`. If a PDF is replaced, update `bytes` and `pages` there; `codex.spec.ts` checks the formatted sizes.
+- The two figures (Talhoffer's lists and Pisani Dossi's *segno*) are period art taken from the PDFs, served as WebP under `public/assets/codex/`.
 
 ## Stack
 
@@ -123,8 +149,9 @@ src/app/
     models/     typed records
     repositories/  Supabase + LocalStorage
     services/   cart, auth, muster, notifications
-  features/     home, armory, arena, lore, auth, checkout, profile
-  shared/       accent particle field, weapon card, stats, loading
+    data/codex/ the two books as typed sections, page list, inline-mark parser
+  features/     home, armory, arena, lore, codex, auth, checkout, profile
+  shared/       accent particle field, weapon card, stats, loading, codex blocks
   layout/       topbar, cart drawer, compact/full footer, fixed-height shell
 ```
 

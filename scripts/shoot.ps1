@@ -19,6 +19,8 @@ $routes = [ordered]@{
   'weapon-detail' = '/armory/emberbrand-longsword'
   'arena'         = '/arena'
   'the-sport'     = '/lore'
+  'compania'      = '/compania'
+  'reglamento'    = '/reglamento'
 }
 
 New-Item -ItemType Directory -Force $OutDir | Out-Null
