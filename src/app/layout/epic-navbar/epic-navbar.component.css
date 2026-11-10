@@ -88,6 +88,7 @@
   font-size: var(--text-ui);
   font-weight: 700;
   text-transform: uppercase;
+  white-space: nowrap;
   transition:
     color var(--transition-fast),
     background var(--transition-fast);
@@ -119,30 +120,6 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-}
-
-.login-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.7rem 1rem;
-  border: var(--border-dark);
-  border-radius: 0.7rem;
-  color: var(--fg-dim);
-  font-size: var(--text-small);
-  white-space: nowrap;
-}
-
-.status-dot {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  background: var(--color-trim);
-}
-
-.status-dot.is-online {
-  background: var(--color-main);
-  box-shadow: 0 0 1rem var(--glow-main);
 }
 
 .icon-button {
@@ -187,8 +164,14 @@
   transition: transform var(--transition-fast);
 }
 
-@media (max-width: 127.98rem) {
-  .login-status {
+/* Six links share the bar between the hamburger breakpoint and wide screens. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .nav-link {
+    padding-inline: 0.8rem;
+    font-size: var(--text-small);
+  }
+
+  .brand__tagline {
     display: none;
   }
 }

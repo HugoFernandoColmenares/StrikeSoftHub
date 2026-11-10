@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
-export type IconName = 'marker' | 'clock' | 'instagram' | 'github' | 'arrow' | 'bag' | 'user' | 'check';
+export type IconName = 'marker' | 'clock' | 'instagram' | 'github' | 'arrow' | 'bag' | 'user' | 'check' | 'download' | 'book';
 
 const PATHS: Record<IconName, string> = {
   marker: 'M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
@@ -13,6 +13,8 @@ const PATHS: Record<IconName, string> = {
   bag: 'M4.5 7.5h15l-1.2 12.2a1 1 0 0 1-1 .8H6.7a1 1 0 0 1-1-.8L4.5 7.5Z M8.5 10V6.5a3.5 3.5 0 1 1 7 0V10',
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4.5 20.5a7.5 7.5 0 0 1 15 0',
   check: 'M4.5 12.5 10 18 19.5 6.5',
+  download: 'M12 3.5v11.5 M7 10l5 5 5-5 M4.5 20h15',
+  book: 'M4.5 5.5A2 2 0 0 1 6.5 3.5h13v15h-13a2 2 0 0 0-2 2V5.5Z M4.5 20.5a2 2 0 0 1 2-2h13v2h-13a2 2 0 0 1-2-2',
 };
 
 @Component({

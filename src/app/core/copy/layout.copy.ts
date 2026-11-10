@@ -8,6 +8,8 @@ export const LAYOUT_COPY = {
     shop: 'Forja',
     events: 'Eventos',
     about: 'El deporte',
+    company: 'La Compañía',
+    rules: 'Reglamento',
     admin: 'Admin / Publicar',
   },
   guest: 'Invitado',

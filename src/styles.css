@@ -73,6 +73,8 @@
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.18);
   --section-accent: var(--color-main);
+  --color-proposal: var(--color-trim-strong);
+  --color-pending: var(--color-danger);
 
   --step-1: 0.8rem;
   --step-2: 1.6rem;
